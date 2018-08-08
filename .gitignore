@@ -104,3 +104,10 @@ venv.bak/
 .mypy_cache/
 .idea
 *.iml
+
+
+venv
+*.pyc
+staticfiles
+.env
+*.sqlite3
