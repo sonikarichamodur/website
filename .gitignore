@@ -1,5 +1,4 @@
 <<<<<<< HEAD
-<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -113,11 +112,6 @@ venv
 staticfiles
 .env
 *.sqlite3
-=======
-node_modules
-/.idea/
-/venv/
->>>>>>> cdf7c20d59673be2e9552bd84eda2cb5a5e021ce
 =======
 node_modules
 /.idea/
