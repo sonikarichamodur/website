@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'el_pagination',
-    'markdown_deux',
-    'pagedown',
+    # 'el_pagination',
+    # 'markdown_deux',
+    # 'pagedown',
     'simpleblog'
 ]
 
@@ -137,11 +137,11 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Used by simpleblog
-SITE_ID = 1
-urlpatterns =[
-    path('admin/', admin.site.urls),
-    path('blog/', include('simpleblog.urls')),
-]
+# SITE_ID = 1
+# urlpatterns =[
+#     path('admin/', admin.site.urls),
+#     path('blog/', include('simpleblog.urls')),
+# ]
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
