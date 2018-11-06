@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'el_pagination',
+    'markdown_deux',
+    'pagedown',
     'simpleblog'
 ]
 
