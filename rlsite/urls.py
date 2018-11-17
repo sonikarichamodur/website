@@ -20,6 +20,11 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+
 urlpatterns += [
 	path('catalog/', include('catalog.urls')),
+]
+urlpatterns += [
+	path('', RedirectView.as_view(url='/catalog/', permanent=True)),
 ]
