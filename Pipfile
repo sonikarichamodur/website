@@ -13,5 +13,9 @@ gunicorn = "*"
 django = "*"
 update = "*"
 django-el-pagination = "*"
+django-markdown-deux = "*"
+django-pagedown = "*"
+django-simpleblog = "*"
+
 
 [dev-packages]
