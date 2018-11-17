@@ -15,7 +15,7 @@ update = "*"
 django-el-pagination = "*"
 django-markdown-deux = "*"
 django-pagedown = "*"
-django-simpleblog = "*"
+simpleblog = "*"
 
 
 [dev-packages]
