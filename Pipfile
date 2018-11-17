@@ -7,7 +7,7 @@ name = "pypi"
 python_version = "3.6"
 
 [packages]
-plib = "*"
+#plib = "*"
 "psycopg2-binary" = "*"
 django-heroku = "*"
 gunicorn = "*"
@@ -16,7 +16,7 @@ update = "*"
 django-el-pagination = "*"
 django-markdown-deux = "*"
 django-pagedown = "*"
-simpleblog = "*"
+simpleblog3 = "*"
 
 
 [dev-packages]
