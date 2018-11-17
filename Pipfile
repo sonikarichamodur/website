@@ -12,5 +12,6 @@ django-heroku = "*"
 gunicorn = "*"
 django = "*"
 update = "*"
+django-el-pagination = "*"
 
 [dev-packages]
