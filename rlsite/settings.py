@@ -139,10 +139,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Used by simpleblog
 SITE_ID = 1
-urlpatterns =[
-    path('admin/', admin.site.urls),
-    path('blog/', include('simpleblog.urls')),
-]
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
