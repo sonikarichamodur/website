@@ -16,6 +16,6 @@ django-el-pagination = "*"
 django-markdown-deux = "*"
 django-pagedown = "*"
 simpleblog = "*"
-
+plib = "*"
 
 [dev-packages]
