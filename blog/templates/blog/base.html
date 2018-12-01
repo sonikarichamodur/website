@@ -25,25 +25,25 @@
             </div>
             <!-- show login only if user is not yet authenticated -->
             {% if not user.is_authenticated %}
-                <ul class="nav navbar-nav ">
+                <ul class="nav-item">
                     <li class="active"><a href="{% url 'login' %}">Login</a></li>
                 </ul>
             {% endif %}
             <!-- show My Blog only if user is authenticated -->
             {% if user.is_authenticated %}
-                <ul class="nav navbar-nav ">
+                <ul class="nav-item">
                     <li class="active"><a href="{% url 'blog:user_posts' user.username %}">My Blog</a></li>
                 </ul>
             {% endif %}
             <!-- show new post only if user is authenticated -->
             {% if user.is_authenticated %}
-                <ul class="nav navbar-nav ">
+                <ul class="nav-item">
                     <li class="active"><a href="{% url 'blog:create_post' %}">New Post</a></li>
                 </ul>
             {% endif %}
             <!-- show sign out only if user is authenticated -->
             {% if user.is_authenticated %}
-                <ul class="nav navbar-nav ">
+                <ul class="nav-item">
                     <li class="active"><a href="{% url 'logout' %}">Sign Out</a></li>
                 </ul>
             {% endif %}
