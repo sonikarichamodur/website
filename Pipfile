@@ -8,6 +8,7 @@ python_version = ">=3.7"
 
 [packages]
 plib = "*"
+itertools = "*"
 "psycopg2-binary" = "*"
 django-heroku = "*"
 gunicorn = "*"
