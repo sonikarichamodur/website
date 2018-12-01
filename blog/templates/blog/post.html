@@ -1,20 +1,20 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
-    <div class="container">
+    <div class="bs-component">
 
         <!-- Post -->
         <div class="jumbotron">
 
             <!-- Post title -->
-            <h1>{{ post.title }}</h1>
+            <h1 class="display-3">{{ post.title }}</h1>
 
-            <div> Created {{ post.pub_date }} by
+            <p class="lead"> Created {{ post.pub_date }} by
                 <a href="{% url 'blog:user_posts' post.user.username %}">{{ post.user.username }}</a>
-            </div>
-
+            </p>
+            <hr class="my-4">
             <!-- Post body -->
-            <h3>{{ post.body }}</h3>
+            <p>{{ post.body }}</p>
 
             <!-- Show Update and Delete button only if User is the owner of the Post -->
             {% if post.user == user %}
