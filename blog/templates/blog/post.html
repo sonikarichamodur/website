@@ -7,7 +7,7 @@
         <div class="jumbotron">
 
             <!-- Post title -->
-            <h1 class="display-3">{{ post.title }}</h1>
+            <h1 class="display-4">{{ post.title }}</h1>
 
             <p class="lead"> Created {{ post.pub_date }} by
                 <a href="{% url 'blog:user_posts' post.user.username %}">{{ post.user.username }}</a>
