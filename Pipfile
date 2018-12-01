@@ -7,16 +7,5 @@ name = "pypi"
 python_version = ">=3.7"
 
 [packages]
-plib3 = "*"
-"psycopg2-binary" = "*"
-django-heroku = "*"
-gunicorn = "*"
-django = "*"
-update = "*"
-django-el-pagination = "*"
-django-markdown-deux = "*"
-django-pagedown = "*"
-simpleblog3 = "*"
-
 
 [dev-packages]

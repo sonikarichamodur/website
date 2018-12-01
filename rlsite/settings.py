@@ -41,10 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'catalog.apps.CatalogConfig',
-    'el_pagination',
-    'markdown_deux',
-    'pagedown',
-    'simpleblog'
 ]
 
 MIDDLEWARE = [
@@ -136,9 +132,6 @@ STATICFILES_DIRS = [
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Used by simpleblog
-SITE_ID = 1
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
