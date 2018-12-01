@@ -22,12 +22,6 @@
             <img src="/static/Logo.svg" size="64"/>
         </div>
         <div id="navbar" class="collapse navbar-collapse navbar-right">
-            <!-- show registration only if user is not yet authenticated -->
-            {# {% if not user.is_authenticated %}
-                <ul class="nav navbar-nav ">
-                    <li class="active"><a href="{% url 'register' %}">Registration</a></li>
-                </ul>
-            {% endif %} #}
             <!-- show login only if user is not yet authenticated -->
             {% if not user.is_authenticated %}
                 <ul class="nav navbar-nav ">
