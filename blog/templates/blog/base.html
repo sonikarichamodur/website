@@ -17,39 +17,39 @@
 <body>
 
 <!-- navbar -->
-<nav class="navbar navbar-inverse">
-    <div class="container">
-        <div id="navbar" class="navbar">
-                <a class="navbar-brand" href="{% url 'blog:home' %}"><img src="/static/Logo.svg"/>RoboLoCo</a>
-            <div class="navbar-header">
+    <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'blog:home' %}"><!--img src="/static/Logo.svg"/-->RoboLoCo</a>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <!-- show login only if user is not yet authenticated -->
+                    {% if not user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                    <!-- show My Blog only if user is authenticated -->
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'blog:user_posts' user.username %}">My Blog</a>
+                        </li>
+                    {% endif %}
+                    <!-- show new post only if user is authenticated -->
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'blog:create_post' %}">New Post</a>
+                        </li>
+                    {% endif %}
+                    <!-- show sign out only if user is authenticated -->
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Sign Out</a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
-            <!-- show login only if user is not yet authenticated -->
-            {% if not user.is_authenticated %}
-                <ul class="nav-item">
-                    <li class="active"><a href="{% url 'login' %}">Login</a></li>
-                </ul>
-            {% endif %}
-            <!-- show My Blog only if user is authenticated -->
-            {% if user.is_authenticated %}
-                <ul class="nav-item">
-                    <li class="active"><a href="{% url 'blog:user_posts' user.username %}">My Blog</a></li>
-                </ul>
-            {% endif %}
-            <!-- show new post only if user is authenticated -->
-            {% if user.is_authenticated %}
-                <ul class="nav-item">
-                    <li class="active"><a href="{% url 'blog:create_post' %}">New Post</a></li>
-                </ul>
-            {% endif %}
-            <!-- show sign out only if user is authenticated -->
-            {% if user.is_authenticated %}
-                <ul class="nav-item">
-                    <li class="active"><a href="{% url 'logout' %}">Sign Out</a></li>
-                </ul>
-            {% endif %}
         </div>
     </div>
-</nav>
 
 <div id="content">
     {% block content %}{% endblock %}
