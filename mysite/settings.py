@@ -26,6 +26,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "INSECURE")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+HEROKU_RELEASE_VERSION = os.environ.get("HEROKU_RELEASE_VERSION", "")
+HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", "")
+HEROKU_SLUG_COMMIT = os.environ.get("HEROKU_SLUG_COMMIT", "")
 
 ALLOWED_HOSTS = []
 
@@ -65,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blog.ctx.heroku_info',
             ],
         },
     },
