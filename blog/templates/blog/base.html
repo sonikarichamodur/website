@@ -76,11 +76,11 @@
             <!-- Logged user info -->
             {% if user.is_authenticated %}
                 <p class="text-center">
-                      Logged user: {{ user.username }}
+                    Current User: {{ user.username }}
                     | Email: {{ user.email }}{% if user.is_staff %}
-                    | <a href="{% url 'admin:index' %}">Admin</a>{% endif %}
-                    | <a href="{% url 'logout' %}">Sign Out</a>{% if user.is_staff %}
+                    | <a href="{% url 'admin:index' %}">Admin</a>
                     | Version: {{ HEROKU_RELEASE_VERSION }} / {{ HEROKU_SLUG_COMMIT }}{% endif %}
+                    | <a href="{% url 'logout' %}">Sign Out</a>
                 </p>
             {% endif %}
 
