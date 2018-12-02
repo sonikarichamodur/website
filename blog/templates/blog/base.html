@@ -77,7 +77,7 @@
             {% if user.is_authenticated %}
                 <p class="text-center">
                       Logged user: {{ user.username }}
-                    | Email: {{ user.email }}{% if user.is_staff %}}
+                    | Email: {{ user.email }}{% if user.is_staff %}
                     | <a href="{% url 'admin:index' %}">Admin</a>{% endif %}
                     | <a href="{% url 'logout' %}">Sign Out</a>
                 </p>
