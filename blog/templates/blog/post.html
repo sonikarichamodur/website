@@ -14,7 +14,7 @@
             </p>
             <hr class="my-4">
             <!-- Post body -->
-            <p>{{ post.body }}</p>
+            <div>{{ post.body|linebreaks }}</div>
 
             <!-- Show Update and Delete button only if User is the owner of the Post -->
             {% if post.user == user %}
@@ -46,7 +46,7 @@
                 </div>
 
                 <!-- Comment body -->
-                <h3> {{ comment.body }}</h3>
+                <h3> {{ comment.body|linebreaks }}</h3>
 
             </div>
         {% endfor %}
