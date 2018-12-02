@@ -76,10 +76,9 @@
             <!-- Logged user info -->
             {% if user.is_authenticated %}
                 <p class="text-center">
-
                       Logged user: {{ user.username }}
-                    | Email: {{ user.email }}
-                    | Admin: {{ user.is_superuser }}
+                    | Email: {{ user.email }}{% if user.is_staff %}}
+                    | <a href="{% url 'admin:index' %}">Admin</a>{% endif %}
                     | <a href="{% url 'logout' %}">Sign Out</a>
                 </p>
             {% endif %}
