@@ -20,7 +20,7 @@
                                 href="{% url 'blog:user_posts' post.user.username %}">{{ post.user.username }}</a>
                         </div>
                     </div>
-                    <h3 class="panel-body"> {{ post.body }}</h3>
+                    <h3 class="panel-body"> {{ post.body|linebreaks }}</h3>
                 </div>
             {% endfor %}
         </div>
