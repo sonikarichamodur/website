@@ -13,14 +13,17 @@
         <!-- Show List of Posts -->
         <div class="starter-template">
             {% for post in posts %}
-                <div class="panel">
-                    <div class="panel-heading">
-                        <h1><a href="{% url 'blog:post' post.pk %}">{{ post.title }}</a></h1>
-                        <div> Created {{ post.pub_date }} by <a
-                                href="{% url 'blog:user_posts' post.user.username %}">{{ post.user.username }}</a>
-                        </div>
-                    </div>
-                    <h3 class="panel-body"> {{ post.body|linebreaks }}</h3>
+                <div class="jumbotron">
+        
+                    <!-- Post title -->
+                    <h1 class="display-4"><a href="{% url 'blog:post' post.pk %}">{{ post.title }}</a></h1>
+        
+                    <p class="lead"> Created {{ post.pub_date }} by
+                        <a href="{% url 'blog:user_posts' post.user.username %}">{{ post.user.username }}</a>
+                    </p>
+                    <hr class="my-4">
+                    <!-- Post body -->
+                    <div>{{ post.body|linebreaks }}</div>        
                 </div>
             {% endfor %}
         </div>
