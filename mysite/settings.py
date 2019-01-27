@@ -155,3 +155,6 @@ django_heroku.settings(locals())
 
 # Markdownify https://django-markdownify.readthedocs.io/en/latest/settings.html
 MARKDOWNIFY_BLEACH = False
+
+MARKDOWNIFY_MARKDOWN_EXTENSIONS = ['markdown.extensions.fenced_code',
+                                   'markdown.extensions.extra', ]
