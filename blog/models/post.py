@@ -8,7 +8,6 @@ class Post(models.Model):
     title = models.CharField(max_length=80)
     body = models.TextField()
     pub_date = models.DateTimeField('date published', auto_now_add=True)
-    pub_date_display = str(models.DateTimeField('date published', auto_now_add=True))
 
     def get_absolute_url(self):
         return reverse('blog:post', kwargs={'pk': self.pk})
