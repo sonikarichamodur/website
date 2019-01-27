@@ -1,13 +1,13 @@
 from django.urls import path
 
 from blog.views.comment import CommentCreate
-from blog.views.home import home
+from blog.views.home import home, about
 from blog.views.post import PostView, PostCreate, PostUpdate, PostDelete
-from blog.views.home import about
 
 app_name = 'blog'
 urlpatterns = [
     # ex: /blog/
+    path('about', about, name='about'),
     path('', home, name='home'),
     # ex: /blog/dusan
     path('<str:username>', home, name='user_posts'),
@@ -21,6 +21,5 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDelete.as_view(), name='delete_post'),
     # ex: /blog/post/5/comment/
     path('post/<int:pk>/comment/', CommentCreate.as_view(), name='create_comment'),
-    path('about', about, name='about'),
 
 ]
