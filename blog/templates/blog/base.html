@@ -22,7 +22,7 @@
     <!-- navbar -->
     <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'blog:home' %}"><img src="/static/Logo.svg" width="30" height="30" class="d-inline-block align-top"/>RoboLoCo</a>
+            <a class="navbar-brand" href="{% url 'blog:home' %}"><img src="/static/Logo.svg" width="30" height="30" class="d-inline-block align-top"/>&nbsp;RoboLoCo</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -96,7 +96,7 @@
 
             {% if user.is_superuser %}
             <p class="text-center">
-                Superuser: {{ user.username }}   Version: {{ HEROKU_RELEASE_VERSION }} / {{ HEROKU_SLUG_COMMIT }}
+                Superuser: {{ user.username }}&nbsp;&nbsp;&nbsp;Version: {{ HEROKU_RELEASE_VERSION }} / {{ HEROKU_SLUG_COMMIT }}
             </p>
             {% elif user.is_staff %}
             <p class="text-center">
