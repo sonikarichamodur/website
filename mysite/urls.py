@@ -21,6 +21,7 @@ from blog.views.home import nav
 from blog.views.register import RegisterView
 
 urlpatterns = [
+    path('<str:link>', nav, name='nav'),
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
@@ -28,5 +29,4 @@ urlpatterns = [
 #   path('register/', RegisterView.as_view(), name='register'),
     path('', include('django.contrib.auth.urls')),
     path('', include('blog.urls')),
-    path('<str:link>', nav, name='nav'),
 ]
