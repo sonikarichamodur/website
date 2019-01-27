@@ -59,7 +59,7 @@
                     {% endif %}
                     {% if user.is_staff %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/">Admin</a>
+                        <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -90,13 +90,21 @@
         <div class="col-sm-12">
 
             <!-- Logged user info -->
-            {% if user.is_authenticated %}
+
+
+
+
+            {% if user.is_superuser %}
+            <p class="text-center">
+                Superuser: {{ user.username }} Version: {{ HEROKU_RELEASE_VERSION }} / {{ HEROKU_SLUG_COMMIT }}{% endif %}
+            </p>
+            {% elif user.is_staff %}
+            <p class="text-center">
+                Staff User: {{ user.username }}
+            </p>
+            {% elif user.is_authenticated %}
             <p class="text-center">
                 Current User: {{ user.username }}
-                | Email: {{ user.email }}{% if user.is_staff %}
-                | <a href="{% url 'admin:index' %}">Admin</a>
-                | Version: {{ HEROKU_RELEASE_VERSION }} / {{ HEROKU_SLUG_COMMIT }}{% endif %}
-                | <a href="{% url 'logout' %}">Sign Out</a>
             </p>
             {% endif %}
 
