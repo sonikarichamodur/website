@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 
 from blog.models.post import Post
+from blog.models.nav import Nav
 
 NUM_OF_POSTS = 5
 
