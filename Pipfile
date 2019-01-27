@@ -13,5 +13,6 @@ pyYAML = ">=3.12"
 ipython = ">=6.2.1"
 "dj-database-url" = "*"
 "django_heroku" = "*"
+"django-markdownify" = "*"
 
 [dev-packages]

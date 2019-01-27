@@ -96,7 +96,7 @@
 
             {% if user.is_superuser %}
             <p class="text-center">
-                Superuser: {{ user.username }} Version: {{ HEROKU_RELEASE_VERSION }} / {{ HEROKU_SLUG_COMMIT }}{% endif %}
+                Superuser: {{ user.username }} Version: {{ HEROKU_RELEASE_VERSION }} / {{ HEROKU_SLUG_COMMIT }}
             </p>
             {% elif user.is_staff %}
             <p class="text-center">
