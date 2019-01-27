@@ -29,6 +29,9 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
                     <!-- show login only if user is not yet authenticated -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
                     {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
@@ -63,21 +66,9 @@
     </div>
 </div>
 
-<hr>
-<hr>
-<hr>
-<hr>
+
 
 <div class="container">
-    <div class="page-header" id="banner">
-      <div class="row">
-        <div class="col-lg-8 col-md-7 col-sm-6 text-center">
-          <h1>RoboLoCo</h1>
-          <p class="lead">Driving you crazy</p>
-        </div>
-        <div class="col-lg-4 col-md-5 col-sm-6">
-       </div>
-   </div>
     {% block content %}{% endblock %}
 </div>
 

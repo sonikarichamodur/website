@@ -28,3 +28,6 @@ def home(request, username=None):
     return render(request, 'blog/home.html', {'posts': posts,
                                               'first_name': first_name,
                                               'last_name': last_name})
+
+def about(request):
+    return render(request, 'blog/about.html', {})
