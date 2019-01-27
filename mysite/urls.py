@@ -20,6 +20,7 @@ from django.urls import path, include
 from blog.views.register import RegisterView
 
 urlpatterns = [
+    path('about', about, name='about'),
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),

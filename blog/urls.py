@@ -7,7 +7,6 @@ from blog.views.post import PostView, PostCreate, PostUpdate, PostDelete
 app_name = 'blog'
 urlpatterns = [
     # ex: /blog/
-    path('about', about, name='about'),
     path('', home, name='home'),
     # ex: /blog/dusan
     path('<str:username>', home, name='user_posts'),
