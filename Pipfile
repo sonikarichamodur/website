@@ -15,5 +15,7 @@ ipython = ">=6.2.1"
 "django_heroku" = "*"
 "django-markdownify" = "*"
 gunicorn = "*"
+django-storages = "*"
+
 
 [dev-packages]
