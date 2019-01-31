@@ -6,10 +6,7 @@ from django.urls import reverse
 class Files(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=80)
-    fil = models.BinaryField(max_length=1024 ^ 3)
-    filepath = models.SlugField(max_length=32)
-    ext = models.SlugField(max_length=8)
-
+    fil = models.FileField()
     pub_date = models.DateTimeField('date published', auto_now_add=True)
 
     def get_absolute_url(self):
