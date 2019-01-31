@@ -32,7 +32,6 @@ HEROKU_SLUG_COMMIT = os.environ.get("HEROKU_SLUG_COMMIT", "")
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -78,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -88,7 +86,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -108,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -121,8 +117,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
 
 ACCOUNT_LOGOUT_REDIRECT_URL = "/blog"
 
@@ -150,9 +144,6 @@ STATICFILES_DIRS = [
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
-
 # Markdownify https://django-markdownify.readthedocs.io/en/latest/settings.html
 MARKDOWNIFY_BLEACH = False
 
@@ -167,3 +158,17 @@ CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 3600
 SECURE_HSTS_PRELOAD = True
 CSRF_USE_SESSIONS = True
+
+# S3 file storage
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_AUTO_CREATE_BUCKET = True
+AWS_BUCKET_ACL = "public-read"
+AWS_DEFAULT_ACL = "public-read"
+AWS_STORAGE_BUCKET_NAME = os.environ.get('BUCKETEER_BUCKET_NAME', 'insecure')
+AWS_SECRET_ACCESS_KEY = os.environ.get('BUCKETEER_AWS_SECRET_ACCESS_KEY', 'insecure')
+AWS_ACCESS_KEY_ID = os.environ.get('BUCKETEER_AWS_ACCESS_KEY_ID', 'insecure')
+AWS_S3_USE_SSL = True
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
