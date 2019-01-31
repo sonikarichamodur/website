@@ -4,8 +4,12 @@ from blog.views.comment import CommentCreate
 from blog.views.home import home
 from blog.views.post import PostView, PostCreate, PostUpdate, PostDelete
 
+# from blog.views.files import fileload
+
 app_name = 'blog'
 urlpatterns = [
+    # ex: /blog/files/something.jpg
+    #path('files/<int:pk>', fileload, name='fileload'),
     # ex: /blog/
     path('', home, name='home'),
     # ex: /blog/dusan
