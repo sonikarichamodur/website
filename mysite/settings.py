@@ -176,6 +176,11 @@ if REDIS_URL:
         'default': {
             'BACKEND': 'redis_cache.RedisCache',
             'LOCATION': REDIS_URL,
+            'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 50,
+                'timeout': 20,
+            },
         },
     }
 
