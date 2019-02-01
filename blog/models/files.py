@@ -11,7 +11,9 @@ class Files(models.Model):
     pub_date = models.DateTimeField('date published', auto_now_add=True)
 
     def get_absolute_url(self):
-        return reverse('blog:download_file', kwargs={'pk': self.pk})
+        # Handle no extension files
+        ext = self.fil.name.split('.')[-1]
+        return reverse('blog:download_file', kwargs={'pk': self.pk, 'ext': ext})
 
     def __str__(self):
         return '"{title}" by {username}'.format(title=self.title,

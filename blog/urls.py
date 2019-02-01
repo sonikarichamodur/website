@@ -11,7 +11,7 @@ urlpatterns = [
     # ex: /blog/files
     path('files', upload_file, name='upload_file'),
     # ex: /blog/files/something.jpg
-    path('files/<str:path>', download_file, name='download_file'),
+    path('files/<str:pk>.<str:ext>', download_file, name='download_file'),
     # ex: /blog/
     path('', home, name='home'),
     # ex: /blog/dusan
@@ -26,5 +26,4 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDelete.as_view(), name='delete_post'),
     # ex: /blog/post/5/comment/
     path('post/<int:pk>/comment/', CommentCreate.as_view(), name='create_comment'),
-
 ]
