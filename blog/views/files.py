@@ -27,4 +27,6 @@ def upload_file(request):
 
 def download_file(request, pk):
     fil = get_object_or_404(Files, pk=pk)
-    return HttpResponseRedirect(fil.get_s3_url())
+    response = HttpResponse(fil.fil, content_type=fil.fil.content_type)
+    response['Content-Disposition'] = 'inline; filename=' + fil.fil.name
+    return response
