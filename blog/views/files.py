@@ -16,8 +16,9 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES, initial={
             'user': request.user,
-            'path': request.FILES.keys()[0],
+            'path': None,
         })
+        form.cleaned_data['path'] = form.fil.name
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(form.instance.get_absolute_url())
