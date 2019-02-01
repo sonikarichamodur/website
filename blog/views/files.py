@@ -16,6 +16,7 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES, initial={
             'user': request.user,
+            'path': request.FILES.keys().get(0, None),
         })
         if form.is_valid():
             form.save()
@@ -25,8 +26,8 @@ def upload_file(request):
     return render(request, 'blog/files/upload.html', {'form': form})
 
 
-def download_file(request, pk):
-    fil = get_object_or_404(Files, pk=pk)
+def download_file(request, path):
+    fil = get_object_or_404(Files, pk=path)
     response = HttpResponse(fil.fil, content_type=fil.get_content_type())
     response['Content-Disposition'] = 'inline; filename=' + fil.fil.name
     return response
