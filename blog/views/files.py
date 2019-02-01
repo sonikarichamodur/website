@@ -11,7 +11,7 @@ from ..forms import UploadFileForm
 def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES, initial={
-            'user': request.user,
+            'user_id': request.user.obj.pk,
             'path': request.FILES['fil'].name,
         })
         if form.is_valid():
