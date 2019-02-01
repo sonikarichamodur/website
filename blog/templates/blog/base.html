@@ -51,6 +51,11 @@
                         <a class="nav-link" href="{% url 'blog:create_post' %}">New Post</a>
                     </li>
                     {% endif %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog:upload_file' %}">New File Upload</a>
+                    </li>
+                    {% endif %}
                     <!-- show sign out only if user is authenticated -->
                     {% if user.is_authenticated %}
                     <li class="nav-item">
