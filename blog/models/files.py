@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+import mimetypes
 
 
 class Files(models.Model):
@@ -18,3 +19,6 @@ class Files(models.Model):
 
     def get_s3_url(self):
         return self.fil.url
+
+    def get_content_type(self):
+        return mimetypes.guess_type(self.fil.name) or 'application/octet-stream'

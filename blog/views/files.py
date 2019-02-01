@@ -27,6 +27,6 @@ def upload_file(request):
 
 def download_file(request, pk):
     fil = get_object_or_404(Files, pk=pk)
-    response = HttpResponse(fil.fil, content_type=fil.fil.key.content_type)
+    response = HttpResponse(fil.fil, content_type=fil.get_content_type())
     response['Content-Disposition'] = 'inline; filename=' + fil.fil.name
     return response
