@@ -17,4 +17,4 @@ class Files(models.Model):
                                                 username=self.user.username)
 
     def get_s3_url(self):
-        return self.fil.url()
+        return self.fil.url
