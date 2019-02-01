@@ -30,6 +30,7 @@ def home(request, username=None):
                                               'first_name': first_name,
                                               'last_name': last_name})
 
+
 def nav(request, link):
     nav_item = Nav.objects.get(link=link);
-    return render(request, 'blog/nav.html', {"nav":nav_item})
+    return render(request, 'blog/nav.html', {"nav": nav_item})
