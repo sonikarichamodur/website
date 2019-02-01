@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from blog.views.home import nav
+from django.shortcuts import redirect
 
-from blog.views.register import RegisterView
 
 urlpatterns = [
+    path('favicon.ico', redirect('/static/blog/Logo.ico'), name='favicon'),
     path('<str:link>', nav, name='nav'),
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
