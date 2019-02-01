@@ -3,8 +3,9 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render,
 from ..forms import UploadFileForm
+from django.views.decorators.cache import cache_page
 
 
 @login_required
@@ -22,6 +23,7 @@ def upload_file(request):
     return render(request, 'blog/files/upload.html', {'form': form})
 
 
+@cache_page(60 * 60 * 1)
 def download_file(request, pk, ext):
     fil = get_object_or_404(Files, pk=pk)
     if not fil.fil.name.endswith(ext):
