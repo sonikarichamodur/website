@@ -34,11 +34,6 @@
                         <a class="nav-link" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
                     </li>
                     {% endfor %}
-                    {% if not user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
-                    </li>
-                    {% endif %}
                     <!-- show My Blog only if user is authenticated -->
                     {% if user.is_authenticated %}
                     <li class="nav-item">
@@ -57,11 +52,6 @@
                     </li>
                     {% endif %}
                     <!-- show sign out only if user is authenticated -->
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Sign Out</a>
-                    </li>
-                    {% endif %}
                     {% if user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
@@ -70,9 +60,15 @@
                 </ul>
 
                 <ul class="nav navbar-nav ml-auto">
-                  <li class="nav-item">
-                    <a class="nav-link" href="" target="_blank"><!-- Right-aligned header --></a>
-                </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Sign Out</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    {% endif %}
             </ul>
         </div>
     </div>
