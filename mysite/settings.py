@@ -170,5 +170,15 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('BUCKETEER_AWS_SECRET_ACCESS_KEY', 'insec
 AWS_ACCESS_KEY_ID = os.environ.get('BUCKETEER_AWS_ACCESS_KEY_ID', 'insecure')
 AWS_S3_USE_SSL = True
 
+REDIS_URL = os.environ.get('REDIS_URL', None)
+if REDIS_URL:
+    CACHES = {
+        'default': {
+            'BACKEND': 'redis_cache.RedisCache',
+            'LOCATION': REDIS_URL,
+        },
+    }
+
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())
