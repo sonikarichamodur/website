@@ -12,7 +12,7 @@ def upload_file(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES, initial={
             'user': request.user,
-            'path': list(request.FILES.keys())[0] or None,
+            'path': request.FILES['fil'].name,
         })
         if form.is_valid():
             form.save()
