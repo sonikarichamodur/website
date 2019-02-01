@@ -1,7 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse_lazy
-from django.views import generic
-from django.views.generic import CreateView, UpdateView, DeleteView
 from blog.models.files import Files
 from django.shortcuts import get_object_or_404
 
