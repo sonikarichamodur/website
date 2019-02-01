@@ -24,7 +24,7 @@ def upload_file(request):
 
 def download_file(request, pk, ext):
     fil = get_object_or_404(Files, pk=pk)
-    if not fil.name.endswith(ext):
+    if not fil.fil.name.endswith(ext):
         raise Http404()
     response = HttpResponse(fil.fil, content_type=fil.get_content_type())
     response['Content-Disposition'] = 'inline; filename=' + fil.fil.name
