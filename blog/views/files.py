@@ -5,48 +5,28 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from blog.models.files import Files
 from django.shortcuts import get_object_or_404
 
-# class FilesView(generic.DetailView):
-#     model = Files
-#     template_name = 'blog/files.html'
-#
-#     def get_context_data(self, **kwargs):
-#         # Call the base implementation first to get a context
-#         context = super().get_context_data(**kwargs)
-#         # Add in the username
-#         return context
-#
-# def filesGet(request,pk):
-#     fil =get_object_or_404(Files,pk=pk)
-#     return
-#
-#
-# class FilesCreate(LoginRequiredMixin, CreateView):
-#     model = Files
-#     fields = ['title', 'filename']
-#     template_name = 'blog/create_file.html'
-#     login_url = reverse_lazy('login')
-#
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         form.instance.fil =
-#         form.instance.
-#         return super().form_valid(form)
-#
-#
-# class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-#     model = Post
-#     fields = ['title', 'body']
-#     template_name = 'blog/create_post.html'
-#     login_url = reverse_lazy('login')
-#
-#     def test_func(self):
-#         return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
-#
-#
-# class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-#     model = Post
-#     success_url = reverse_lazy('blog:home')
-#     login_url = reverse_lazy('login')
-#
-#     def test_func(self):
-#         return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
+from django.http import HttpResponse
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from ..forms import UploadFileForm
+
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES, initial={
+            'user': request.user,
+        })
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(form.instance.get_absolute_url())
+    else:
+        form = UploadFileForm()
+    return render(request, 'blog/files/upload.html', {'form': form})
+
+
+def download_file(request, pk):
+    fil = get_object_or_404(Files, pk=pk)
+    response = HttpResponse(fil.fil, content_type='application/octet-stream')
+    response['Content-Disposition'] = 'inline; filename=' + fil.fil.name
+    return response
