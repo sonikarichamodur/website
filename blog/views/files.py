@@ -14,7 +14,7 @@ def upload_file(request):
             'user': request.user,
             'path': None,
         })
-        form.fields['path'] = form.fields['fil'].name
+        form.data['path'] = form.data['fil'].name
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(form.instance.get_absolute_url())
