@@ -21,8 +21,8 @@ from django.shortcuts import redirect
 
 
 urlpatterns = [
-    path('favicon.ico', redirect('/static/blog/Logo.ico')),
     path('<str:link>', nav, name='nav'),
+    path('favicon.ico', redirect('/static/blog/Logo.ico')),
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
