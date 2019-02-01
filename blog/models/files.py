@@ -9,10 +9,9 @@ class Files(models.Model):
     title = models.CharField(max_length=80)
     fil = models.FileField()
     pub_date = models.DateTimeField('date published', auto_now_add=True)
-    path = models.CharField(max_length=1024)
 
     def get_absolute_url(self):
-        return reverse('blog:download_file', kwargs={'path': self.path})
+        return reverse('blog:download_file', kwargs={'pk': self.pk})
 
     def __str__(self):
         return '"{title}" by {username}'.format(title=self.title,
