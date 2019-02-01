@@ -21,13 +21,13 @@ from django.shortcuts import redirect
 
 
 urlpatterns = [
-    path('favicon.ico', redirect('/static/blog/Logo.ico'), name='favicon'),
+    path('favicon.ico', redirect('/static/blog/Logo.ico')),
     path('<str:link>', nav, name='nav'),
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='blog:home')),
-#   path('register/', RegisterView.as_view(), name='register'),
+    # path('register/', RegisterView.as_view(), name='register'),
     path('', include('django.contrib.auth.urls')),
     path('', include('blog.urls')),
 ]
