@@ -12,7 +12,7 @@ NUM_OF_POSTS = 5
 def home(request, username=None):
     first_name = ''
     last_name = ''
-    main_text = maintext.body
+    main_text = MainText.objects.get(pk=1)
     if username:
         user = User.objects.get(username=username)
         first_name = user.first_name
@@ -37,7 +37,3 @@ def home(request, username=None):
 def nav(request, link):
     nav_item = Nav.objects.get(link=link);
     return render(request, 'blog/nav.html', {"nav": nav_item})
-
-def MainText(request, link):
-    maintext_item = MainText.objects.get(link=link);
-    return render(request, 'blog/maintext.html', {"maintext": maintext_item})
