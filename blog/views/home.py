@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 from blog.models.post import Post
 from blog.models.nav import Nav
+from blog.models.maintext import MainText
 
 NUM_OF_POSTS = 5
 
@@ -11,6 +12,7 @@ NUM_OF_POSTS = 5
 def home(request, username=None):
     first_name = ''
     last_name = ''
+    main_text = MainText.objects.get(pk=1)
     if username:
         user = User.objects.get(username=username)
         first_name = user.first_name
@@ -28,7 +30,8 @@ def home(request, username=None):
 
     return render(request, 'blog/home.html', {'posts': posts,
                                               'first_name': first_name,
-                                              'last_name': last_name})
+                                              'last_name': last_name,
+                                              'main_text': main_text,})
 
 
 def nav(request, link):

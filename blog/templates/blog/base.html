@@ -107,6 +107,10 @@
             <p class="text-center">
                 Current User: {{ user.username }}
             </p>
+            {% else %}
+            <p class="text-center">
+                <a href="mailto:contact@roboloco.org">contact@roboloco.org</a>
+            </p>
             {% endif %}
 
         </div>
