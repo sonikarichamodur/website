@@ -14,4 +14,6 @@ class Post(models.Model):
 
     def __str__(self):
         return '"{title}" by {username}'.format(title=self.title,
-                                                username=self.user.username)
+                                                username=self.user.username,
+                                                firstname=self.user.firstname,
+                                                lastname=self.user.lastname,)

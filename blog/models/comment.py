@@ -13,4 +13,6 @@ class Comment(models.Model):
     def __str__(self):
         return '"{body}..." on {post_title} by {username}'.format(body=self.body[:20],
                                                                   post_title=self.post.title,
-                                                                  username=self.user.username)
+                                                                  username=self.user.username,
+                                                                  firstname=self.user.firstname,
+                                                				  lastname=self.user.lastname,)
