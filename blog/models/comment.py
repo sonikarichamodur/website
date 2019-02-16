@@ -11,8 +11,8 @@ class Comment(models.Model):
     pub_date = models.DateTimeField('date published', auto_now_add=True)
 
     def __str__(self):
-        return '"{body}..." on {post_title} by {username}'.format(body=self.body[:20],
+        return '"{body}..." on {post_title} by {first_name} {last_name}'.format(body=self.body[:20],
                                                                   post_title=self.post.title,
                                                                   username=self.user.username,
-                                                                  firstname=self.user.firstname,
-                                                				  lastname=self.user.lastname,)
+                                                                  first_name=self.user.first_name,
+                                                				  last_name=self.user.last_name,)
