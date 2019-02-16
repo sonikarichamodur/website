@@ -11,7 +11,7 @@
             <h1 class="display-4">{{ post.title }}</h1>
 
             <p class="lead"> Created {{ post.pub_date }} by
-                <a href="{% url 'blog:user_posts' post.user.username %}">{{ post.user.first_name }}{{ post.user.last_name }}</a>
+                <a href="{% url 'blog:user_posts' post.user.username %}">{{ post.user.first_name }} {{ post.user.last_name }}</a>
             </p>
             <hr class="my-4">
             <!-- Post body -->
