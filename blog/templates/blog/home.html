@@ -32,8 +32,9 @@
         <h1 class="display-4"><a href="{% url 'blog:post' post.pk %}">{{ post.title }}</a></h1>
         
         <p class="lead"> Created {{ post.pub_date|timesince }} ago by
-            <a href="{% url 'blog:user_posts' post.user.username %}">{{
-                post.user.details.display|default:post.user.first_name }}</a>
+            <a href="{% url 'blog:user_posts' post.user.username %}">
+                {{ post.user.details.display|default:post.user.first_name }}
+            </a>
         </p>
         <hr class="my-4">
         <!-- Post body -->

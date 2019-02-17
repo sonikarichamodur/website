@@ -46,7 +46,8 @@
 
                 <div> Created {{ comment.pub_date }} by
                     <a href="{% url 'blog:user_posts' comment.user.username %}">
-                        {{ comment.user.details.display|default:comment.user.first_name }}</a>
+                        {{ comment.user.details.display|default:comment.user.first_name }}
+                    </a>
                 </div>
 
                 <!-- Comment body -->
