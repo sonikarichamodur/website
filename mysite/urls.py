@@ -21,6 +21,7 @@ from django.shortcuts import redirect
 
 
 urlpatterns = [
+    path('robots.txt', lambda request: redirect('/static/blog/robots.txt', permanent=True)),
     path('favicon.ico', lambda request: redirect('/static/blog/Logo.ico', permanent=True)),
     path('<str:link>', nav, name='nav'),
     path('blog/', include('blog.urls')),
