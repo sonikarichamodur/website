@@ -10,5 +10,7 @@ class Details(models.Model):
         if self.display_name:
             return self.display_name
         if self.user.first_name and self.user.last_name:
-            return self.user.first_name + " " + self.user.last_name
+            return self.user.first_name + " " + self.user.last_name[0]
+        if self.user.first_name:
+            return self.user.first_name
         return self.user.username
