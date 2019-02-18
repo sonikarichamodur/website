@@ -22,3 +22,6 @@ class Nav(models.Model):
     def has_children(self):
         """ Do we have child navs """
         return Nav.objects.filter(parent=self).count() > 0
+
+    def kids(self):
+        return self.children.objects.order_by('title').all()
