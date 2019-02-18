@@ -14,3 +14,6 @@ class MainText(models.Model):
     body = models.TextField()
     pub_date = models.DateTimeField('date published', auto_now_add=True)
     text_type = models.CharField(max_length=254, default='Draft', choices=TEXT_TYPE_CHOICES)
+
+    def __str__(self):
+        return f'{self.text_type}={self.pk}'
