@@ -1,5 +1,5 @@
 {% if nav.has_children %}
-    {% for nav_child in nav.navs %}
+    {% for nav_child in nav.children %}
         {% if nav_child.has_children %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
