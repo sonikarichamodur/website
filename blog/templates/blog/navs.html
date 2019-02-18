@@ -1,0 +1,16 @@
+{% for nav_child in nav.navs %}
+    {% if nav_child.has_children %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+            <div class="dropdown-menu">
+                {% with nav=nav_child template_name="blog/navs.html" %}
+                    {% include template_name %}
+                {% endwith %}
+            </div>
+        </li>
+    {% else %}}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+        </li>
+    {% endif %}}
+{% endfor %}

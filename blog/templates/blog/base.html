@@ -47,9 +47,7 @@
                 <ul class="navbar-nav">
                     <!-- show login only if user is not yet authenticated -->
                     {% for nav in nav_items %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
-                    </li>
+                        {% include "blog/navs.html" %}
                     {% endfor %}
                     <!-- show My Blog only if user is authenticated -->
                     {% if user.is_authenticated %}

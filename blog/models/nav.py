@@ -18,3 +18,7 @@ class Nav(models.Model):
     def __str__(self):
         return '"{title}" by {name}'.format(title=self.title,
                                             name=Details.name(self.user))
+
+    def has_children(self):
+        """ Do we have child navs """
+        return Nav.objects.filter(parent=self).count() > 0
