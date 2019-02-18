@@ -27,9 +27,6 @@ class UserAdmin(BaseUserAdmin):
 
 class NavInline(nested_admin.NestedStackedInline):
     model = Nav
-    inlines = [
-        'self',
-    ]
 
 
 class NavAdmin(nested_admin.NestedModelAdmin):
