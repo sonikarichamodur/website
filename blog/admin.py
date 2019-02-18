@@ -49,8 +49,8 @@ class NavAdmin(nested_admin.NestedModelAdmin):
         'pub_date',
     )
 
-    def queryset(self, request):
-        qs = super(NavAdmin, self).queryset(request)
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
         return qs.filter(parent=None)
 
 
