@@ -134,7 +134,9 @@
             <!--Footers-->
             {% for foot in footer %}
                 <!--Footer={{ foot.pk }}-->
+                {% autoescape off %}
                 {{ foot.body }}{% if forloop.counter==0 %}{% else %}&nbsp;|&nbsp;{% endif %}
+                {% endautoescape %}
             {% endfor %}
             <!-- Logged user info -->
             {% if user.is_superuser %}
