@@ -2,17 +2,15 @@
 {% if nav.has_children %}
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
-        <div class="dropdown-menu">
-            <ul>
-                {% for nav_child in nav.kids %}
-                    {% with is_child=1 nav=nav_child template_name="blog/navs.html" %}
-                        {% include template_name %}
-                    {% endwith %}
-                {% empty %}
-                    <!--Oops-->
-                {% endfor %}
-            </ul>
-        </div>
+        <ul class="dropdown-menu">
+            {% for nav_child in nav.kids %}
+                {% with is_child=1 nav=nav_child template_name="blog/navs.html" %}
+                    {% include template_name %}
+                {% endwith %}
+            {% empty %}
+                <!--Oops-->
+            {% endfor %}
+        </ul>
     </li>
 {% else %}
     <li class="{% if is_child %}dropdown-item{% else %}nav-item{% endif %}">
