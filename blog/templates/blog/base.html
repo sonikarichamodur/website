@@ -58,15 +58,15 @@
 
 <!-- navbar -->
 {% cache 600 navbar HEROKU_RELEASE_VERSION %}
-    <nav class="navbar navbar-expand navbar-dark bg-primary flex-md-row bd-navbar">
+    <div class="navbar navbar-expand navbar-dark bg-primary flex-md-row bd-navbar">
         <a class="navbar-brand" href="{% url 'blog:home' %}">
             <img src="/static/Logo.svg" width="30" height="30" class="d-inline-block align-top"/>&nbsp;RoboLoCo
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav mr-auto">
                 {% for nav in nav_items %}
                     <!--Nav={{ nav.pk }}-->
@@ -132,7 +132,7 @@
                 {% endif %}
             </ul>
         </div>
-    </nav>
+    </div>
 {% endcache %}
 
 <div class="container-fluid">
