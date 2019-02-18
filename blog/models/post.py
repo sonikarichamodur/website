@@ -13,7 +13,7 @@ class Post(models.Model):
         return reverse('blog:post', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return '"{title}" by {first_name} {last_name}'.format(title=self.title,
-                                                username=self.user.username,
-                                                first_name=self.user.first_name,
-                                                last_name=self.user.last_name,)
+        return '"{title}" by {name}'.format(
+            title=self.title,
+            name=self.user.details.display() or self.user.first_name
+        )

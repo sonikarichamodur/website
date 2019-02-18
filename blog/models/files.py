@@ -16,8 +16,8 @@ class Files(models.Model):
         return reverse('blog:download_file', kwargs={'pk': self.pk, 'ext': ext})
 
     def __str__(self):
-        return '"{title}" by {username}'.format(title=self.title,
-                                                username=self.user.username)
+        return '"{title}" by {name}'.format(title=self.title,
+                                            name=self.user.details.display() or self.user.first_name)
 
     def get_s3_url(self):
         return self.fil.url
