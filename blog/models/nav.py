@@ -9,7 +9,7 @@ class Nav(models.Model):
     link = models.SlugField(max_length=10)
     body = models.TextField()
     pub_date = models.DateTimeField('date published', auto_now_add=True)
-    parent = models.ForeignKey('Nav', null=True, default=None, on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', null=True, default=None, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse('blog:post', kwargs={'pk': self.pk})
