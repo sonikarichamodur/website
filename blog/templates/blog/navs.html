@@ -1,17 +1,24 @@
-{% for nav_child in nav.navs %}
-    {% if nav_child.has_children %}
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
-            <div class="dropdown-menu">
-                {% with is_child=True nav=nav_child template_name="blog/navs.html" %}
-                    {% include template_name %}
-                {% endwith %}
-            </div>
-        </li>
-    {% else %}}
-        <li class="nav-item">
-            <a class="{% if is_child %}dropdown-item{% else %}nav-link{% endif %}"
-               href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
-        </li>
-    {% endif %}}
-{% endfor %}
+{% if nav.has_children %}
+    {% for nav_child in nav.navs %}
+        {% if nav_child.has_children %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+                <div class="dropdown-menu">
+                    {% with is_child=True nav=nav_child template_name="blog/navs.html" %}
+                        {% include template_name %}
+                    {% endwith %}
+                </div>
+            </li>
+        {% else %}}
+            <li class="nav-item">
+                <a class="{% if is_child %}dropdown-item{% else %}nav-item{% endif %}"
+                   href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+            </li>
+        {% endif %}}
+    {% endfor %}
+{% else %}
+    <li class="{% if is_child %}dropdown-item{% else %}nav-item{% endif %}">
+        <a class="{% if is_child %}dropdown-item{% else %}nav-link{% endif %}"
+           href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+    </li>
+{% endif %}
