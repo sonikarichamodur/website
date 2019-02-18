@@ -17,4 +17,4 @@ class Nav(models.Model):
 
     def __str__(self):
         return '"{title}" by {name}'.format(title=self.title,
-                                            name=Details.user(self.user))
+                                            name=Details.name(self.user))
