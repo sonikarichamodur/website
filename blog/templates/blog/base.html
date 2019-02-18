@@ -4,7 +4,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>RoboLoCo</title>
+
+    <title>
+        {% for title in base_title %}
+            <!--Base Title={{ title.pk }}-->
+            {{ title.body }}{% if forloop.counter==0 %}{% else %}&nbsp;|&nbsp;{% endif %}
+            {% else %}
+            RoboLoCo
+        {% endfor %}
+        &nbsp;|&nbsp;
+        {% block title %}
+            {% for dtitle in default_title %}
+                <!--Default Title={{ dtitle.pk }}-->
+                {{ dtitle.body }}{% if forloop.counter==0 %}{% else %}&nbsp;|&nbsp;{% endif %}
+                {% else %}
+                Team 5338
+            {% endfor %}
+        {% endblock %}
+    </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -114,12 +131,12 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-
+            <!--Footers-->
+            {% for foot in footer %}
+                <!--Footer={{ foot.pk }}-->
+                {{ foot.body }}{% if forloop.counter==0 %}{% else %}&nbsp;|&nbsp;{% endif %}
+            {% endfor %}
             <!-- Logged user info -->
-
-
-
-
             {% if user.is_superuser %}
                 <p class="text-center">
                     Superuser: {{ user.username }}&nbsp;&nbsp;&nbsp;Version: {{ HEROKU_RELEASE_VERSION }}
