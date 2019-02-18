@@ -130,11 +130,13 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
+            <!--Manual Footer-->
+            {% block footer %}{% endblock %}
             <!--Footers-->
             {% for foot in footer %}
                 <!--Footer={{ foot.pk }}-->
                 {% autoescape off %}
-                    {{ foot.body }}{% if not forloop.first %}{% else %}&nbsp;|&nbsp;{% endif %}
+                    {{ foot.body }}{% if not forloop.last %}{% else %}&nbsp;|&nbsp;{% endif %}
                 {% endautoescape %}
             {% endfor %}
             <!-- Logged user info -->
