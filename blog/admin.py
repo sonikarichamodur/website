@@ -25,11 +25,21 @@ class UserAdmin(BaseUserAdmin):
     inlines = (DetailsInline,)
 
 
+class NavInline(admin.StackedInline):
+    model = Nav
+
+
+class NavAdmin(admin.ModelAdmin):
+    inlines = [
+        NavInline,
+    ]
+
+
 # Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
-admin.site.register(Nav)
+admin.site.register(Nav, NavAdmin)
 admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(Files)
