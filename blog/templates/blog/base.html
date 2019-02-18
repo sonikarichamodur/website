@@ -7,7 +7,6 @@
 
     <title>
         {% for title in base_title %}
-            <!--Base Title={{ title.pk }}-->
             {{ title.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
         {% empty %}
             RoboLoCo
@@ -15,7 +14,6 @@
         &nbsp;|&nbsp;
         {% block title %}
             {% for dtitle in default_title %}
-                <!--Default Title={{ dtitle.pk }}-->
                 {{ dtitle.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
             {% empty %}
                 Team 5338
