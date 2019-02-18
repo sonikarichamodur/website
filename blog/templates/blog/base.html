@@ -5,21 +5,22 @@
 <head>
     {% cache 600 title %}
         <title>
-            {% for title in base_title %}
-                {{ title.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
-            {% empty %}
-                RoboLoCo
-            {% endfor %}
-            &nbsp;|&nbsp;
-            {% block title %}
-                {% for dtitle in default_title %}
-                    {{ dtitle.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
-                {% empty %}
-                    Team 5338
-                {% endfor %}
-            {% endblock %}
-        </title>
+        {% for title in base_title %}
+            {{ title.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
+        {% empty %}
+            RoboLoCo
+        {% endfor %}
     {% endcache %}
+    &nbsp;|&nbsp;
+    {% block title %}
+        {% for dtitle in default_title %}
+            {{ dtitle.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
+        {% empty %}
+            Team 5338
+        {% endfor %}
+    {% endblock %}
+    </title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="/static/blog/Logo.ico">
