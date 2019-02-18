@@ -8,7 +8,7 @@
     <title>
         {% for title in base_title %}
             <!--Base Title={{ title.pk }}-->
-            {{ title.body }}{% if forloop.counter==0 %}{% else %}&nbsp;|&nbsp;{% endif %}
+            {{ title.body }}{% if forloop.counter == 0 %}{% else %}&nbsp;|&nbsp;{% endif %}
             {% else %}
             RoboLoCo
         {% endfor %}
@@ -16,7 +16,7 @@
         {% block title %}
             {% for dtitle in default_title %}
                 <!--Default Title={{ dtitle.pk }}-->
-                {{ dtitle.body }}{% if forloop.counter==0 %}{% else %}&nbsp;|&nbsp;{% endif %}
+                {{ dtitle.body }}{% if forloop.counter == 0 %}{% else %}&nbsp;|&nbsp;{% endif %}
                 {% else %}
                 Team 5338
             {% endfor %}
