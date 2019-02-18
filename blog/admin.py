@@ -29,7 +29,7 @@ class NavInline(nested_admin.NestedStackedInline):
     model = Nav
 
 
-class NavAdmin(nested_admin.ModelAdmin):
+class NavAdmin(nested_admin.NestedModelAdmin):
     inlines = [
         NavInline,
     ]
