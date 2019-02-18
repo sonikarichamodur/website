@@ -7,6 +7,9 @@ class MainText(models.Model):
     TEXT_TYPE_CHOICES = (
         ('Draft', 'Draft'),
         ('Main Page', 'Main'),
+        ('Footer', 'Footer'),
+        ('Base Title', 'Base Title'),
+        ('Default Title', 'Default Title'),
     )
     body = models.TextField()
     pub_date = models.DateTimeField('date published', auto_now_add=True)
