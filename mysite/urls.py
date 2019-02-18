@@ -31,6 +31,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='blog:home')),
     # path('register/', RegisterView.as_view(), name='register'),
     path('', include('django.contrib.auth.urls')),
-    path('', include('blog.urls')),
     path('<str:link>', nav, name='nav'),
+    path('', include('blog.urls')),
 ]
