@@ -1,0 +1,69 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h3>Rules</h3>
+                <ul>
+                    <li>No Hotlinking! All images and files should be used via the file upload feature.</li>
+                    <li>Have someone else review your post</li>
+                    <li>Spell check</li>
+                    <li>Review your post on the site once it's up</li>
+                    <li>Keep it simple, keep it safe</li>
+                </ul>
+                <!-- Form - Blog Post -->
+                <form action="" method="post" class="form-horizontal">
+
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+
+                            <!-- Errors - title -->
+                            {% if form.title.errors %}
+                                <label class="alert alert-danger">{{ form.title.errors }}</label>
+                            {% endif %}
+
+                            <!-- Form field - title -->
+                            <input type="text"
+                                   placeholder="Title"
+                                   class="form-control"
+                                   name="title"
+                                   value="{{ form.title.value|default:"" }}">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+
+                            <!-- Errors - body -->
+                            {% if form.body.errors %}
+                                <label class="alert alert-danger">{{ form.body.errors }}</label>
+                            {% endif %}
+
+                            <!-- Form fields - body -->
+                            <textarea placeholder="Body"
+                                      rows="20"
+                                      class="form-control"
+                                      name="body">{{ form.body.value|default:"" }}</textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block">Save</button>
+
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}

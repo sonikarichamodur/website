@@ -1,0 +1,8 @@
+{% extends "blog/base.html" %}
+{% load markdownify %}
+
+{% block content %}
+    <div class="container">
+        <p>{{ nav.body|markdownify }}</p>
+    </div>
+{% endblock content %}

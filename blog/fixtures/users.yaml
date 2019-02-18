@@ -1,0 +1,12 @@
+- model: auth.user
+  pk: 1
+  fields:
+#   password in plaintext: adminpassword
+    password: pbkdf2_sha256$100000$iKkBcm7Y1hrx$Lfz26jkVqMStm/97FsUQIGmGzqUYAj2gMQMHWGbjiUs=
+    is_superuser: true
+    username: admin
+    first_name: ''
+    last_name: ''
+    email: ''
+    is_staff: true
+    is_active: true

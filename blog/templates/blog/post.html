@@ -1,0 +1,72 @@
+{% extends "blog/base.html" %}
+{% load markdownify %}
+{% load blog_filters %}
+
+{% block content %}
+
+    <div class="container-flex">
+
+        <!-- Post -->
+        <div class="jumbotron">
+
+            <!-- Post title -->
+            <h1 class="display-4">{{ post.title }}</h1>
+
+            <p class="lead"> Created {{ post.pub_date }} by
+                <a href="{% url 'blog:user_posts' post.user.username %}">
+                    {{ post.user.pk|human_name }}
+                </a>
+            </p>
+            <hr class="my-4">
+            <!-- Post body -->
+            <div>{{ post.body|markdownify }}</div>
+
+            <!-- Show Update and Delete button only if User is the owner of the Post -->
+            {% if post.user == user %}
+                <div class="row">
+
+                    <!-- Delete button -->
+                    <a href="{% url 'blog:delete_post' post.pk %}" class="col-md-2 pull-right">
+                        <button type="button" class="btn btn-primary btn-block">Delete</button>
+                    </a>
+
+                    <!-- Update button -->
+                    <a href="{% url 'blog:update_post' post.pk %}" class="col-md-2 pull-right">
+                        <button type="button" class="btn btn-primary btn-block">Update</button>
+                    </a>
+
+                </div>
+            {% endif %}
+
+        </div>
+
+        <h2>Comments:</h2>
+
+        <!-- Comments -->
+        {% for comment in comments %}
+            <div class="well">
+
+                <div> Created {{ comment.pub_date }} by
+                    <a href="{% url 'blog:user_posts' comment.user.username %}">
+                        {{ comment.user.pk|human_name }}
+                    </a>
+                </div>
+
+                <!-- Comment body -->
+                <p> {{ comment.body|linebreaks }}</p>
+
+            </div>
+        {% endfor %}
+
+        <!-- Show Comment button only if User is authenticated -->
+        {% if user.is_authenticated %}
+
+            <!-- Comment button -->
+            <a href="{% url 'blog:create_comment' post.pk %}" class="col-md-2 pull-right">
+                <button type="button" class="btn btn-primary btn-block">Comment</button>
+            </a>
+
+        {% endif %}
+
+    </div>
+{% endblock content %}
