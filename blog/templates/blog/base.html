@@ -4,21 +4,21 @@
 <html lang="en">
 <head>
     {% cache 600 title %}
-    <title>
-        {% for title in base_title %}
-            {{ title.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
-        {% empty %}
-            RoboLoCo
-        {% endfor %}
-        &nbsp;|&nbsp;
-        {% block title %}
-            {% for dtitle in default_title %}
-                {{ dtitle.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
+        <title>
+            {% for title in base_title %}
+                {{ title.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
             {% empty %}
-                Team 5338
+                RoboLoCo
             {% endfor %}
-        {% endblock %}
-    </title>
+            &nbsp;|&nbsp;
+            {% block title %}
+                {% for dtitle in default_title %}
+                    {{ dtitle.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
+                {% empty %}
+                    Team 5338
+                {% endfor %}
+            {% endblock %}
+        </title>
     {% endcache %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -59,80 +59,80 @@
 <!-- navbar -->
 {% cache 600 navbar %}
     <div class="navbar navbar-expand navbar-dark bg-primary flex-md-row bd-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'blog:home' %}"><img src="/static/Logo.svg" width="30" height="30"
-                                                                  class="d-inline-block align-top"/>&nbsp;RoboLoCo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav">
-                {% for nav in nav_items %}
-                    <!--Nav={{ nav.pk }}-->
-                    {% if nav.has_children %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ nav.title }}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
-                                <div class="dropdown-divider"></div>
-                                {% for nav_child in nav.kids %}
-                                    <a class="dropdown-item" href="{% url 'nav' nav_child.link %}">
-                                        {{ nav_child.title }}
-                                    </a>
-                                {% empty %}
-                                    <!--Oops-->
-                                {% endfor %}
-                            </div>
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'blog:home' %}"><img src="/static/Logo.svg" width="30" height="30"
+                                                                      class="d-inline-block align-top"/>&nbsp;RoboLoCo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    {% for nav in nav_items %}
+                        <!--Nav={{ nav.pk }}-->
+                        {% if nav.has_children %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ nav.title }}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+                                    <div class="dropdown-divider"></div>
+                                    {% for nav_child in nav.kids %}
+                                        <a class="dropdown-item" href="{% url 'nav' nav_child.link %}">
+                                            {{ nav_child.title }}
+                                        </a>
+                                    {% empty %}
+                                        <!--Oops-->
+                                    {% endfor %}
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+                            </li>
+                        {% endif %}
+
+                    {% endfor %}
+                    <!-- show My Blog only if user is authenticated -->
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'blog:user_posts' user.username %}">My Blog</a>
+                        </li>
+                    {% endif %}
+                    <!-- show new post only if user is authenticated -->
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'blog:create_post' %}">New Post</a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'blog:upload_file' %}">File Upload</a>
+                        </li>
+                    {% endif %}
+                    <!-- show sign out only if user is authenticated -->
+                    {% if user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                        </li>
+                    {% endif %}
+                </ul>
+
+                <ul class="nav navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Sign Out</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
                         </li>
                     {% endif %}
-
-                {% endfor %}
-                <!-- show My Blog only if user is authenticated -->
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:user_posts' user.username %}">My Blog</a>
-                    </li>
-                {% endif %}
-                <!-- show new post only if user is authenticated -->
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:create_post' %}">New Post</a>
-                    </li>
-                {% endif %}
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:upload_file' %}">File Upload</a>
-                    </li>
-                {% endif %}
-                <!-- show sign out only if user is authenticated -->
-                {% if user.is_staff %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
-                    </li>
-                {% endif %}
-            </ul>
-
-            <ul class="nav navbar-nav ml-auto">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Sign Out</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Login</a>
-                    </li>
-                {% endif %}
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
     </div>
 {% endcache %}
 <div class="container-fluid">
@@ -154,33 +154,33 @@
             {% block footer %}{% endblock %}
             <!--Footers-->
             {% cache 600 footer user %}
-            {% for foot in footer %}
-                <div class="text-center">
-                    <!--Footer={{ foot.pk }}-->
-                    {% autoescape off %}
-                        {{ foot.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
-                    {% endautoescape %}
-                </div>
-            {% endfor %}
-            <!-- Logged user info -->
-            {% if user.is_superuser %}
-                <p class="text-center">
-                    Superuser: {{ user.username }}&nbsp;&nbsp;&nbsp;Version: {{ HEROKU_RELEASE_VERSION }}
-                    / {{ HEROKU_SLUG_COMMIT }}
-                </p>
-            {% elif user.is_staff %}
-                <p class="text-center">
-                    Staff User: {{ user.username }}
-                </p>
-            {% elif user.is_authenticated %}
-                <p class="text-center">
-                    Current User: {{ user.username }}
-                </p>
-            {% else %}
-                <p class="text-center">
-                    <a href="mailto:contact@roboloco.org">contact@roboloco.org</a>
-                </p>
-            {% endif %}
+                {% for foot in footer %}
+                    <div class="text-center">
+                        <!--Footer={{ foot.pk }}-->
+                        {% autoescape off %}
+                            {{ foot.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
+                        {% endautoescape %}
+                    </div>
+                {% endfor %}
+                <!-- Logged user info -->
+                {% if user.is_superuser %}
+                    <p class="text-center">
+                        Superuser: {{ user.username }}&nbsp;&nbsp;&nbsp;Version: {{ HEROKU_RELEASE_VERSION }}
+                        / {{ HEROKU_SLUG_COMMIT }}
+                    </p>
+                {% elif user.is_staff %}
+                    <p class="text-center">
+                        Staff User: {{ user.username }}
+                    </p>
+                {% elif user.is_authenticated %}
+                    <p class="text-center">
+                        Current User: {{ user.username }}
+                    </p>
+                {% else %}
+                    <p class="text-center">
+                        <a href="mailto:contact@roboloco.org">contact@roboloco.org</a>
+                    </p>
+                {% endif %}
 
             {% endcache %}
 
