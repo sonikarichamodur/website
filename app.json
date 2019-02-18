@@ -1,0 +1,40 @@
+{
+  "name": "roboloco-web",
+  "description": "RoboLoCo's Website",
+  "scripts": {
+    "postdeploy": "python manage.py migrate"
+  },
+  "env": {
+    "BUCKETEER_AWS_ACCESS_KEY_ID": "",
+    "BUCKETEER_AWS_REGION": "",
+    "BUCKETEER_AWS_SECRET_ACCESS_KEY": "",
+    "BUCKETEER_BUCKET_NAME": "",
+    "DEBUG": "True",
+    "HEROKU_APP_ID": "",
+    "HEROKU_APP_NAME": "",
+    "HEROKU_RELEASE_CREATED_AT": "",
+    "HEROKU_RELEASE_VERSION": "",
+    "HEROKU_SLUG_COMMIT": "",
+    "HEROKU_SLUG_DESCRIPTION": "",
+    "REDIS_URL": "",
+    "SECRET_KEY": {
+      "generator": "secret"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "bucketeer",
+    "heroku-postgresql",
+    "heroku-redis"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "stack": "heroku-18"
+}
