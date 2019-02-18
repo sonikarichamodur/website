@@ -34,6 +34,10 @@ class NavInline(nested_admin.NestedStackedInline):
         'pub_date',
     )
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.filter(parent__isnull=False)
+
 
 class NavAdmin(nested_admin.NestedModelAdmin):
     inlines = [
