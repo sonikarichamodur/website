@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% load markdownify %}
+{% load blog_filters %}
 
 {% block content %}
 <div class="page-header" id="banner">
@@ -17,9 +18,9 @@
 </div>
 
 <!-- Show this section only for User Blog view -->
-{% if first_name or last_name %}
+    {% if postuser %}
 <div class="jumbotron">
-    <h1>{{ first_name }} {{ last_name }} - Blog</h1>
+    <h1>{{ postuser.pk|human_name }}'s Posts</h1>
 </div>
 {% endif %}
 
@@ -33,7 +34,7 @@
         
         <p class="lead"> Created {{ post.pub_date|timesince }} ago by
             <a href="{% url 'blog:user_posts' post.user.username %}">
-                {{ post.user.details.display|default:post.user.first_name }}
+                {{ post.user.pk|human_name }}
             </a>
         </p>
         <hr class="my-4">

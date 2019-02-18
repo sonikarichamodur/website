@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% load markdownify %}
+{% load blog_filters %}
 
 {% block content %}
     <div class="container">
@@ -12,7 +13,7 @@
 
             <p class="lead"> Created {{ post.pub_date }} by
                 <a href="{% url 'blog:user_posts' post.user.username %}">
-                    {{ post.user.details.display|default:post.user.first_name }}
+                    {{ post.user.pk|human_name }}
                 </a>
             </p>
             <hr class="my-4">
@@ -46,7 +47,7 @@
 
                 <div> Created {{ comment.pub_date }} by
                     <a href="{% url 'blog:user_posts' comment.user.username %}">
-                        {{ comment.user.details.display|default:comment.user.first_name }}
+                        {{ comment.user.pk|human_name }}
                     </a>
                 </div>
 
