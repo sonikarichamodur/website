@@ -59,7 +59,7 @@
 
 <!-- navbar -->
 {% cache 600 navbar HEROKU_RELEASE_VERSION user %}
-    <nav class="navbar navbar-expand navbar-dark bg-primary flex-md-row bd-navbar">
+    <div class="navbar navbar-expand navbar-dark bg-primary flex-md-row bd-navbar">
         <div class="container">
             <a class="navbar-brand" href="{% url 'blog:home' %}">
                 <img src="/static/Logo.svg" width="30" height="30" class="d-inline-block align-top"/>&nbsp;RoboLoCo
@@ -135,7 +135,7 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    </div>
 {% endcache %}
 
 <div class="container-fluid">
