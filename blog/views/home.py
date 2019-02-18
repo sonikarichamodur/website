@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, Http404
 
 from blog.models.post import Post
 from blog.models.nav import Nav
@@ -38,5 +38,8 @@ def home(request, username=None):
 
 
 def nav(request, link):
-    nav_item = Nav.objects.get(link=link);
-    return render(request, 'blog/nav.html', {"nav": nav_item})
+    try:
+        nav_item = Nav.objects.get(link=link);
+        return render(request, 'blog/nav.html', {"nav": nav_item})
+    except Nav.DoesNotExist:
+        raise Http404()
