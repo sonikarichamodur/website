@@ -3,64 +3,62 @@
 {% load blog_filters %}
 
 {% block content %}
-    <div class="row flex-xl-nowrap">
-        <div class="page-header" id="banner">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h1 class="display-3">RoboLoCo</h1>
-                    <p class="lead">Driving you crazy since 2013</p>
-                </div>
-                <div class="container text-center">
-                    <img src="/static/blog/Home.jpg" width="90%">
-                </div>
-                <div class="container text-center">
-                    <p class="lead">{{ main_text.body|linebreaksbr }}</p>
-                </div>
+    <div class="page-header" id="banner">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1 class="display-3">RoboLoCo</h1>
+                <p class="lead">Driving you crazy since 2013</p>
             </div>
+            <div class="container text-center">
+                <img src="/static/blog/Home.jpg" width="90%">
+            </div>
+            <div class="container text-center">
+                <p class="lead">{{ main_text.body|linebreaksbr }}</p>
+            </div>
+        </div>
 
-            <!-- Show this section only for User Blog view -->
-            {% if postuser %}
+        <!-- Show this section only for User Blog view -->
+        {% if postuser %}
+            <div class="jumbotron">
+                <h1>{{ postuser.pk|human_name }}'s Posts</h1>
+            </div>
+        {% endif %}
+
+        <!-- Show List of Posts -->
+        <div class="container">
+            {% for post in posts %}
                 <div class="jumbotron">
-                    <h1>{{ postuser.pk|human_name }}'s Posts</h1>
+
+                    <!-- Post title -->
+                    <h1 class="display-4"><a href="{% url 'blog:post' post.pk %}">{{ post.title }}</a></h1>
+
+                    <p class="lead"> Created {{ post.pub_date|timesince }} ago by
+                        <a href="{% url 'blog:user_posts' post.user.username %}">
+                            {{ post.user.pk|human_name }}
+                        </a>
+                    </p>
+                    <hr class="my-4">
+                    <!-- Post body -->
+                    <div>{{ post.body|markdownify }}</div>
                 </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            {% if posts.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ posts.previous_page_number }}">previous</a>
             {% endif %}
 
-            <!-- Show List of Posts -->
-            <div class="container">
-                {% for post in posts %}
-                    <div class="jumbotron">
+            {% if posts.paginator.num_pages != 1 %}
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+            {% endif %}
 
-                        <!-- Post title -->
-                        <h1 class="display-4"><a href="{% url 'blog:post' post.pk %}">{{ post.title }}</a></h1>
-
-                        <p class="lead"> Created {{ post.pub_date|timesince }} ago by
-                            <a href="{% url 'blog:user_posts' post.user.username %}">
-                                {{ post.user.pk|human_name }}
-                            </a>
-                        </p>
-                        <hr class="my-4">
-                        <!-- Post body -->
-                        <div>{{ post.body|markdownify }}</div>
-                    </div>
-                {% endfor %}
-            </div>
-
-            <!-- Pagination -->
-            <div class="pagination">
-                {% if posts.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ posts.previous_page_number }}">previous</a>
-                {% endif %}
-
-                {% if posts.paginator.num_pages != 1 %}
-                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-                {% endif %}
-
-                {% if posts.has_next %}
-                    <a href="?page={{ posts.next_page_number }}">next</a>
-                    <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
-            </div>
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">next</a>
+                <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
         </div>
     </div>
 {% endblock content %}
