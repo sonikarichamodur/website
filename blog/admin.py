@@ -14,7 +14,7 @@ from .models.users import Details
 
 # Define an inline admin descriptor for Employee model
 # which acts a bit like a singleton
-class DetailsInline(nested_admin.StackedInline):
+class DetailsInline(admin.StackedInline):
     model = Details
     can_delete = False
     verbose_name_plural = 'details'
@@ -25,7 +25,7 @@ class UserAdmin(BaseUserAdmin):
     inlines = (DetailsInline,)
 
 
-class NavInline(nested_admin.StackedInline):
+class NavInline(nested_admin.NestedStackedInline):
     model = Nav
 
 
