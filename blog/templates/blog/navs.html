@@ -4,7 +4,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
                 <div class="dropdown-menu">
-                    {% with is_child=True nav=nav_child template_name="blog/navs.html" %}
+                    {% with is_child=1 nav=nav_child template_name="blog/navs.html" %}
                         {% include template_name %}
                     {% endwith %}
                 </div>
