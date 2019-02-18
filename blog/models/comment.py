@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from blog.models.users import Details
 from blog.models.post import Post
 
 
@@ -14,5 +14,5 @@ class Comment(models.Model):
         return '"{body}..." on {post_title} by {name}'.format(
             body=self.body[:20],
             post_title=self.post.title,
-            name=self.user.details.display() if self.user.details else self.user.first_name,
+            name=Details.name(self.user),
         )

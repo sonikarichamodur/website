@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from blog.models.users import Details
 
 
 class Nav(models.Model):
@@ -16,4 +17,4 @@ class Nav(models.Model):
 
     def __str__(self):
         return '"{title}" by {name}'.format(title=self.title,
-                                            name=self.user.details.display() if self.user.details else self.user.first_name)
+                                            name=Details.user(self.user))
