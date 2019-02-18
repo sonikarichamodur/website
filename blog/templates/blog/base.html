@@ -9,26 +9,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" href="/static/blog/Logo.ico">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://bootswatch.com/4/pulse/bootstrap.min.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
     <!--link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}"/-->
 
     <!-- Style to wrap around iframe -->
     <stlye>
         .videoWrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            padding-top: 25px;
-            height: 0;
+        position: relative;
+        padding-bottom: 56.25%;
+        padding-top: 25px;
+        height: 0;
         }
         .videoWrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         }
 
     </stlye>
@@ -36,54 +42,56 @@
 </head>
 <body>
 
-    <!-- navbar -->
-    <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'blog:home' %}"><img src="/static/Logo.svg" width="30" height="30" class="d-inline-block align-top"/>&nbsp;RoboLoCo</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav">
-                    <!-- show login only if user is not yet authenticated -->
-                    {% for nav in nav_items %}
-                        {% include "blog/navs.html" %}
-                    {% endfor %}
-                    <!-- show My Blog only if user is authenticated -->
-                    {% if user.is_authenticated %}
+<!-- navbar -->
+<div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'blog:home' %}"><img src="/static/Logo.svg" width="30" height="30"
+                                                                  class="d-inline-block align-top"/>&nbsp;RoboLoCo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <!-- show login only if user is not yet authenticated -->
+                {% for nav in nav_items %}
+                    {% include "blog/navs.html" %}
+                {% endfor %}
+                <!-- show My Blog only if user is authenticated -->
+                {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'blog:user_posts' user.username %}">My Blog</a>
                     </li>
-                    {% endif %}
-                    <!-- show new post only if user is authenticated -->
-                    {% if user.is_authenticated %}
+                {% endif %}
+                <!-- show new post only if user is authenticated -->
+                {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'blog:create_post' %}">New Post</a>
                     </li>
-                    {% endif %}
-                    {% if user.is_authenticated %}
+                {% endif %}
+                {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'blog:upload_file' %}">File Upload</a>
                     </li>
-                    {% endif %}
-                    <!-- show sign out only if user is authenticated -->
-                    {% if user.is_staff %}
+                {% endif %}
+                <!-- show sign out only if user is authenticated -->
+                {% if user.is_staff %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
                     </li>
-                    {% endif %}
-                </ul>
+                {% endif %}
+            </ul>
 
-                <ul class="nav navbar-nav ml-auto">
-                    {% if user.is_authenticated %}
+            <ul class="nav navbar-nav ml-auto">
+                {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Sign Out</a>
                     </li>
-                    {% else %}
+                {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
                     </li>
-                    {% endif %}
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -95,7 +103,7 @@
 <hr>
 
 <!--div class="container"-->
-    {% block content %}{% endblock %}
+{% block content %}{% endblock %}
 <!--/div-->
 
 <hr>
@@ -111,21 +119,22 @@
 
 
             {% if user.is_superuser %}
-            <p class="text-center">
-                Superuser: {{ user.username }}&nbsp;&nbsp;&nbsp;Version: {{ HEROKU_RELEASE_VERSION }} / {{ HEROKU_SLUG_COMMIT }}
-            </p>
+                <p class="text-center">
+                    Superuser: {{ user.username }}&nbsp;&nbsp;&nbsp;Version: {{ HEROKU_RELEASE_VERSION }}
+                    / {{ HEROKU_SLUG_COMMIT }}
+                </p>
             {% elif user.is_staff %}
-            <p class="text-center">
-                Staff User: {{ user.username }}
-            </p>
+                <p class="text-center">
+                    Staff User: {{ user.username }}
+                </p>
             {% elif user.is_authenticated %}
-            <p class="text-center">
-                Current User: {{ user.username }}
-            </p>
+                <p class="text-center">
+                    Current User: {{ user.username }}
+                </p>
             {% else %}
-            <p class="text-center">
-                <a href="mailto:contact@roboloco.org">contact@roboloco.org</a>
-            </p>
+                <p class="text-center">
+                    <a href="mailto:contact@roboloco.org">contact@roboloco.org</a>
+                </p>
             {% endif %}
 
         </div>
@@ -133,10 +142,9 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-    crossorigin="anonymous"></script>
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 </div>
-
 
 
 </body>
