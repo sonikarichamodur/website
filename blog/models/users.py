@@ -19,7 +19,7 @@ class Details(models.Model):
     def name(cls, user):
         try:
             return user.details.display()
-        except Details.DoesNotExist:
+        except Exception:
             if user.first_name and user.last_name:
                 return user.first_name + " " + user.last_name[0]
             if user.first_name:
