@@ -33,6 +33,10 @@ class NavAdmin(nested_admin.NestedModelAdmin):
     inlines = [
         NavInline,
     ]
+    exclude = [
+        'parent',
+    ]
+
 
 
 # Re-register UserAdmin

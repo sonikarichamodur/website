@@ -10,7 +10,8 @@ class Nav(models.Model):
     link = models.SlugField(max_length=10, unique=True)
     body = models.TextField()
     pub_date = models.DateTimeField('date published', auto_now_add=True)
-    parent = models.ForeignKey('self', related_name='children', null=True, blank=True, on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', related_name='children', null=True, blank=True, on_delete=models.CASCADE,
+                               limit_choices_to={'parent': None})
 
     def get_absolute_url(self):
         return reverse('blog:post', kwargs={'pk': self.pk})

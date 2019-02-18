@@ -69,9 +69,31 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav">
                 {% for nav in nav_items %}
-                    {% with is_child=0 %}
-                        {% include "blog/navs.html" %}
-                    {% endwith %}
+                    <!--Nav={{ nav.pk }}-->
+                    {% if nav.has_children %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ nav.title }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+                                <div class="dropdown-divider"></div>
+                                {% for nav_child in nav.kids %}
+                                    <a class="dropdown-item" href="{% url 'nav' nav.link %}">
+                                        {{ nav.title }}
+                                    </a>
+                                {% empty %}
+                                    <!--Oops-->
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="navbar-item">
+                            <a class="navbar-link" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+                        </li>
+                    {% endif %}
+
                 {% endfor %}
                 <!-- show My Blog only if user is authenticated -->
                 {% if user.is_authenticated %}
