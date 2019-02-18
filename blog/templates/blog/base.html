@@ -55,7 +55,9 @@
             <ul class="navbar-nav">
                 <!-- show login only if user is not yet authenticated -->
                 {% for nav in nav_items %}
-                    {% include "blog/navs.html" %}
+                    {% with is_child=False %}
+                        {% include "blog/navs.html" %}
+                    {% endwith %}
                 {% endfor %}
                 <!-- show My Blog only if user is authenticated -->
                 {% if user.is_authenticated %}
