@@ -14,5 +14,5 @@ class Comment(models.Model):
         return '"{body}..." on {post_title} by {name}'.format(
             body=self.body[:20],
             post_title=self.post.title,
-            name=self.user.details.display() or self.user.first_name,
+            name=self.user.details.display() if self.user.details else self.user.first_name,
         )
