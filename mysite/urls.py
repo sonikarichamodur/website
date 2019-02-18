@@ -21,6 +21,8 @@ from django.shortcuts import redirect
 
 
 urlpatterns = [
+    path('grappelli/', include('grappelli.urls')),
+    path('nested_admin/', include('nested_admin.urls')),
     path('robots.txt', lambda request: redirect('/static/blog/robots.txt', permanent=True)),
     path('favicon.ico', lambda request: redirect('/static/blog/Logo.ico', permanent=True)),
     path('<str:link>', nav, name='nav'),
