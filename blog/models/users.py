@@ -14,3 +14,14 @@ class Details(models.Model):
         if self.user.first_name:
             return self.user.first_name
         return self.user.username
+
+    @classmethod
+    def name(cls, user):
+        try:
+            return user.details.display()
+        except models.RelatedObjectDoesNotExist:
+            if user.first_name and user.last_name:
+                return user.first_name + " " + user.last_name[0]
+            if user.first_name:
+                return user.first_name
+            return user.username
