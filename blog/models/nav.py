@@ -24,4 +24,4 @@ class Nav(models.Model):
         return Nav.objects.filter(parent=self).count() > 0
 
     def kids(self):
-        return self.children.objects.order_by('title').all()
+        return self.children.order_by('title').all()
