@@ -73,6 +73,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'blog.ctx.heroku_info',
                 'blog.ctx.nav',
+                'blog.ctx.mains',
                 'django.template.context_processors.request',
             ],
         },
