@@ -132,10 +132,12 @@
             {% block footer %}{% endblock %}
             <!--Footers-->
             {% for foot in footer %}
-                <!--Footer={{ foot.pk }}-->
-                {% autoescape off %}
-                    {{ foot.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
-                {% endautoescape %}
+                <div class="text-center">
+                    <!--Footer={{ foot.pk }}-->
+                    {% autoescape off %}
+                        {{ foot.body }}{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
+                    {% endautoescape %}
+                </div>
             {% endfor %}
             <!-- Logged user info -->
             {% if user.is_superuser %}
