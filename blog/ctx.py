@@ -10,5 +10,5 @@ def heroku_info(request):
 
 def nav(request):
     return {
-        'nav_items': Nav.objects.order_by("title").all(),
+        'nav_items': Nav.objects.filter(parent=None).order_by("title").all(),
     }
