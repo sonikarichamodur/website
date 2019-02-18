@@ -13,7 +13,7 @@ def home(request, username=None):
     first_name = ''
     last_name = ''
     user = None
-    main_text = MainText.objects.filter(text_type='Main Page')[0]
+    main_text = MainText.objects.filter(text_type='Main Page').order_by('pk')[0]
     if username:
         user = User.objects.get(username=username)
         first_name = user.first_name
