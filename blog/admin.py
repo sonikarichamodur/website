@@ -27,6 +27,12 @@ class UserAdmin(BaseUserAdmin):
 
 class NavInline(nested_admin.NestedStackedInline):
     model = Nav
+    list_display = (
+        'title',
+        'user',
+        'link',
+        'pub_date',
+    )
 
 
 class NavAdmin(nested_admin.NestedModelAdmin):
@@ -36,7 +42,16 @@ class NavAdmin(nested_admin.NestedModelAdmin):
     exclude = [
         'parent',
     ]
+    list_display = (
+        'title',
+        'user',
+        'link',
+        'pub_date',
+    )
 
+    def queryset(self, request):
+        qs = super(NavAdmin, self).queryset(request)
+        return qs.filter(parent=None)
 
 
 # Re-register UserAdmin
