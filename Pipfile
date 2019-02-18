@@ -21,7 +21,7 @@ django-storages = "*"
 boto3 = "*"
 pexpect = "*"
 "django-redis-cache" = "*"
-nested_admin = "*"
+django-nested-admin = "*"
 django-grappelli = "*"
 
 
