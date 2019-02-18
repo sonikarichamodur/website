@@ -62,11 +62,11 @@
         <a class="navbar-brand" href="{% url 'blog:home' %}">
             <img src="/static/Logo.svg" width="30" height="30" class="d-inline-block align-top"/>&nbsp;RoboLoCo
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
                 {% for nav in nav_items %}
                     <!--Nav={{ nav.pk }}-->
