@@ -57,7 +57,7 @@
 <body>
 
 <!-- navbar -->
-{% cache 600 navbar %}
+{% cache 600 navbar HEROKU_RELEASE_VERSION %}
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary flex-md-row bd-navbar">
         <a class="navbar-brand" href="{% url 'blog:home' %}"><img src="/static/Logo.svg" width="30" height="30"
                                                                   class="d-inline-block align-top"/>&nbsp;RoboLoCo</a>
@@ -151,7 +151,7 @@
             <!--Manual Footer-->
             {% block footer %}{% endblock %}
             <!--Footers-->
-            {% cache 600 footer user %}
+            {% cache 600 footer user HEROKU_RELEASE_VERSION %}
                 {% for foot in footer %}
                     <div class="text-center">
                         <!--Footer={{ foot.pk }}-->
