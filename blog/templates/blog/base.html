@@ -70,7 +70,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav">
-                <!-- show login only if user is not yet authenticated -->
                 {% for nav in nav_items %}
                     {% with is_child=0 %}
                         {% include "blog/navs.html" %}
