@@ -11,12 +11,14 @@ from django.views.decorators.cache import cache_page
 from ..forms import UploadFileForm
 from ..models import Files
 
-@login_required
+
 class BasicUploadView(View):
+    @login_required
     def get(self, request):
         files_list = Files.objects.all()
         return render(self.request, 'blog/files/index.html', {'files': files_list})
 
+    @login_required
     def post(self, request):
         form = UploadFileForm(self.request.POST, self.request.FILES)
         if form.is_valid():
