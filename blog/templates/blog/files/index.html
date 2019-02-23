@@ -19,7 +19,7 @@
 {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
 <input id="fileupload" type="file" name="file" multiple
        style="display: none;"
-       data-url="{% url 'files:basic_upload' %}"
+       data-url="{% url 'blog:basic_upload' %}"
        data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 
 {# 3. TABLE TO DISPLAY THE UPLOADED PHOTOS #}
