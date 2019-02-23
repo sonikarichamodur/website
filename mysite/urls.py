@@ -25,6 +25,7 @@ urlpatterns = [
     path('nested_admin/', include('nested_admin.urls')),
     path('robots.txt', lambda request: redirect('/static/blog/robots.txt', permanent=True)),
     path('favicon.ico', lambda request: redirect('/static/blog/Logo.ico', permanent=True)),
+    path('', include('blog.urls')),
 #   path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
@@ -32,5 +33,4 @@ urlpatterns = [
     # path('register/', RegisterView.as_view(), name='register'),
     path('', include('django.contrib.auth.urls')),
     path('<str:link>', nav, name='nav'),
-    path('', include('blog.urls')),
 ]
