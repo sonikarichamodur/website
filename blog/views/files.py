@@ -10,15 +10,13 @@ from django.views.decorators.cache import cache_page
 
 from ..forms import UploadFileForm
 from ..models import Files
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-
-class BasicUploadView(View):
-    @login_required
+class BasicUploadView(LoginRequiredMixin, View):
     def get(self, request):
         files_list = Files.objects.all()
         return render(self.request, 'blog/files/index.html', {'files': files_list})
 
-    @login_required
     def post(self, request):
         form = UploadFileForm(self.request.POST, self.request.FILES)
         if form.is_valid():
