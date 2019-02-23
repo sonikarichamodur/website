@@ -15,7 +15,7 @@ urlpatterns = [
     # ex: /blog/
     path('', home, name='home'),
     # ex: /blog/dusan
-    path('<str:username>', home, name='user_posts'),
+    path('user/<str:username>', home, name='user_posts'),
     # ex: /blog/post/5/
     path('post/<int:pk>/', PostView.as_view(), name='post'),
     # ex: /blog/post/create/
