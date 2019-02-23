@@ -1,9 +1,10 @@
 from blog.models.files import Files
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views import View
 from ..forms import UploadFileForm
 from django.views.decorators.cache import cache_page
 
