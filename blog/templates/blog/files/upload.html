@@ -1,59 +1,64 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
-    <div class="container">
+    <div class="page-header" id="banner">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-
-                <!-- Form - File Upload -->
-                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-
-                    {% csrf_token %}
-
-                    <div class="form-group">
-                        <div class="col-sm-9">
-
-                            <!-- Errors - title -->
-                            {% if form.title.errors %}
+            File Upload
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+    
+                    <!-- Form - File Upload -->
+                    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+    
+                        {% csrf_token %}
+    
+                        <div class="form-group">
+                            <div class="col-sm-9">
+    
+                                <!-- Errors - title -->
+                                {% if form.title.errors %}
                                 <label class="alert alert-danger">{{ form.title.errors }}</label>
-                            {% endif %}
-
-                            <!-- Form field - title -->
-                            <input type="text"
-                                   placeholder="Title"
-                                   class="form-control"
-                                   name="title"
-                                   value="{{ form.title.value|default:"" }}">
-
+                                {% endif %}
+    
+                                <!-- Form field - title -->
+                                <input type="text"
+                                placeholder="Title"
+                                class="form-control"
+                                name="title"
+                                value="{{ form.title.value|default:"" }}">
+    
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-9">
-
-                            <!-- Errors - body -->
-                            {% if form.body.errors %}
+    
+                        <div class="form-group">
+                            <div class="col-sm-9">
+    
+                                <!-- Errors - body -->
+                                {% if form.body.errors %}
                                 <label class="alert alert-danger">{{ form.fil.errors }}</label>
-                            {% endif %}
-
-                            <input type="file"
-                                   placeholder="UploadFile"
-                                   name="fil">{{ form.body.value|default:"" }}</input>
-
+                                {% endif %}
+    
+                                <input type="file"
+                                placeholder="UploadFile"
+                                name="fil">{{ form.body.value|default:"" }}</input>
+    
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-9">
-
-                            <!-- Submit button -->
-                            <button type="submit" class="btn btn-primary btn-block">Save</button>
-
+    
+                        <div class="form-group">
+                            <div class="col-sm-9">
+    
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-primary btn-block">Save</button>
+    
+                            </div>
                         </div>
-                    </div>
-
-                </form>
-
+    
+                    </form>
+    
+                </div>
             </div>
         </div>
     </div>
