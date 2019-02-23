@@ -4,12 +4,12 @@ from blog.views.comment import CommentCreate
 from blog.views.home import home
 from blog.views.post import PostView, PostCreate, PostUpdate, PostDelete
 from blog.views.home import nav
-from blog.views.files import upload_file, download_file
+from blog.views.files import BasicUploadView
 
 app_name = 'blog'
 urlpatterns = [
     # ex: /blog/files
-    path('files', upload_file, name='upload_file'),
+    path('files', BasicUploadView.as_view(), name='upload_file'),
     # ex: /blog/files/something.jpg
     path('files/<str:pk>.<str:ext>', download_file, name='download_file'),
     path('blog/files/<str:pk>.<str:ext>', download_file, name='download_file_blog'),
