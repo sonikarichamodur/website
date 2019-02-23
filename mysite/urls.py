@@ -25,7 +25,7 @@ urlpatterns = [
     path('nested_admin/', include('nested_admin.urls')),
     path('robots.txt', lambda request: redirect('/static/blog/robots.txt', permanent=True)),
     path('favicon.ico', lambda request: redirect('/static/blog/Logo.ico', permanent=True)),
-    path('blog/', include('blog.urls')),
+#   path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='blog:home')),
