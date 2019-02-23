@@ -19,8 +19,10 @@
 
         <!-- Show this section only for User Blog view -->
         {% if postuser %}
-            <div class="jumbotron">
-                <h1>{{ postuser.pk|human_name }}'s Posts</h1>
+            <div class="container">
+                <div class="jumbotron">
+                    <h1>{{ postuser.pk|human_name }}'s Posts</h1>
+                </div>
             </div>
         {% endif %}
 
