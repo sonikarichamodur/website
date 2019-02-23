@@ -57,10 +57,10 @@
                                     {{ nav.title }}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+                                    <a class="dropdown-item" href="{% url 'blog:nav' nav.link %}">{{ nav.title }}</a>
                                     <div class="dropdown-divider"></div>
                                     {% for nav_child in nav.kids %}
-                                        <a class="dropdown-item" href="{% url 'nav' nav_child.link %}">
+                                        <a class="dropdown-item" href="{% url 'blog:nav' nav_child.link %}">
                                             {{ nav_child.title }}
                                         </a>
                                     {% empty %}
@@ -70,7 +70,7 @@
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
+                                <a class="nav-link" href="{% url 'blog:nav' nav.link %}">{{ nav.title }}</a>
                             </li>
                         {% endif %}
 
