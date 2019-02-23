@@ -7,7 +7,7 @@ from django.shortcuts import render
 from ..forms import UploadFileForm
 from django.views.decorators.cache import cache_page
 
-from .forms import UploadFileForm
+from ..forms import UploadFileForm
 from .models import Files
 
 @login_required
