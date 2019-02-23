@@ -12,6 +12,7 @@ urlpatterns = [
     path('files', upload_file, name='upload_file'),
     # ex: /blog/files/something.jpg
     path('files/<str:pk>.<str:ext>', download_file, name='download_file'),
+    path('blog/files/<str:pk>.<str:ext>', download_file, name='download_file'),
     # ex: /blog/
     path('', home, name='home'),
     # ex: /blog/dusan
