@@ -3,7 +3,7 @@ from django.urls import path
 from blog.views.comment import CommentCreate
 from blog.views.home import home
 from blog.views.post import PostView, PostCreate, PostUpdate, PostDelete
-
+from blog.views.home import nav
 from blog.views.files import upload_file, download_file
 
 app_name = 'blog'
@@ -26,4 +26,5 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDelete.as_view(), name='delete_post'),
     # ex: /blog/post/5/comment/
     path('post/<int:pk>/comment/', CommentCreate.as_view(), name='create_comment'),
+    path('<str:link>', nav, name='nav'),
 ]
