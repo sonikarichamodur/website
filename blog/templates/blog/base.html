@@ -27,11 +27,11 @@
     <link rel="stylesheet" href="https://bootswatch.com/4/pulse/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
     
-    <stlye>
+    <style>
         img{
             max-width:100%;
         }
-    </stlye>
+    </style>
 </head>
 
 
@@ -77,17 +77,13 @@
                     {% endfor %}
                     <!-- show My Blog only if user is authenticated -->
                     {% if user.is_authenticated %}
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'blog:user_posts' user.username %}">My Blog</a>
                         </li>
-                    {% endif %}
-                    <!-- show new post only if user is authenticated -->
-                    {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'blog:create_post' %}">New Post</a>
                         </li>
-                    {% endif %}
-                    {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'blog:upload_file' %}">File Upload</a>
                         </li>
