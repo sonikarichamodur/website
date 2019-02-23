@@ -7,6 +7,24 @@ from django.shortcuts import render
 from ..forms import UploadFileForm
 from django.views.decorators.cache import cache_page
 
+from .forms import UploadFileForm
+from .models import Files
+
+@login_required
+class BasicUploadView(View):
+    def get(self, request):
+        files_list = Files.objects.all()
+        return render(self.request, 'blog/files/index.html', {'files': files_list})
+
+    def post(self, request):
+        form = UploadFileForm(self.request.POST, self.request.FILES)
+        if form.is_valid():
+            form.instance.user = request.user
+            file = form.save()
+            data = {'is_valid': True, 'name': file.fil.name, 'url': file.fil.url}
+        else:
+            data = {'is_valid': False}
+        return JsonResponse(data)
 
 @login_required
 def upload_file(request):
@@ -31,3 +49,4 @@ def download_file(request, pk, ext):
     response = HttpResponse(fil.fil, content_type=fil.get_content_type())
     response['Content-Disposition'] = 'inline; filename=' + fil.fil.name
     return response
+
