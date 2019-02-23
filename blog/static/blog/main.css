@@ -21,3 +21,7 @@ a:hover, a:focus, a:active {
     display: block;
     text-align: center;
 }
+
+img{
+    max-width:100%;
+}
