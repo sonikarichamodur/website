@@ -46,7 +46,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for fil in files.keys %}
+        {% for fil in files.values %}
             <tr>
                 <td><a href="{{ fil.obj.get_absolute_url }}">{{ fil.obj.title }}</a></td>
                 <td>{{ fil.obj.get_rel_url }}</td>
