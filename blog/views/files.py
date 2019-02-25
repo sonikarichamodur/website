@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from ..forms import UploadFileForm
 from django.views.decorators.cache import cache_page
-
+from django.urls import reverse
 from ..forms import UploadFileForm
 from ..models import Files
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -27,7 +27,7 @@ class BasicUploadView(LoginRequiredMixin, View):
         if form.is_valid():
             form.instance.user = request.user
             file = form.save()
-            data = {'is_valid': True, 'name': file.fil.name, 'url': file.fil.url}
+            data = {'is_valid': True, 'name': file.fil.name, 'url': file.get_absolute_url()}
         else:
             data = {'is_valid': False}
         return JsonResponse(data)
