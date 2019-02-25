@@ -1,6 +1,6 @@
 from blog.models.files import Files
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, Http404, JsonResponse
+from django.http import HttpResponse, Http404, JsonResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -87,6 +87,21 @@ def delete_file(request, pk, ext):
     fil = get_object_or_404(Files, pk=pk)
     if not fil.fil.name.endswith(ext):
         raise Http404()
+    # This is stupid verbose but super clear
+    if fil.user == request.user:
+        if request.user.has_perm('files_gui_own_delete') or request.user.has_perm('files_gui_all_delete'):
+            # Owns file and has one or both required perms
+            pass
+        else:
+            # Owns file but lacks any perms
+            raise HttpResponseNotAllowed()
+    else:
+        if request.user.has_perm('files_gui_all_delete'):
+            # Doesn't own file and has all delete perm
+            pass
+        else:
+            # Doesn't own file and lacks all perms
+            raise HttpResponseNotAllowed()
     if request.method == 'POST':
         form = DeleteForm(request.POST, request.FILES)
         if form.is_valid():
@@ -103,6 +118,21 @@ def update_file(request, pk, ext):
     fil = get_object_or_404(Files, pk=pk)
     if not fil.fil.name.endswith(ext):
         raise Http404()
+    # This is stupid verbose but super clear
+    if fil.user == request.user:
+        if request.user.has_perm('files_gui_own_update') or request.user.has_perm('files_gui_all_update'):
+            # Owns file and has one or both required perms
+            pass
+        else:
+            # Owns file but lacks any perms
+            raise HttpResponseNotAllowed()
+    else:
+        if request.user.has_perm('files_gui_all_update'):
+            # Doesn't own file and has all delete perm
+            pass
+        else:
+            # Doesn't own file and lacks all perms
+            raise HttpResponseNotAllowed()
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES, initial={
             'user': request.user,
