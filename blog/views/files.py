@@ -19,8 +19,8 @@ class BasicUploadView(LoginRequiredMixin, View):
 
     def post(self, request):
         form = UploadFileForm(self.request.POST, self.request.FILES)
-        form.instance.title = form.file.name
-        form.instance.fil = form.file
+        form.instance.title = form.cleaned_data.get('file').name
+        form.instance.fil = form.cleaned_data.get('file')
         if form.is_valid():
             form.instance.user = request.user
             file = form.save()
