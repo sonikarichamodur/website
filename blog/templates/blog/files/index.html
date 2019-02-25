@@ -24,8 +24,19 @@
            data-url="{% url 'blog:upload_file' %}"
            data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 
-    <h1>Existing Files</h1>
+    <h2>Uploaded File(s)</h2>
     <table id="gallery" class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Title</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <h1>Existing Files</h1>
+    <table id="list" class="table table-bordered">
         <thead>
         <tr>
             <th>Title</th>
