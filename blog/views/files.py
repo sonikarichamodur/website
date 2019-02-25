@@ -15,8 +15,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class BasicUploadView(LoginRequiredMixin, View):
     def get(self, request):
-        files_list = Files.objects.all()
-        return render(self.request, 'blog/files/index.html', {'files': files_list})
+        files_list = Files.objects
+        if request.user.has_perm('files_gui_all_list'):
+            files_list = files_list.order_by('pub_date').all()
+        elif request.user.has_perm('files_gui_own_list'):
+            files_list = files_list.filter(user=request.user).order_by('pub_date').all()
+        else:
+            files_list = []
+        can_create = request.user.has_perm('files_gui_own_create')
+        return render(self.request, 'blog/files/index.html', {'files': files_list, 'can_create': can_create, })
 
     def post(self, request):
         files = {'fil': self.request.FILES['file']}
