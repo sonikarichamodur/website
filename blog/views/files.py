@@ -19,6 +19,7 @@ class BasicUploadView(LoginRequiredMixin, View):
 
     def post(self, request):
         form = UploadFileForm(self.request.POST, self.request.FILES)
+        form.instance.title = "Bulk"
         if form.is_valid():
             form.instance.user = request.user
             file = form.save()
