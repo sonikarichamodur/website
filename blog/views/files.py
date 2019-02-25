@@ -79,3 +79,33 @@ def download_file(request, pk, ext):
     response = HttpResponse(fil.fil, content_type=fil.get_content_type())
     response['Content-Disposition'] = 'inline; filename=' + fil.fil.name
     return response
+
+
+@login_required
+def delete_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES, initial={
+            'user': request.user,
+        })
+        form.instance.user = request.user
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(form.instance.get_absolute_url())
+    else:
+        form = UploadFileForm()
+    return render(request, 'blog/files/upload.html', {'form': form})
+
+
+@login_required
+def update_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES, initial={
+            'user': request.user,
+        })
+        form.instance.user = request.user
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(form.instance.get_absolute_url())
+    else:
+        form = UploadFileForm()
+    return render(request, 'blog/files/upload.html', {'form': form})

@@ -4,7 +4,7 @@ from blog.views.comment import CommentCreate
 from blog.views.home import home
 from blog.views.post import PostView, PostCreate, PostUpdate, PostDelete
 from blog.views.home import nav
-from blog.views.files import BasicUploadView, download_file
+from blog.views.files import BasicUploadView, download_file, delete_file, update_file
 
 app_name = 'blog'
 urlpatterns = [
@@ -12,8 +12,8 @@ urlpatterns = [
     path('files', BasicUploadView.as_view(), name='upload_file'),
     # ex: /blog/files/something.jpg
     path('files/<str:pk>.<str:ext>', download_file, name='download_file'),
-    path('files/<str:pk>.<str:ext>/update/', download_file, name='update_file'),
-    path('files/<str:pk>.<str:ext>/delete/', download_file, name='delete_file'),
+    path('files/<str:pk>.<str:ext>/update/', update_file, name='update_file'),
+    path('files/<str:pk>.<str:ext>/delete/', delete_file, name='delete_file'),
     # In case people use the old path in a blog entry
     path('blog/files/<str:pk>.<str:ext>', download_file, name='download_file_blog'),
     # ex: /blog/
