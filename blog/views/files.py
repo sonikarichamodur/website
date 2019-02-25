@@ -21,7 +21,7 @@ class BasicUploadView(LoginRequiredMixin, View):
         files = {'fil': self.request.FILES['file']}
 
         post = dict(self.request.POST).copy()
-        post['title'] = 'bulk'
+        post['title'] = 'Bulk %s' % files['fil'].name
 
         form = UploadFileForm(post, files)
         if form.is_valid():
