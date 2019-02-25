@@ -34,9 +34,15 @@
         <tbody>
         {% for fil in files %}
             <tr>
-                <td><a href="{{ photo.get_absolute_url }}">{{ photo.title }}</a></td>
-                <td>{{ photo.get_rel_url }}</td>
-                <td><img src="{{ photo.get_absolute_url }}" width="128"></td>
+                <td><a href="{{ fil.get_absolute_url }}">{{ fil.title }}</a></td>
+                <td>{{ fil.get_rel_url }}</td>
+                <td>
+                    {% if fil.get_ext=='.jpg' or fil.get_ext=='.png' %}
+                        <img src="{{ fil.get_absolute_url }}" width="128">
+                    {% else %}
+                        {{ fil.get_content_type }}
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
