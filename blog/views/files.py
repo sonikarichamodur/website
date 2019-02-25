@@ -24,7 +24,8 @@ class BasicUploadView(LoginRequiredMixin, View):
             files_list = []
 
         files = {}
-        for fil in files_list:
+        # FIXME: Add pagination
+        for fil in files_list[:10]:
             files[fil.pk] = dict(
                 obj=fil,
                 can_update=request.user.has_perm('files_gui_all_update'),

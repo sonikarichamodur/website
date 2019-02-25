@@ -37,6 +37,12 @@ class Files(models.Model):
             self.pk, self.get_ext(),
         )
 
+    def get_update_url(self):
+        return reverse('blog:update_file', kwargs={'pk': self.pk, 'ext': self.get_ext()})
+
+    def get_delete_url(self):
+        return reverse('blog:delete_file', kwargs={'pk': self.pk, 'ext': self.get_ext()})
+
     class Meta:
         permissions = (
             ("files_gui_own_create", "Can upload files via the GUI"),
