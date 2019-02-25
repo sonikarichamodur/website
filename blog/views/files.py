@@ -18,9 +18,12 @@ class BasicUploadView(LoginRequiredMixin, View):
         return render(self.request, 'blog/files/index.html', {'files': files_list})
 
     def post(self, request):
-        form = UploadFileForm(self.request.POST, self.request.FILES)
-        form.instance.fil = self.request.FILES['file']
-        form.instance.title = form.instance.fil.name
+        files = {'fil': self.request.FILES['file']}
+
+        post = dict(self.request.POST).copy()
+        post['title'] = 'bulk'
+
+        form = UploadFileForm(post, files)
         if form.is_valid():
             form.instance.user = request.user
             file = form.save()

@@ -32,9 +32,10 @@
     </tr>
   </thead>
   <tbody>
-    {% for photo in photos %}
+  {% for fil in files %}
       <tr>
         <td><a href="{{ photo.file.url }}">{{ photo.file.name }}</a></td>
+          <td><img src="{{ photo.file.url }}" width="128"></td>
       </tr>
     {% endfor %}
   </tbody>
