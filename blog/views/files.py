@@ -12,6 +12,7 @@ from ..forms import UploadFileForm
 from ..models import Files
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 class BasicUploadView(LoginRequiredMixin, View):
     def get(self, request):
         files_list = Files.objects.all()
@@ -27,10 +28,13 @@ class BasicUploadView(LoginRequiredMixin, View):
         if form.is_valid():
             form.instance.user = request.user
             file = form.save()
-            data = {'is_valid': True, 'name': "/files/%s" % file.pk, 'url': file.get_absolute_url()}
+            data = {'is_valid': True, 'name': "/files/%s.%s" % (
+                file.pk, file.get_ext())
+                , 'url': file.get_absolute_url()}
         else:
             data = {'is_valid': False}
         return JsonResponse(data)
+
 
 @login_required
 def upload_file(request):
@@ -55,4 +59,3 @@ def download_file(request, pk, ext):
     response = HttpResponse(fil.fil, content_type=fil.get_content_type())
     response['Content-Disposition'] = 'inline; filename=' + fil.fil.name
     return response
-

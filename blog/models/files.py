@@ -11,10 +11,12 @@ class Files(models.Model):
     fil = models.FileField()
     pub_date = models.DateTimeField('date published', auto_now_add=True)
 
+    def get_ext(self):
+        return self.fil.name.split('.')[-1]
+
     def get_absolute_url(self):
         # Handle no extension files
-        ext = self.fil.name.split('.')[-1]
-        return reverse('blog:download_file', kwargs={'pk': self.pk, 'ext': ext})
+        return reverse('blog:download_file', kwargs={'pk': self.pk, 'ext': self.get_ext()})
 
     def __str__(self):
         return '"{title}" by {name}'.format(title=self.title,
