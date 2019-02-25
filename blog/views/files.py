@@ -22,8 +22,22 @@ class BasicUploadView(LoginRequiredMixin, View):
             files_list = files_list.filter(user=request.user).order_by('pub_date').all()
         else:
             files_list = []
+
+        files = {}
+        for fil in files_list:
+            files[files_list.pk] = dict(
+                obj=fil,
+                can_update=request.user.has_perm('files_gui_all_update'),
+                can_delete=request.user.has_perm('files_gui_all_delete'),
+            )
+            if fil.user == request.user:
+                files[files_list.pk]['can_update'] = files[files_list.pk]['can_update'] or request.user.has_perm(
+                    'files_gui_own_update')
+                files[files_list.pk]['can_delete'] = files[files_list.pk]['can_delete'] or request.user.has_perm(
+                    'files_gui_own_delete')
+
         can_create = request.user.has_perm('files_gui_own_create')
-        return render(self.request, 'blog/files/index.html', {'files': files_list, 'can_create': can_create, })
+        return render(self.request, 'blog/files/index.html', {'files': files, 'can_create': can_create, })
 
     def post(self, request):
         files = {'fil': self.request.FILES['file']}

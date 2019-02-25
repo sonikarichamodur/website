@@ -34,15 +34,15 @@
         </tr>
         </thead>
         <tbody>
-        {% for fil in files %}
+        {% for fil in files.keys %}
             <tr>
-                <td><a href="{{ fil.get_absolute_url }}">{{ fil.title }}</a></td>
-                <td>{{ fil.get_rel_url }}</td>
+                <td><a href="{{ fil.obj.get_absolute_url }}">{{ fil.obj.title }}</a></td>
+                <td>{{ fil.obj.get_rel_url }}</td>
                 <td>
-                    {% if 'image/' in fil.get_content_type.0 %}
-                        <img src="{{ fil.get_absolute_url }}" width="128">
+                    {% if 'image/' in fil.obj.get_content_type.0 %}
+                        <img src="{{ fil.obj.get_absolute_url }}" width="128">
                     {% else %}
-                        {{ fil.get_content_type }}
+                        {{ fil.obj.get_content_type }}
                     {% endif %}
                 </td>
             </tr>
