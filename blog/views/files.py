@@ -25,15 +25,15 @@ class BasicUploadView(LoginRequiredMixin, View):
 
         files = {}
         for fil in files_list:
-            files[files_list.pk] = dict(
+            files[fil.pk] = dict(
                 obj=fil,
                 can_update=request.user.has_perm('files_gui_all_update'),
                 can_delete=request.user.has_perm('files_gui_all_delete'),
             )
             if fil.user == request.user:
-                files[files_list.pk]['can_update'] = files[files_list.pk]['can_update'] or request.user.has_perm(
+                files[fil.pk]['can_update'] = files[fil.pk]['can_update'] or request.user.has_perm(
                     'files_gui_own_update')
-                files[files_list.pk]['can_delete'] = files[files_list.pk]['can_delete'] or request.user.has_perm(
+                files[fil.pk]['can_delete'] = files[fil.pk]['can_delete'] or request.user.has_perm(
                     'files_gui_own_delete')
 
         can_create = request.user.has_perm('files_gui_own_create')

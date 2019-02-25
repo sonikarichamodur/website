@@ -42,6 +42,7 @@
             <th>Title</th>
             <th>Relative URL</th>
             <th>Image or Content Type</th>
+            <td>Actions</td>
         </tr>
         </thead>
         <tbody>
@@ -54,6 +55,18 @@
                         <img src="{{ fil.obj.get_absolute_url }}" width="128">
                     {% else %}
                         {{ fil.obj.get_content_type }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if fil.can_update %}
+                        <a href="">[Modify]</a>
+                    {% else %}
+                        <strike>[Modify]</strike>
+                    {% endif %}
+                    {% if fil.can_update %}
+                        <a href="">[Delete]</a>
+                    {% else %}
+                        <strike>[Delete]</strike>
                     {% endif %}
                 </td>
             </tr>
