@@ -39,7 +39,7 @@
                 <td><a href="{{ fil.get_absolute_url }}">{{ fil.title }}</a></td>
                 <td>{{ fil.get_rel_url }}</td>
                 <td>
-                    {% if fil.get_ext=='.jpg' or fil.get_ext=='.png' %}
+                    {% if fil.get_ext == '.jpg' or fil.get_ext == '.png' %}
                         <img src="{{ fil.get_absolute_url }}" width="128">
                     {% else %}
                         {{ fil.get_content_type }}

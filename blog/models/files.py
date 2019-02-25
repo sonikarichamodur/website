@@ -36,3 +36,10 @@ class Files(models.Model):
         return "/files/%s.%s" % (
             self.pk, self.get_ext(),
         )
+
+    class Meta:
+        permissions = (
+            ("gui_own_create", "Can upload files via the GUI"),
+            ("gui_own_delete", "Can delete their own files via the GUI"),
+            ("gui_own_update", "Can update their own files via the GUI"),
+        )
