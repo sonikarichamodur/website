@@ -13,7 +13,7 @@
 {% endblock post %}
 
 {% block content %}
-    {# 1. BUTTON TO TRIGGER THE ACTION #}
+    <h1>Upload File(s)</h1>
     <button type="button" class="btn btn-primary js-upload-photos">
         <span class="glyphicon glyphicon-cloud-upload"></span> Upload photos
     </button>
@@ -24,7 +24,7 @@
            data-url="{% url 'blog:upload_file' %}"
            data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 
-    {# 3. TABLE TO DISPLAY THE UPLOADED PHOTOS #}
+    <h1>Existing Files</h1>
     <table id="gallery" class="table table-bordered">
         <thead>
         <tr>
