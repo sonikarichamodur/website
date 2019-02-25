@@ -8,36 +8,37 @@
     <script src="/static/js/jquery.iframe-transport.js"></script>
     <script src="/static/js/jquery.fileupload.js"></script>
 
-    
+
     <script src="/static/files/js/basic-upload.js"></script>
 {% endblock post %}
 
 {% block content %}
-{# 1. BUTTON TO TRIGGER THE ACTION #}
-<button type="button" class="btn btn-primary js-upload-photos">
-  <span class="glyphicon glyphicon-cloud-upload"></span> Upload photos
-</button>
+    {# 1. BUTTON TO TRIGGER THE ACTION #}
+    <button type="button" class="btn btn-primary js-upload-photos">
+        <span class="glyphicon glyphicon-cloud-upload"></span> Upload photos
+    </button>
 
-{# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
-<input id="fileupload" type="file" name="file" multiple
-       style="display: none;"
-       data-url="{% url 'blog:upload_file' %}"
-       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+    {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+    <input id="fileupload" type="file" name="file" multiple
+           style="display: none;"
+           data-url="{% url 'blog:upload_file' %}"
+           data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
 
-{# 3. TABLE TO DISPLAY THE UPLOADED PHOTOS #}
-<table id="gallery" class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Photo</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for fil in files %}
-      <tr>
-        <td><a href="{{ photo.file.url }}">{{ photo.file.name }}</a></td>
-          <td><img src="{{ photo.file.url }}" width="128"></td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    {# 3. TABLE TO DISPLAY THE UPLOADED PHOTOS #}
+    <table id="gallery" class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Photo</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fil in files %}
+            <tr>
+                <td><a href="{{ photo.get_absolute_url }}">{{ photo.title }}</a></td>
+                <td>{{ photo.get_rel_url }}</td>
+                <td><img src="{{ photo.get_absolute_url }}" width="128"></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock content %}

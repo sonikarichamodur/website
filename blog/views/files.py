@@ -28,8 +28,7 @@ class BasicUploadView(LoginRequiredMixin, View):
         if form.is_valid():
             form.instance.user = request.user
             file = form.save()
-            data = {'is_valid': True, 'name': "/files/%s.%s" % (
-                file.pk, file.get_ext())
+            data = {'is_valid': True, 'name': )
                 , 'url': file.get_absolute_url()}
         else:
             data = {'is_valid': False}

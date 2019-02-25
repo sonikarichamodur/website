@@ -31,3 +31,8 @@ class Files(models.Model):
     class Meta:
         verbose_name = "File"
         verbose_name_plural = "Files"
+
+    def get_rel_url(self):
+        return "/files/%s.%s" % (
+            self.pk, self.get_ext(),
+        )
