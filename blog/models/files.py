@@ -42,4 +42,8 @@ class Files(models.Model):
             ("gui_own_create", "Can upload files via the GUI"),
             ("gui_own_delete", "Can delete their own files via the GUI"),
             ("gui_own_update", "Can update their own files via the GUI"),
+            ("gui_own_list", "Can view their own list of files via the GUI"),
+            ("gui_all_delete", "Can delete all user's files via the GUI"),
+            ("gui_all_update", "Can update all user's files via the GUI"),
+            ("gui_all_list", "Can view all user's list of files via the GUI"),
         )
