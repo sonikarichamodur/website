@@ -8,9 +8,10 @@ from django.views import View
 from ..forms import UploadFileForm
 from django.views.decorators.cache import cache_page
 from django.urls import reverse
-from ..forms import UploadFileForm
+from ..forms import UploadFileForm, DeleteForm
 from ..models import Files
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 
 
 class BasicUploadView(LoginRequiredMixin, View):
@@ -82,30 +83,38 @@ def download_file(request, pk, ext):
 
 
 @login_required
-def delete_file(request):
+def delete_file(request, pk, ext):
+    fil = get_object_or_404(Files, pk=pk)
+    if not fil.fil.name.endswith(ext):
+        raise Http404()
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES, initial={
-            'user': request.user,
-        })
-        form.instance.user = request.user
+        form = DeleteForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(form.instance.get_absolute_url())
+            if form.instance.ok:
+                fil.delete()
+                return HttpResponseRedirect(reverse('blog:upload_file'))
     else:
-        form = UploadFileForm()
-    return render(request, 'blog/files/upload.html', {'form': form})
+        form = DeleteForm()
+    return render(request, 'blog/files/delete.html', {'form': form})
 
 
 @login_required
-def update_file(request):
+def update_file(request, pk, ext):
+    fil = get_object_or_404(Files, pk=pk)
+    if not fil.fil.name.endswith(ext):
+        raise Http404()
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES, initial={
             'user': request.user,
         })
         form.instance.user = request.user
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(form.instance.get_absolute_url())
+            fil.title = form.instance.title
+            fil.fil = form.instance.fil
+            fil.user = form.instance.user
+            fil.pub_date = timezone.now()
+            fil.save()
+            return HttpResponseRedirect(fil.get_absolute_url())
     else:
         form = UploadFileForm()
-    return render(request, 'blog/files/upload.html', {'form': form})
+    return render(request, 'blog/files/update.html', {'form': form})

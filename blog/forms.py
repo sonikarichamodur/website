@@ -6,3 +6,7 @@ class UploadFileForm(forms.ModelForm):
     class Meta:
         model = Files
         fields = ['title', 'fil']
+
+
+class DeleteForm(forms.Form):
+    ok = forms.BooleanField(label='Ok?')
