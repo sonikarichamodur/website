@@ -53,3 +53,5 @@ class Files(models.Model):
             ("files_gui_all_update", "Can update all user's files via the GUI"),
             ("files_gui_all_list", "Can view all user's list of files via the GUI"),
         )
+        verbose_name = "file"
+        verbose_name_plural = "files"
