@@ -4,6 +4,19 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form }}
+        <br>
         <input type="submit" value="Submit">
     </form>
+    <hr>
+    <div>
+        <h3>File To Delete</h3>
+        <div>
+            {% if 'image/' in file.obj.get_content_type.0 %}
+                <img src="{{ file.obj.get_absolute_url }}" width="128">
+            {% else %}
+                <a href="{{ file.obj.get_absolute_url }}" download>Download</a>
+            {% endif %}
+        </div>
+    </div>
+
 {% endblock content %}

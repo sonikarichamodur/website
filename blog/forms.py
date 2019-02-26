@@ -9,4 +9,4 @@ class UploadFileForm(forms.ModelForm):
 
 
 class DeleteForm(forms.Form):
-    ok = forms.BooleanField(label='Ok?')
+    ok = forms.BooleanField(label='Are You Sure?')

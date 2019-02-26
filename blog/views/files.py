@@ -109,7 +109,7 @@ def delete_file(request, pk, ext):
             return HttpResponseRedirect(reverse('blog:upload_file'))
     else:
         form = DeleteForm()
-    return render(request, 'blog/files/delete.html', {'form': form})
+    return render(request, 'blog/files/delete.html', {'form': form, 'file': fil})
 
 
 @login_required
