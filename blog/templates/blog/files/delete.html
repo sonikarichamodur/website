@@ -11,10 +11,10 @@
     <div>
         <h3>File To Delete</h3>
         <div>
-            {% if 'image/' in file.obj.get_content_type.0 %}
-                <img src="{{ file.obj.get_absolute_url }}" width="128">
+            {% if 'image/' in fil.get_content_type.0 %}
+                <img src="{{ fil.get_absolute_url }}" width="128">
             {% else %}
-                <a href="{{ file.obj.get_absolute_url }}" download>Download</a>
+                <a href="{{ fil.get_absolute_url }}" download>Download</a>
             {% endif %}
         </div>
     </div>
