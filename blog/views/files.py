@@ -105,9 +105,8 @@ def delete_file(request, pk, ext):
     if request.method == 'POST':
         form = DeleteForm(request.POST, request.FILES)
         if form.is_valid():
-            if form.instance.ok:
-                fil.delete()
-                return HttpResponseRedirect(reverse('blog:upload_file'))
+            fil.delete()
+            return HttpResponseRedirect(reverse('blog:upload_file'))
     else:
         form = DeleteForm()
     return render(request, 'blog/files/delete.html', {'form': form})
