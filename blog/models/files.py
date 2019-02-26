@@ -28,10 +28,6 @@ class Files(models.Model):
     def get_content_type(self):
         return mimetypes.guess_type(self.fil.name) or 'application/octet-stream'
 
-    class Meta:
-        verbose_name = "File"
-        verbose_name_plural = "Files"
-
     def get_rel_url(self):
         return "/files/%s.%s" % (
             self.pk, self.get_ext(),
@@ -53,5 +49,5 @@ class Files(models.Model):
             ("files_gui_all_update", "Can update all user's files via the GUI"),
             ("files_gui_all_list", "Can view all user's list of files via the GUI"),
         )
-        verbose_name = "file"
-        verbose_name_plural = "files"
+        verbose_name = "File"
+        verbose_name_plural = "Files"
