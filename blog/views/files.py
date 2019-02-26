@@ -18,9 +18,9 @@ class BasicUploadView(LoginRequiredMixin, View):
     def get(self, request):
         files_list = Files.objects
         if request.user.has_perm('files_gui_all_list'):
-            files_list = files_list.order_by('pub_date').all()
+            files_list = files_list.order_by('-pub_date').all()
         elif request.user.has_perm('files_gui_own_list'):
-            files_list = files_list.filter(user=request.user).order_by('pub_date').all()
+            files_list = files_list.filter(user=request.user).order_by('-pub_date').all()
         else:
             files_list = []
 
