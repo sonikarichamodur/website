@@ -133,7 +133,9 @@ def update_file(request, pk, ext):
             # Doesn't own file and lacks all perms
             raise HttpResponseNotAllowed()
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
+        form = UploadFileForm(request.POST, request.FILES, initial={
+            'user': request.user,
+        })
         form.instance.user = request.user
         if form.is_valid():
             fil.title = form.instance.title
@@ -143,5 +145,7 @@ def update_file(request, pk, ext):
             fil.save()
             return HttpResponseRedirect(fil.get_absolute_url())
     else:
-        form = UploadFileForm()
+        form = UploadFileForm(initial={
+            'title': fil.title,
+        })
     return render(request, 'blog/files/update.html', {'form': form})
