@@ -16,3 +16,8 @@ class Comment(models.Model):
             post_title=self.post.title,
             name=Details.name(self.user),
         )
+
+    class Meta:
+        permissions = (
+            ("comment_gui_can_comment", "Can create new comments via the GUI"),
+        )
