@@ -29,12 +29,12 @@ class BasicUploadView(LoginRequiredMixin, View):
         for fil in files_list[:10]:
             files[fil.pk] = dict(
                 obj=fil,
-                can_update=request.user.has_perm('files_gui_all_update'),
+                # can_update=request.user.has_perm('files_gui_all_update'),
                 can_delete=request.user.has_perm('files_gui_all_delete'),
             )
             if fil.user == request.user:
-                files[fil.pk]['can_update'] = files[fil.pk]['can_update'] or request.user.has_perm(
-                    'files_gui_own_update')
+                # files[fil.pk]['can_update'] = files[fil.pk]['can_update'] or request.user.has_perm(
+                #     'files_gui_own_update')
                 files[fil.pk]['can_delete'] = files[fil.pk]['can_delete'] or request.user.has_perm(
                     'files_gui_own_delete')
 
@@ -69,10 +69,10 @@ def upload_file(request):
             return HttpResponseRedirect(form.instance.get_absolute_url())
     else:
         form = UploadFileForm()
-    return render(request, 'blog/file`/upload.html', {'form': form})
+    return render(request, 'blog/files/upload.html', {'form': form})
 
 
-@cache_page(60)
+@cache_page(60 * 60 * 1)
 def download_file(request, pk, ext):
     fil = get_object_or_404(Files, pk=pk)
     if not fil.fil.name.endswith(ext):
@@ -111,42 +111,41 @@ def delete_file(request, pk, ext):
         form = DeleteForm()
     return render(request, 'blog/files/delete.html', {'form': form, 'fil': fil})
 
-
-@login_required
-def update_file(request, pk, ext):
-    fil = get_object_or_404(Files, pk=pk)
-    if not fil.fil.name.endswith(ext):
-        raise Http404()
-
-    # This is stupid verbose but super clear
-    if fil.user == request.user:
-        if request.user.has_perm('files_gui_own_update') or request.user.has_perm('files_gui_all_update'):
-            # Owns file and has one or both required perms
-            pass
-        else:
-            # Owns file but lacks any perms
-            raise HttpResponseNotAllowed()
-    else:
-        if request.user.has_perm('files_gui_all_update'):
-            # Doesn't own file and has all delete perm
-            pass
-        else:
-            # Doesn't own file and lacks all perms
-            raise HttpResponseNotAllowed()
-
-    if request.method == 'POST':
-        form = UpdateFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            fil.title = form.cleaned_data['title']
-            if form.cleaned_data.get('fil', None):
-                fil.fil = form.cleaned_data.get('fil')
-            # Don't overwrite the file owner
-            # fil.user = request.user
-            fil.pub_date = timezone.now()
-            fil.save()
-            return HttpResponseRedirect(fil.get_absolute_url())
-    else:
-        form = UpdateFileForm(initial={
-            'title': fil.title,
-        })
-    return render(request, 'blog/files/update.html', {'form': form})
+# @login_required
+# def update_file(request, pk, ext):
+#     fil = get_object_or_404(Files, pk=pk)
+#     if not fil.fil.name.endswith(ext):
+#         raise Http404()
+#
+#     # This is stupid verbose but super clear
+#     if fil.user == request.user:
+#         if request.user.has_perm('files_gui_own_update') or request.user.has_perm('files_gui_all_update'):
+#             # Owns file and has one or both required perms
+#             pass
+#         else:
+#             # Owns file but lacks any perms
+#             raise HttpResponseNotAllowed()
+#     else:
+#         if request.user.has_perm('files_gui_all_update'):
+#             # Doesn't own file and has all delete perm
+#             pass
+#         else:
+#             # Doesn't own file and lacks all perms
+#             raise HttpResponseNotAllowed()
+#
+#     if request.method == 'POST':
+#         form = UpdateFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             fil.title = form.cleaned_data['title']
+#             if form.cleaned_data.get('fil', None):
+#                 fil.fil = form.cleaned_data.get('fil')
+#             # Don't overwrite the file owner
+#             # fil.user = request.user
+#             fil.pub_date = timezone.now()
+#             fil.save()
+#             return HttpResponseRedirect(fil.get_absolute_url())
+#     else:
+#         form = UpdateFileForm(initial={
+#             'title': fil.title,
+#         })
+#     return render(request, 'blog/files/update.html', {'form': form})

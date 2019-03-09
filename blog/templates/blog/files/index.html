@@ -61,11 +61,11 @@
                     {% endif %}
                 </td>
                 <td>
-                    {% if fil.can_update %}
-                        <a href="{{ fil.obj.get_update_url }}">[Modify]</a>
-                    {% else %}
-                        <strike>[Modify]</strike>
-                    {% endif %}
+                    {#                    {% if fil.can_update %}#}
+                    {#                        <a href="{{ fil.obj.get_update_url }}">[Modify]</a>#}
+                    {#                    {% else %}#}
+                    {#                        <strike>[Modify]</strike>#}
+                    {#                    {% endif %}#}
                     {% if fil.can_update %}
                         <a href="{{ fil.obj.get_delete_url }}">[Delete]</a>
                     {% else %}

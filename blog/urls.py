@@ -12,7 +12,7 @@ urlpatterns = [
     path('files', BasicUploadView.as_view(), name='upload_file'),
     # ex: /blog/files/something.jpg
     path('files/<str:pk>.<str:ext>', download_file, name='download_file'),
-    path('files/<str:pk>.<str:ext>/update/', update_file, name='update_file'),
+    # path('files/<str:pk>.<str:ext>/update/', update_file, name='update_file'),
     path('files/<str:pk>.<str:ext>/delete/', delete_file, name='delete_file'),
     # In case people use the old path in a blog entry
     path('blog/files/<str:pk>.<str:ext>', download_file, name='download_file_blog'),
