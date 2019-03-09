@@ -21,7 +21,6 @@ class CommentCreate(LoginRequiredMixin, CreateView):
         return reverse('blog:post', kwargs={'pk': self.kwargs['pk']})
 
     def has_permissions(self):
-        # Assumes that your Article model has a foreign key called `auteur`.
         return self.request.user.has_perm('comment_gui_can_comment')
 
     def dispatch(self, request, *args, **kwargs):
