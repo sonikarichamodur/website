@@ -12,6 +12,7 @@ from ..forms import UploadFileForm, DeleteForm
 from ..models import Files
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
+from django.core.paginator import Paginator
 
 
 class BasicUploadView(LoginRequiredMixin, View):
@@ -24,18 +25,16 @@ class BasicUploadView(LoginRequiredMixin, View):
         else:
             files_list = []
 
-        files = {}
-        # FIXME: Add pagination
-        for fil in files_list[:10]:
-            files[fil.pk] = dict(
-                obj=fil,
-                # can_update=request.user.has_perm('files_gui_all_update'),
-                can_delete=request.user.has_perm('files_gui_all_delete'),
-            )
+        paginator = Paginator(files_list, 10)
+        page = request.GET.get('page', 1)
+        files = paginator.get_page(page)
+
+        for fil in files:
+            fil.can_delete = request.user.has_perm('files_gui_all_delete')
             if fil.user == request.user:
                 # files[fil.pk]['can_update'] = files[fil.pk]['can_update'] or request.user.has_perm(
                 #     'files_gui_own_update')
-                files[fil.pk]['can_delete'] = files[fil.pk]['can_delete'] or request.user.has_perm(
+                fil.can_delete = files[fil.pk]['can_delete'] or request.user.has_perm(
                     'files_gui_own_delete')
 
         can_create = request.user.has_perm('files_gui_own_create')
