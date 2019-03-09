@@ -69,7 +69,7 @@ def upload_file(request):
             return HttpResponseRedirect(form.instance.get_absolute_url())
     else:
         form = UploadFileForm()
-    return render(request, 'blog/files/upload.html', {'form': form})
+    return render(request, 'blog/file`/upload.html', {'form': form})
 
 
 @cache_page(60)
