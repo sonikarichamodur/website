@@ -137,9 +137,9 @@ def update_file(request, pk, ext):
     if request.method == 'POST':
         form = UpdateFileForm(request.POST, request.FILES)
         if form.is_valid():
-            fil.title = form.instance.title
-            if form.instance.fil:
-                fil.fil = form.instance.fil
+            fil.title = form.cleaned_data['title']
+            if form.cleaned_data.get('fil', None):
+                fil.fil = form.cleaned_data.get('fil')
             # Don't overwrite the file owner
             # fil.user = request.user
             fil.pub_date = timezone.now()
