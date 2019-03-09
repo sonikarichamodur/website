@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
-
+from django.shortcuts import Http404
 from blog.models.comment import Comment
 from blog.models.post import Post
 
@@ -19,3 +19,6 @@ class CommentCreate(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('blog:post', kwargs={'pk': self.kwargs['pk']})
+
+    def test_func(self):
+        return self.request.user.has_perm('comment_gui_can_comment')

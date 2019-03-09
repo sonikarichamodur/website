@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import CreateView, UpdateView, DeleteView
-
+from django.shortcuts import Http404
 from blog.models.comment import Comment
 from blog.models.post import Post
 
@@ -30,6 +30,9 @@ class PostCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+    def test_func(self):
+        return self.request.user.has_perm('post_gui_can_post')
+
 
 class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
@@ -38,7 +41,8 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     login_url = reverse_lazy('login')
 
     def test_func(self):
-        return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
+        return Post.objects.get(id=self.kwargs['pk']).user == self.request.user and self.request.user.has_perm(
+            'post_gui_can_update')
 
 
 class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -47,4 +51,5 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     login_url = reverse_lazy('login')
 
     def test_func(self):
-        return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
+        return Post.objects.get(id=self.kwargs['pk']).user == self.request.user and self.request.user.has_perm(
+            'post_gui_can_delete')
