@@ -34,8 +34,7 @@ class BasicUploadView(LoginRequiredMixin, View):
             if fil.user == request.user:
                 # files[fil.pk]['can_update'] = files[fil.pk]['can_update'] or request.user.has_perm(
                 #     'files_gui_own_update')
-                fil.can_delete = files[fil.pk]['can_delete'] or request.user.has_perm(
-                    'files_gui_own_delete')
+                fil.can_delete = fil.can_delete or request.user.has_perm('files_gui_own_delete')
 
         can_create = request.user.has_perm('files_gui_own_create')
         return render(self.request, 'blog/files/index.html', {'files': files, 'can_create': can_create, })
