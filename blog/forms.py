@@ -10,3 +10,8 @@ class UploadFileForm(forms.ModelForm):
 
 class DeleteForm(forms.Form):
     ok = forms.BooleanField(label='Are You Sure?')
+
+
+class UpdateFileForm(forms.Form):
+    title = forms.CharField(label='Title', max_length=80)
+    fil = forms.FileField(required=False)

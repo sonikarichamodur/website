@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import View
-from ..forms import UploadFileForm
+from ..forms import UpdateFileForm
 from django.views.decorators.cache import cache_page
 from django.urls import reverse
 from ..forms import UploadFileForm, DeleteForm
@@ -133,19 +133,18 @@ def update_file(request, pk, ext):
             # Doesn't own file and lacks all perms
             raise HttpResponseNotAllowed()
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES, initial={
-            'user': request.user,
-        })
-        form.instance.user = request.user
+        form = UpdateFileForm(request.POST, request.FILES)
         if form.is_valid():
             fil.title = form.instance.title
-            fil.fil = form.instance.fil
-            fil.user = form.instance.user
+            if form.instance.fil:
+                fil.fil = form.instance.fil
+            # Don't overwrite the file owner
+            # fil.user = request.user
             fil.pub_date = timezone.now()
             fil.save()
             return HttpResponseRedirect(fil.get_absolute_url())
     else:
-        form = UploadFileForm(initial={
+        form = UpdateFileForm(initial={
             'title': fil.title,
         })
     return render(request, 'blog/files/update.html', {'form': form})
