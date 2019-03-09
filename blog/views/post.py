@@ -48,8 +48,17 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     login_url = reverse_lazy('login')
 
     def test_func(self):
-        return Post.objects.get(id=self.kwargs['pk']).user == self.request.user and self.request.user.has_perm(
-            'post_gui_can_update')
+        return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
+
+    def has_permissions(self):
+        # Assumes that your Article model has a foreign key called `auteur`.
+        return self.request.user.has_perm('post_gui_can_update')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permissions():
+            raise Http404('You do not have permission.')
+        return super(PostUpdate, self).dispatch(
+            request, *args, **kwargs)
 
 
 class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -58,5 +67,14 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     login_url = reverse_lazy('login')
 
     def test_func(self):
-        return Post.objects.get(id=self.kwargs['pk']).user == self.request.user and self.request.user.has_perm(
-            'post_gui_can_delete')
+        return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
+
+    def has_permissions(self):
+        # Assumes that your Article model has a foreign key called `auteur`.
+        return self.request.user.has_perm('post_gui_can_delete')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permissions():
+            raise Http404('You do not have permission.')
+        return super(PostDelete, self).dispatch(
+            request, *args, **kwargs)
