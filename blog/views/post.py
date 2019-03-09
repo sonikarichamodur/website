@@ -30,8 +30,15 @@ class PostCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-    def test_func(self):
+    def has_permissions(self):
+        # Assumes that your Article model has a foreign key called `auteur`.
         return self.request.user.has_perm('post_gui_can_post')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permissions():
+            raise Http404('You do not have permission.')
+        return super(PostCreate, self).dispatch(
+            request, *args, **kwargs)
 
 
 class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

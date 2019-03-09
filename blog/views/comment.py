@@ -20,5 +20,12 @@ class CommentCreate(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('blog:post', kwargs={'pk': self.kwargs['pk']})
 
-    def test_func(self):
+    def has_permissions(self):
+        # Assumes that your Article model has a foreign key called `auteur`.
         return self.request.user.has_perm('comment_gui_can_comment')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.has_permissions():
+            raise Http404('You do not have permission.')
+        return super(CommentCreate, self).dispatch(
+            request, *args, **kwargs)
