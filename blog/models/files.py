@@ -6,10 +6,10 @@ from blog.models.users import Details
 
 
 class Files(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=80)
-    fil = models.FileField()
-    pub_date = models.DateTimeField('date published', auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Owner")
+    title = models.CharField(max_length=80, verbose_name="Title")
+    fil = models.FileField(verbose_name="File")
+    pub_date = models.DateTimeField(verbose_name='date published', auto_now_add=True)
 
     def get_ext(self):
         return self.fil.name.split('.')[-1]
