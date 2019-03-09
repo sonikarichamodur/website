@@ -117,6 +117,7 @@ def update_file(request, pk, ext):
     fil = get_object_or_404(Files, pk=pk)
     if not fil.fil.name.endswith(ext):
         raise Http404()
+
     # This is stupid verbose but super clear
     if fil.user == request.user:
         if request.user.has_perm('files_gui_own_update') or request.user.has_perm('files_gui_all_update'):
@@ -132,6 +133,7 @@ def update_file(request, pk, ext):
         else:
             # Doesn't own file and lacks all perms
             raise HttpResponseNotAllowed()
+
     if request.method == 'POST':
         form = UpdateFileForm(request.POST, request.FILES)
         if form.is_valid():
