@@ -4,7 +4,7 @@ from blog.views.comment import CommentCreate
 from blog.views.home import home
 from blog.views.post import PostView, PostCreate, PostUpdate, PostDelete
 from blog.views.home import nav
-from blog.views.files import BasicUploadView, download_file, delete_file, update_file
+from blog.views.files import BasicUploadView, download_file, delete_file
 
 app_name = 'blog'
 urlpatterns = [
