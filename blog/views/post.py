@@ -31,7 +31,6 @@ class PostCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def has_permissions(self):
-        # Assumes that your Article model has a foreign key called `auteur`.
         return self.request.user.has_perm('post_gui_can_post')
 
     def dispatch(self, request, *args, **kwargs):
@@ -51,7 +50,6 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
 
     def has_permissions(self):
-        # Assumes that your Article model has a foreign key called `auteur`.
         return self.request.user.has_perm('post_gui_can_update')
 
     def dispatch(self, request, *args, **kwargs):
@@ -70,7 +68,6 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
 
     def has_permissions(self):
-        # Assumes that your Article model has a foreign key called `auteur`.
         return self.request.user.has_perm('post_gui_can_delete')
 
     def dispatch(self, request, *args, **kwargs):
