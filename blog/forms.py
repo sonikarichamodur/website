@@ -14,4 +14,4 @@ class DeleteForm(forms.Form):
 
 class UpdateFileForm(forms.Form):
     title = forms.CharField(label='Title', max_length=80)
-    fil = forms.FileField(required=False)
+    fil = forms.FileField(label="File", required=False)
