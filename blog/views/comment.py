@@ -12,7 +12,7 @@ class CommentCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     fields = ['body']
     template_name = 'blog/create_comment.html'
     login_url = reverse_lazy('login')
-    permission_required = "comment.comment_gui_can_comment"
+    permission_required = "blog.comment_gui_can_comment"
 
     def form_valid(self, form):
         form.instance.user = self.request.user

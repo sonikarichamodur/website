@@ -26,7 +26,7 @@ class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     fields = ['title', 'body']
     template_name = 'blog/create_post.html'
     login_url = reverse_lazy('login')
-    permission_required = "post.post_gui_can_post"
+    permission_required = "blog.post_gui_can_post"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -38,7 +38,7 @@ class PostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixi
     fields = ['title', 'body']
     template_name = 'blog/create_post.html'
     login_url = reverse_lazy('login')
-    permission_required = "post.post_gui_can_update"
+    permission_required = "blog.post_gui_can_update"
 
     def test_func(self):
         return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
@@ -48,7 +48,7 @@ class PostDelete(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixi
     model = Post
     success_url = reverse_lazy('blog:home')
     login_url = reverse_lazy('login')
-    permission_required = "post.post_gui_can_delete"
+    permission_required = "blog.post_gui_can_delete"
 
     def test_func(self):
         return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
