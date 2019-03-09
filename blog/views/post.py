@@ -5,6 +5,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.shortcuts import Http404
 from blog.models.comment import Comment
 from blog.models.post import Post
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class PostView(generic.DetailView):
@@ -20,58 +21,34 @@ class PostView(generic.DetailView):
         return context
 
 
-class PostCreate(LoginRequiredMixin, CreateView):
+class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'body']
     template_name = 'blog/create_post.html'
     login_url = reverse_lazy('login')
+    permission_required = "post.post_gui_can_post"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-    def has_permissions(self):
-        return self.request.user.has_perm('post_gui_can_post')
 
-    def dispatch(self, request, *args, **kwargs):
-        if not self.has_permissions():
-            raise Http404('You do not have permission.')
-        return super(PostCreate, self).dispatch(
-            request, *args, **kwargs)
-
-
-class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'body']
     template_name = 'blog/create_post.html'
     login_url = reverse_lazy('login')
+    permission_required = "post.post_gui_can_update"
 
     def test_func(self):
         return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
 
-    def has_permissions(self):
-        return self.request.user.has_perm('post_gui_can_update')
 
-    def dispatch(self, request, *args, **kwargs):
-        if not self.has_permissions():
-            raise Http404('You do not have permission.')
-        return super(PostUpdate, self).dispatch(
-            request, *args, **kwargs)
-
-
-class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class PostDelete(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = reverse_lazy('blog:home')
     login_url = reverse_lazy('login')
+    permission_required = "post.post_gui_can_delete"
 
     def test_func(self):
         return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
-
-    def has_permissions(self):
-        return self.request.user.has_perm('post_gui_can_delete')
-
-    def dispatch(self, request, *args, **kwargs):
-        if not self.has_permissions():
-            raise Http404('You do not have permission.')
-        return super(PostDelete, self).dispatch(
-            request, *args, **kwargs)

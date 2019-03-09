@@ -4,13 +4,15 @@ from django.views.generic import CreateView
 from django.shortcuts import Http404
 from blog.models.comment import Comment
 from blog.models.post import Post
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
-class CommentCreate(LoginRequiredMixin, CreateView):
+class CommentCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Comment
     fields = ['body']
     template_name = 'blog/create_comment.html'
     login_url = reverse_lazy('login')
+    permission_required = "comment.comment_gui_can_comment"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -19,12 +21,3 @@ class CommentCreate(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('blog:post', kwargs={'pk': self.kwargs['pk']})
-
-    def has_permissions(self):
-        return self.request.user.has_perm('comment_gui_can_comment')
-
-    def dispatch(self, request, *args, **kwargs):
-        if not self.has_permissions():
-            raise Http404('You do not have permission.')
-        return super(CommentCreate, self).dispatch(
-            request, *args, **kwargs)
