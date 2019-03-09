@@ -72,7 +72,7 @@ def upload_file(request):
     return render(request, 'blog/files/upload.html', {'form': form})
 
 
-@cache_page(60 * 60 * 1)
+@cache_page(60)
 def download_file(request, pk, ext):
     fil = get_object_or_404(Files, pk=pk)
     if not fil.fil.name.endswith(ext):
