@@ -12,7 +12,9 @@ class Year(models.Model):
 
 
 class District(models.Model):
-    """ An FRC District for a given year """
+    """ An FRC District for a given year
+    https://github.com/TBA-API/tba-api-client-python/blob/master/docs/DistrictList.md
+    """
     # Internal TBA identifier for this robot.
     key = models.CharField(primary_key=True, max_length=16)
     year = models.ForeignKey(Year, on_delete=models.CASCADE)
@@ -21,6 +23,9 @@ class District(models.Model):
 
 
 class Team(models.Model):
+    """
+    https://github.com/TBA-API/tba-api-client-python/blob/master/docs/Team.md
+    """
     # TBA team key with the format `frcXXXX` with `XXXX` representing the team number.
     key = models.CharField(primary_key=True, max_length=16)
     team_number = models.IntegerField(null=False)
@@ -43,6 +48,9 @@ class Team(models.Model):
 
 
 class TeamRobot(models.Model):
+    """
+    https://github.com/TBA-API/tba-api-client-python/blob/master/docs/TeamRobot.md
+    """
     # Internal TBA identifier for this robot.
     key = models.CharField(primary_key=True, max_length=512)
 
@@ -53,6 +61,9 @@ class TeamRobot(models.Model):
 
 
 class Event(models.Model):
+    """ An FRC Event
+    https://github.com/TBA-API/tba-api-client-python/blob/master/docs/Event.md
+    """
     key = models.CharField(primary_key=True, max_length=512)
     name = models.CharField(max_length=1024)
     event_code = models.CharField(max_length=255)
@@ -86,6 +97,9 @@ class Event(models.Model):
 
 
 class Award(models.Model):
+    """
+    https://github.com/TBA-API/tba-api-client-python/blob/master/docs/Award.md
+    """
     name = models.CharField(max_length=1024)
     award_type = models.CharField(max_length=1024)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
@@ -93,12 +107,18 @@ class Award(models.Model):
 
 
 class AwardRecipient(models.Model):
+    """
+    https://github.com/TBA-API/tba-api-client-python/blob/master/docs/AwardRecipient.md
+    """
     award = models.ForeignKey(Award, on_delete=models.CASCADE, related_name='recipient_list')
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     awardee = models.CharField(max_length=1024)
 
 
 class DistrictRanking(models.Model):
+    """
+    https://github.com/TBA-API/tba-api-client-python/blob/master/docs/DistrictRanking.md
+    """
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     rank = models.IntegerField()
     rookie_bonus = models.IntegerField()
@@ -107,6 +127,9 @@ class DistrictRanking(models.Model):
 
 
 class DistrictRankingEventPoints(models.Model):
+    """
+    https://github.com/TBA-API/tba-api-client-python/blob/master/docs/DistrictRankingEventPoints.md
+    """
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     district_ranking = models.ForeignKey(DistrictRanking, on_delete=models.CASCADE)
     district_cmp = models.BooleanField()
