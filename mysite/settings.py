@@ -30,6 +30,9 @@ HEROKU_RELEASE_VERSION = os.environ.get("HEROKU_RELEASE_VERSION", "")
 HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", "")
 HEROKU_SLUG_COMMIT = os.environ.get("HEROKU_SLUG_COMMIT", "")
 
+# Cache version - Use HEROKU_RELEASE_VERSION (eg v123)
+VERSION = int(HEROKU_RELEASE_VERSION.replace('v', ''))
+
 ALLOWED_HOSTS = []
 
 # Application definition
