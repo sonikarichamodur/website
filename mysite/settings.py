@@ -203,5 +203,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ENABLE_UTC = True
 
+TBA_AUTH_KEY = os.environ.get('TBA_AUTH_KEY', None)
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())
