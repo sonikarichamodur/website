@@ -195,5 +195,10 @@ if BASE_REDIS_URL != BASE_REDIS_URL_DEFAULT:
         },
     }
 
+CELERY_BROKER_URL = REDIS_CELERY_TASKS_URL
+CELERY_ACCEPT_CONTENT = ['json', ]
+CELERY_RESULT_BACKEND = REDIS_CELERY_TOMBS_URL
+CELERY_ACKS_LATE = True
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())
