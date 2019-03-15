@@ -9,7 +9,7 @@ python_version = "3.7"
 
 
 [packages]
-#celery = "*"
+celery = "*"
 django-celery-beat = "*"
 Django = ">=2.0"
 pytz = ">=2017.3"
