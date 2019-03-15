@@ -36,7 +36,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
-    'scount.apps.ScoutConfig',
+    'scout.apps.ScoutConfig',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
