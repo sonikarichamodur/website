@@ -1,9 +1,14 @@
 from django.db import models
 from django.contrib.postgres.fields import HStoreField
+from django.core.validators import *
 
 
 class Year(models.Model):
     """ An FRC Year """
+    year = models.IntegerField(primary_key=True, validators=[
+        MinValueValidator(1900),
+        MaxValueValidator(2100),
+    ])
 
 
 class District(models.Model):
