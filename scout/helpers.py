@@ -8,7 +8,6 @@ base_log = logging.getLogger('scout.helpers')
 
 def get_tba(p_log=base_log):
     """ Get an instance of the blue alliance api"""
-
     log = p_log.getChild('get_tba')
     log.debug("Creating tba")
     net.thefletcher.tbaapi.v3client.configuration.api_key['X-TBA-Auth-Key'] = settings.TBA_AUTH_KEY
