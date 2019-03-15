@@ -9,7 +9,7 @@ python_version = "3.7"
 
 
 [packages]
-celery = "*"
+#celery = "*"
 django-celery-beat = "*"
 Django = ">=2.0"
 pytz = ">=2017.3"
@@ -26,7 +26,7 @@ pexpect = "*"
 django-nested-admin = "*"
 django-grappelli = "*"
 pyyaml = ">=4.2b1"
-tba-client = { git = 'https://github.com/TBA-API/tba-api-client-python.git', editable = 'true' }
+#tba-client = { git = 'https://github.com/TBA-API/tba-api-client-python.git', editable = 'true' }
 
 
 
