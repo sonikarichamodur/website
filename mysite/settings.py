@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'markdownify',
     'nested_admin',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -175,12 +176,17 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('BUCKETEER_AWS_SECRET_ACCESS_KEY', 'insec
 AWS_ACCESS_KEY_ID = os.environ.get('BUCKETEER_AWS_ACCESS_KEY_ID', 'insecure')
 AWS_S3_USE_SSL = True
 
-REDIS_URL = os.environ.get('REDIS_URL', None)
-if REDIS_URL:
+BASE_REDIS_URL_DEFAULT = 'redis://localhost'
+BASE_REDIS_URL = os.environ.get('REDIS_URL', BASE_REDIS_URL_DEFAULT)
+REDIS_DJANGO_CACHE_URL = BASE_REDIS_URL + "/1"
+REDIS_CELERY_TASKS_URL = BASE_REDIS_URL + "/2"
+REDIS_CELERY_TOMBS_URL = BASE_REDIS_URL + "/3"
+
+if BASE_REDIS_URL != BASE_REDIS_URL_DEFAULT:
     CACHES = {
         'default': {
             'BACKEND': 'redis_cache.RedisCache',
-            'LOCATION': REDIS_URL,
+            'LOCATION': REDIS_DJANGO_CACHE_URL,
             'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
             'CONNECTION_POOL_CLASS_KWARGS': {
                 'max_connections': 50,
@@ -188,7 +194,6 @@ if REDIS_URL:
             },
         },
     }
-
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
