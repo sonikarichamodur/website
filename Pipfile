@@ -25,7 +25,7 @@ django-nested-admin = "*"
 django-grappelli = "*"
 pyyaml = ">=4.2b1"
 "celery[redis]" = ">=4.0"
-tba-client = { git = 'git@github.com:TBA-API/tba-api-client-python.git', editable = 'true' }
+tba-client = { git = 'https://github.com/TBA-API/tba-api-client-python.git', editable = 'true' }
 django-celery-beat = "*"
 
 [dev-packages]
