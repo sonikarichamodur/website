@@ -19,4 +19,4 @@ class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('blog:signin', kwargs={'pk': self.get_object().pk})
+        return reverse('blog:signin', kwargs={'pk': self.object.pk})
