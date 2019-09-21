@@ -6,7 +6,7 @@ from blog.views.post import PostView, PostCreate, PostUpdate, PostDelete
 from blog.views.home import nav
 from blog.views.files import BasicUploadView, download_file, delete_file
 from .views.meetings import MeetingCreate
-from .views.signin import Signin
+from .views.meetingsignin import Signin
 
 app_name = 'blog'
 urlpatterns = [
