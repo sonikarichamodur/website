@@ -4,6 +4,9 @@ from .models.comment import Comment
 from .models.post import Post
 from .models.nav import Nav
 from .models.files import Files
+from .models.meeting import Meeting
+from .models.member import Member
+from .models.signin import Signin
 from .models.maintext import MainText
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -67,3 +70,7 @@ admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(Files)
 admin.site.register(MainText)
+
+admin.site.register(Meeting)
+admin.site.register(Signin)
+admin.siet.register(Member)
