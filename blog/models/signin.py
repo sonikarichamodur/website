@@ -3,7 +3,7 @@ from django.db import models
 from blog.models.users import Details
 from blog.models.post import Post
 from blog.models.member import Member
-from blogs.models.meeting import Meeting
+from blog.models.meeting import Meeting
 
 
 class Signin(models.Model):
