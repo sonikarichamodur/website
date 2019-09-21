@@ -6,7 +6,7 @@ from blog.views.post import PostView, PostCreate, PostUpdate, PostDelete
 from blog.views.home import nav
 from blog.views.files import BasicUploadView, download_file, delete_file
 from .views.meetings import MeetingCreate
-from .views.meetingsignin import Signin
+from .views.meetingsignin import MeetingSignin
 
 app_name = 'blog'
 urlpatterns = [
@@ -33,6 +33,6 @@ urlpatterns = [
     # ex: /blog/post/5/comment/
     path('post/<int:pk>/comment/', CommentCreate.as_view(), name='create_comment'),
     path('meeting', MeetingCreate.as_view(), name="create_meeting"),
-    path('meeting/<int:pk>/', Signin.as_view(), name='signin'),
+    path('meeting/<int:pk>/', MeetingSignin.as_view(), name='signin'),
     path('<str:link>', nav, name='nav'),
 ]
