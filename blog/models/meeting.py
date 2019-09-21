@@ -6,7 +6,7 @@ from blog.models.post import Post
 
 class Meeting(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    start_time = models.DateTimeField('meeting start time', auto_now_add=True)
+    start_time = models.DateTimeField('meeting start time', auto_now_add=True, editable=True)
     end_time = models.DateTimeField('meeting end time', null=True)
 
     def __str__(self):
