@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 
 class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Meeting
-    fields = ['start_time', 'end_time']
+    fields = ['end_time', ]
     template_name = 'blog/create_meeting.html'
     login_url = reverse_lazy('login')
     permission_required = "blog.meeting_gui_can_create"
