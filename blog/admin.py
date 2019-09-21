@@ -73,4 +73,4 @@ admin.site.register(MainText)
 
 admin.site.register(Meeting)
 admin.site.register(Signin)
-admin.siet.register(Member)
+admin.site.register(Member)
