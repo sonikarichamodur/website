@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils import now
+from django.utils import timezone
 from blog.models.users import Details
 from blog.models.post import Post
 
 
 class Meeting(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    start_time = models.DateTimeField('meeting start time', default=now, auto_now_add=True, editable=True)
+    start_time = models.DateTimeField('meeting start time', default=timezone.now, auto_now_add=True, editable=True)
     end_time = models.DateTimeField('meeting end time', null=True)
 
     def __str__(self):
