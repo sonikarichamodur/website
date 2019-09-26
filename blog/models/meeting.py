@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from djanbo.utils import timezone
+from django.utils import timezone
 from blog.models.users import Details
 from blog.models.post import Post
 
