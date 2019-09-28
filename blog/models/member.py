@@ -12,4 +12,5 @@ class Member(models.Model):
     modified = models.DateTimeField('user modified', auto_now=True)
 
     def __str__(self):
-        return "meeting from {start_time} to {end_time}".format(start_time=self.start_time, end_time=self.end_time)
+        return "{name} was created on {created} with slack id: {slack}".format(name=self.name, created=self.created,
+                                                                               slack=self.slack)
