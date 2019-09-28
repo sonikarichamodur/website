@@ -12,5 +12,4 @@ class Member(models.Model):
     modified = models.DateTimeField('user modified', auto_now=True)
 
     def __str__(self):
-        return "{name} was created on {created} with slack id: {slack}".format(name=self.name, created=self.created,
-                                                                               slack=self.slack)
+        return "{name}".format(name=self.name)
