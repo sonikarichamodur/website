@@ -36,5 +36,10 @@
 
         </div>
     </div>
+    <div>
+        {% for signin in signed_in %}
+        {{signin.member.name}}
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}
