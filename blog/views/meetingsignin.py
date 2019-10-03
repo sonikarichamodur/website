@@ -25,6 +25,6 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(MeetingSignin, self).get_context_data(**kwargs)
-        ctx['signed_in'] = Signin.objects.all().filter(end_time__isnull=True,
-                                                       meeting=Meeting.objects.get(pk=self.kwargs['pk']))
+        ctx['signed_in'] = Signin.objects.filter(end_time__isnull=True,
+                                                 meeting=Meeting.objects.get(pk=self.kwargs['pk'])).all()
         return ctx
