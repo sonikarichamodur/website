@@ -50,7 +50,7 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         ctx = super(MeetingSignin, self).get_context_data(**kwargs)
         signins = Signin.objects.filter(meeting=Meeting.objects.get(pk=self.kwargs['pk']), end_time__isnull=True)
         usr = Member.objects.annotate(signin_count=Count('signin')).filter(
-            Q(signin=signins) | Q(signin_count__eq=0))
+            Q(signin=signins) | Q(signin_count__lte=0))
         ctx['form'].fields['user'].queryset = usr
         ctx['signed_in'] = Signin.objects.filter(end_time__isnull=True,
                                                  meeting=Meeting.objects.get(pk=self.kwargs['pk'])).all()
