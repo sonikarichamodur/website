@@ -38,7 +38,9 @@
     </div>
     <div class="col-md-6 col-md-offset-4">
         {% for signin in signed_in %}
-        {{signin.user.name}}
+        <a href="/signout/{{signin.id}}">
+            {{signin.user.name}}
+        </a>
         {% endfor %}
     </div>
 </div>
