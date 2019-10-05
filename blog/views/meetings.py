@@ -12,7 +12,7 @@ from datetime import timedelta
 
 class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Meeting
-    fields = ['end_time']
+    fields = ['end_time', ]
     template_name = 'blog/create_meeting.html'
     login_url = reverse_lazy('login')
     permission_required = "blog.meeting_gui_can_create"
