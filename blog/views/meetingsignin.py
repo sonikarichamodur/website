@@ -6,6 +6,9 @@ from blog.models.comment import Comment
 from blog.models.signin import Signin
 from blog.models.meeting import Meeting
 from blog.models.member import Member
+from django.utils import timezone
+from django.http import HttpResponse
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
@@ -18,6 +21,13 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.meeting = Meeting.objects.get(pk=self.kwargs['pk'])
+
+        if form.instance.meeting.start_time > timezone.now():
+            return HttpResponse('meeting has not started', status=500)
+
+        if form.instance.meeting.end_time < timezone.now():
+            return HttpResponse('meeting has ended', status=500)
+
         return super().form_valid(form)
 
     def get_success_url(self):
