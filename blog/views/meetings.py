@@ -20,10 +20,15 @@ class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
 
-        if self.kwargs['end_time'] <= (timezone.now() + timedelta(minutes=25)):
+        # if self.kwargs['end_time'] <= (timezone.now() + timedelta(minutes=25)):
+        #     return HttpResponse("meeting end time is set incorrectly", status=500)
+
+        ret = super().form_valid(form)
+
+        if self.object.end_time <= (timezone.now() + timedelta(minutes=25)):
             return HttpResponse("meeting end time is set incorrectly", status=500)
 
-        return super().form_valid(form)
+        return ret
 
     def get_success_url(self):
         return reverse('blog:signin', kwargs={'pk': self.object.pk})
