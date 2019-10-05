@@ -30,11 +30,14 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         if form.instance.meeting.end_time < timezone.now():
             return HttpResponse('meeting has ended', status=500)
 
-        if Signin.objects.filter(meeting=form.instance.meeting, user__id=self.object.user,
+        ret = super().form_valid(form)
+
+        if Signin.objects.filter(meeting=form.instance.meeting, user__id=self.object.user.id,
                                  end_time__isnull=True).count() > 0:
             return redirect("/meeting/%d/" % form.instance.meeting.id)
 
-        return super().form_valid(form)
+        return ret
+
 
     def get_success_url(self):
         return reverse('blog:signin', kwargs={'pk': self.kwargs['pk']})
