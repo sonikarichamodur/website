@@ -8,6 +8,8 @@ from blog.models.meeting import Meeting
 from blog.models.member import Member
 from django.utils import timezone
 from django.http import HttpResponse
+from django.shortcuts import redirect
+
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
@@ -27,6 +29,9 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
         if form.instance.meeting.end_time < timezone.now():
             return HttpResponse('meeting has ended', status=500)
+
+        if Signin.objects.filter(meeting=form.instance.meeting, user__id=self.kwargs['user']).count() > 0:
+            return redirect("/meeting/%d/" % form.instance.meeting.id)
 
         return super().form_valid(form)
 
