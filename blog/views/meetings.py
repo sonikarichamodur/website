@@ -7,6 +7,7 @@ from blog.models.meeting import Meeting
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils import timezone
 from django.http import HttpResponse
+from datetime import timedelta
 
 
 class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -19,7 +20,7 @@ class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
 
-        if self.kwargs['end_time'] <= timezone.now():
+        if self.kwargs['end_time'] <= (timezone.now() + timedelta(minutes=25)):
             return HttpResponse("meeting end time is set incorrectly", status=500)
 
         return super().form_valid(form)
