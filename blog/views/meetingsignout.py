@@ -13,7 +13,7 @@ def meetingSignOut(request, signId):
     if user_signin.end_time is not None:
         return HttpResponse('user already signed out', status=500)
 
-    if user_signin.meeting.end_time is not None:
+    if user_signin.meeting.end_time < timezone.now():
         return HttpResponse('meeting already over', status=500)
 
     user_signin.end_time = timezone.now()
