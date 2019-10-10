@@ -85,7 +85,7 @@
                             {% for meeting in meetings %}
                                 <a class="dropdown-item"
                                    href="{% url 'blog:signin' meeting.id %}">{{ meeting.user }}
-                                    | {{ meeting.start_time }} [{{ meeting.signin_count }}</a>
+                                    | {{ meeting.start_time }} [{{ meeting.signin_count }}]</a>
                             {% endfor %}
                         </div>
                     </li>
