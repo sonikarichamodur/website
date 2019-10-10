@@ -34,6 +34,7 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
         if Signin.objects.filter(meeting=form.instance.meeting, user__id=self.object.user.id,
                                  end_time__isnull=True).count() > 0:
+            # TODO: THis might not be right - could cause it to validate ok
             return redirect("/meeting/%d/" % form.instance.meeting.id)
 
         return ret
