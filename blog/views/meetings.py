@@ -29,8 +29,8 @@ class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         if self.object.end_time <= (timezone.now() + timedelta(minutes=25)):
             return HttpResponse("meeting end time is set incorrectly", status=500)
 
-        if Meeting.objects.filter(start_time__gte=timezone.now()).filter(
-                Q(end_time__isnull=True) | Q(end_time__lte=timezone.now())).count() > 0:
+        if Meeting.objects.filter(start_time__lte=timezone.now()).filter(
+                Q(end_time__isnull=True) | Q(end_time__gte=timezone.now())).count() > 0:
             return HttpResponse("cannot create multiple meetings", status=500)
 
         return ret
