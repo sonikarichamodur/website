@@ -33,64 +33,65 @@
 
 
 <!-- navbar -->
-{% cache 600 navbar HEROKU_RELEASE_VERSION user %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary bd-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'blog:home' %}">
-                <img src="/static/Logo.svg" width="30" height="30" class="d-inline-block align-top"/>&nbsp;RoboLoCo
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav mr-auto">
-                    {% for nav in nav_items %}
-                        <!--Nav={{ nav.pk }}-->
-                        {% if nav.has_children %}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ nav.title }}
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{% url 'blog:nav' nav.link %}">{{ nav.title }}</a>
-                                    <div class="dropdown-divider"></div>
-                                    {% for nav_child in nav.kids %}
-                                        <a class="dropdown-item" href="{% url 'blog:nav' nav_child.link %}">
-                                            {{ nav_child.title }}
-                                        </a>
-                                    {% empty %}
-                                        <!--Oops-->
-                                    {% endfor %}
-                                </div>
-                            </li>
-                        {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'blog:nav' nav.link %}">{{ nav.title }}</a>
-                            </li>
-                        {% endif %}
-
-                    {% endfor %}
-
-                </ul>
-                <!-- show Meeting menu only if user is authenticated -->
-                {% if perms.blog.meeting_gui_can_create %}
-                    <ul class="nav navbar-nav ml-auto">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary bd-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'blog:home' %}">
+            <img src="/static/Logo.svg" width="30" height="30" class="d-inline-block align-top"/>&nbsp;RoboLoCo
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav mr-auto">
+                {% for nav in nav_items %}
+                    <!--Nav={{ nav.pk }}-->
+                    {% if nav.has_children %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Meetings </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                                <a class="dropdown-item" href="{% url 'blog:create_meeting' %}">New Meeting</a>
-                                {% for meeting in meetings %}
-                                    <a class="dropdown-item"
-                                       href="{% url 'blog:signin' meeting.id %}">{{ meeting.user }}
-                                        | {{ meeting.start_time }} [{{ meeting.signin_count }}</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ nav.title }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'blog:nav' nav.link %}">{{ nav.title }}</a>
+                                <div class="dropdown-divider"></div>
+                                {% for nav_child in nav.kids %}
+                                    <a class="dropdown-item" href="{% url 'blog:nav' nav_child.link %}">
+                                        {{ nav_child.title }}
+                                    </a>
+                                {% empty %}
+                                    <!--Oops-->
                                 {% endfor %}
                             </div>
                         </li>
-                    </ul>
-                {% endif %}
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'blog:nav' nav.link %}">{{ nav.title }}</a>
+                        </li>
+                    {% endif %}
+
+                {% endfor %}
+
+            </ul>
+
+            <!-- show Meeting menu only if user is authenticated -->
+            {% if perms.blog.meeting_gui_can_create %}
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Meetings </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                            <a class="dropdown-item" href="{% url 'blog:create_meeting' %}">New Meeting</a>
+                            {% for meeting in meetings %}
+                                <a class="dropdown-item"
+                                   href="{% url 'blog:signin' meeting.id %}">{{ meeting.user }}
+                                    | {{ meeting.start_time }} [{{ meeting.signin_count }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+            {% endif %}
+            {% cache 600 navbar HEROKU_RELEASE_VERSION user %}
                 <ul class="nav navbar-nav ml-auto">
                     <!-- show management menu only if user is authenticated -->
                     {% if user.is_authenticated %}
@@ -114,10 +115,11 @@
                         </li>
                     {% endif %}
                 </ul>
-            </div>
+            {% endcache %}
         </div>
-    </nav>
-{% endcache %}
+    </div>
+</nav>
+
 
 <body>
 
