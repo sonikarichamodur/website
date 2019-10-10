@@ -1,6 +1,7 @@
 from django.conf import settings
 from .models.nav import Nav
 from .models.maintext import MainText
+from .models.meeting import Meeting
 
 
 def heroku_info(request):
@@ -14,6 +15,7 @@ def heroku_info(request):
 def nav(request):
     return {
         'nav_items': Nav.objects.filter(parent=None).order_by("title").all(),
+        'meetings': Meeting.objects.filter(end_time__isnull=True).all(),
     }
 
 
