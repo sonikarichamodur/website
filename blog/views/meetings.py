@@ -7,6 +7,7 @@ from blog.models.meeting import Meeting
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils import timezone
 from django.http import HttpResponse
+from django.db.models import Q
 from datetime import timedelta
 
 
@@ -27,6 +28,10 @@ class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
         if self.object.end_time <= (timezone.now() + timedelta(minutes=25)):
             return HttpResponse("meeting end time is set incorrectly", status=500)
+
+        if Meeting.objects.filter(start_time__gte=timezone.now()).filter(
+                Q(end_time__isnull=True) | Q(end_time__lte=timezone.now())).count() > 0:
+            return HttpResponse("cannot create multiple meetings", status=500)
 
         return ret
 
