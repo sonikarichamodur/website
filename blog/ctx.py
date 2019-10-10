@@ -19,7 +19,7 @@ def nav(request):
         'nav_items': Nav.objects.filter(parent=None).order_by("title").all(),
         'meetings': Meeting.objects.filter(start_time__lte=timezone.now()).filter(
             Q(end_time__isnull=True) | Q(end_time__gte=timezone.now())
-        ).annotate(signin_count=Count('signin')).all(),
+        ).annotate(signin_count=Count('signin', filter=Q(signin__end_time__is_null=True))).all(),
     }
 
 
