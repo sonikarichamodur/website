@@ -11,10 +11,6 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.db.models import Q, F
 from django.db.models import Count
-
-
-
-
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
@@ -41,7 +37,6 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
             return redirect("/meeting/%d/" % form.instance.meeting.id)
 
         return ret
-
 
     def get_success_url(self):
         return reverse('blog:signin', kwargs={'pk': self.kwargs['pk']})
