@@ -13,3 +13,6 @@ class Member(models.Model):
 
     def __str__(self):
         return "{name}".format(name=self.name)
+
+
+J
