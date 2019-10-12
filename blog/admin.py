@@ -67,7 +67,7 @@ class MemberAdmin(admin.ModelAdmin):
     fields = ('user', 'name', 'slack', 'created', 'modified', 'hours')
 
     def hours(self, obj):
-        return list(Signin.objects.filter(user=obj).annotate(signin_time=F('start_time') - F('end_time')).aggregate(
+        return list(Signin.objects.filter(user=obj).annotate(signin_time=F('end_time') - F('start_time')).aggregate(
             Sum('signin_time')).values())[0]
 
 
