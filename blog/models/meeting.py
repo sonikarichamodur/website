@@ -8,11 +8,17 @@ from django.core.exceptions import ValidationError
 
 
 def startValidator(meeting):
-    return meeting.start_time < timezone.now()
+    if meeting.start_time is not None:
+        return meeting.start_time < timezone.now()
+
+    return True
 
 
 def endValidator(meeting):
-    return meeting.end_time > timezone.now()
+    if meeting.end_time is not None:
+        return meeting.end_time > timezone.now()
+
+    return True
 
 class Meeting(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -20,7 +26,6 @@ class Meeting(models.Model):
     end_time = models.DateTimeField('meeting end time', default=timezone.now, null=True)
 
     def clean(self):
-        super(Meeting).clean()
 
         if Meeting.objects.filter(start_time__lte=timezone.now()).filter(
                 Q(end_time__isnull=True) | Q(end_time__gte=timezone.now())).count() > 0:
