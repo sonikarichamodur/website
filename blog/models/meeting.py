@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from blog.models.users import Details
 from blog.models.post import Post
+from django.db.models import Q
 from django.core.exceptions import ValidationError
 
 
@@ -22,6 +23,11 @@ class Meeting(models.Model):
         if Meeting.objects.filter(start_time__lte=timezone.now()).filter(
                 Q(end_time__isnull=True) | Q(end_time__gte=timezone.now())).count() > 0:
             raise ValidationError("cannot create multiple meetings")
+        if not startValidator(self):
+            raise ValidationError("cannot create meeting")
+
+        if not endValidator(self):
+            raise ValidationError("cannot create meeting")
 
 
     def __str__(self):
