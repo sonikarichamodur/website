@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms import forms
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
 from django.shortcuts import Http404
@@ -9,6 +10,7 @@ from django.utils import timezone
 from django.http import HttpResponse
 from django.db.models import Q
 from datetime import timedelta
+from django.http import Http404
 
 
 class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -31,7 +33,7 @@ class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
         if Meeting.objects.filter(start_time__lte=timezone.now()).filter(
                 Q(end_time__isnull=True) | Q(end_time__gte=timezone.now())).count() > 0:
-            return HttpResponse("cannot create multiple meetings", status=500)
+            raise forms.ValidationError("cannot create multiple meetings")
 
         return ret
 
