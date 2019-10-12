@@ -8,6 +8,7 @@ from .models.meeting import Meeting
 from .models.member import Member
 from .models.signin import Signin
 from .models.maintext import MainText
+from django.db.models import F, Q, Sum
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
@@ -81,4 +82,4 @@ admin.site.register(MainText)
 
 admin.site.register(Meeting)
 admin.site.register(Signin)
-admin.site.register(Member)
+admin.site.register(Member, MemberAdmin)
