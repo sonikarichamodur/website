@@ -73,7 +73,8 @@
                 {% endfor %}
 
             </ul>
-
+            {% block navbar %}
+            {% endblock %}
             <!-- show Meeting menu only if user is authenticated -->
             {% if perms.blog.meeting_gui_can_create %}
                 <ul class="nav navbar-nav ml-auto">

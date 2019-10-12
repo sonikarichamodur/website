@@ -48,6 +48,7 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         usr = Member.objects.annotate(signin_count=Count(F('signin'))).filter(
             ~Q(signin__in=signins) | Q(signin_count=0))
         ctx['form'].fields['user'].queryset = usr
+        ctx['meeting'] = Meeting.objects.get(pk=self.kwargs['pk'])
         ctx['signed_in'] = Signin.objects.filter(end_time__isnull=True,
                                                  meeting=Meeting.objects.get(pk=self.kwargs['pk'])).all()
         return ctx
