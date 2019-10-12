@@ -68,7 +68,8 @@ class MemberAdmin(admin.ModelAdmin):
 
     def hours(self, obj):
         return Signin.objects.filter(user=obj).annotate(signin_time=F('start_time') - F('end_time')).aggregate(
-            Sum('signin_time')).values()
+            Sum('signin_time')).values()[0]
+
 
 # Re-register UserAdmin
 admin.site.unregister(User)
