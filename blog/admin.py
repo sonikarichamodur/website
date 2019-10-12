@@ -67,8 +67,8 @@ class MemberAdmin(admin.ModelAdmin):
     fields = ('user', 'name', 'slack', 'created', 'modified', 'hours')
 
     def hours(self, obj):
-        return Signin.objects.filter(user=obj).annotate(signin_time=F('start_time') - F('end_time')).aggregate(
-            Sum('signin_time')).values()[0]
+        return list(Signin.objects.filter(user=obj).annotate(signin_time=F('start_time') - F('end_time')).aggregate(
+            Sum('signin_time')).values())[0]
 
 
 # Re-register UserAdmin
