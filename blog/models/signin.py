@@ -9,7 +9,7 @@ from blog.models.meeting import Meeting
 class Signin(models.Model):
     user = models.ForeignKey(Member, on_delete=models.CASCADE)
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
-    start_time = models.DateTimeField('sign-in time', auto_now_add=True, editable=True)
+    start_time = models.DateTimeField('sign-in time', auto_now_add=True)
     end_time = models.DateTimeField('sign-out time', null=True)
 
     def __str__(self):

@@ -66,6 +66,9 @@ class SigninInline(nested_admin.NestedStackedInline):
     model = Signin
     # raw_id_fields = ('meeting',)
     # autocomplete_lookup_fields = {'fk': ('meeting',)}
+    readonly_fields = (
+        'start_time',
+    )
     fields = (
         'meeting',
         'start_time',
