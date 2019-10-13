@@ -47,4 +47,4 @@ class Meeting(models.Model):
 
     @staticmethod
     def autocomplete_search_fields():
-        return ("id__iexact", "user__name__icontains", "start_time__lte")
+        return ("id__iexact", "user__username__icontains", "start_time__lte")
