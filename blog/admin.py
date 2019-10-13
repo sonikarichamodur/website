@@ -62,7 +62,14 @@ class NavAdmin(nested_admin.NestedModelAdmin):
         return qs.filter(parent=None)
 
 
+class SigninInline(nested_admin.NestedStackedInline):
+    model = Signin
+
+
 class MemberAdmin(admin.ModelAdmin):
+    inlines = [
+        SigninInline,
+    ]
     readonly_fields = ('hours', 'created', 'modified')
     fields = ('user', 'name', 'slack', 'created', 'modified', 'hours')
     list_display = (
@@ -71,6 +78,7 @@ class MemberAdmin(admin.ModelAdmin):
         'slack',
         'hours',
     )
+
     def hours(self, obj):
         return list(Signin.objects.filter(user=obj).annotate(signin_time=F('end_time') - F('start_time')).aggregate(
             Sum('signin_time')).values())[0]
