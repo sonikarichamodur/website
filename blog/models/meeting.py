@@ -44,3 +44,7 @@ class Meeting(models.Model):
         permissions = (
             ("meeting_gui_can_create", "Can create new meetings via the GUI"),
         )
+
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "user__icontains", "start_time__lte")
