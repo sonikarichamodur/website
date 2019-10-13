@@ -67,7 +67,11 @@ class SigninInline(nested_admin.NestedStackedInline):
     # readonly_fields = ('meeting',)
     raw_id_fields = ('meeting',)
     autocomplete_lookup_fields = {'fk': ('meeting',)}
-
+    fields = (
+        'meeting',
+        'start_time',
+        'end_time',
+    )
 
 class MemberAdmin(admin.ModelAdmin):
     inlines = [
