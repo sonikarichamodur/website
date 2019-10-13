@@ -72,6 +72,7 @@ class SigninInline(nested_admin.NestedStackedInline):
         'end_time',
     )
 
+
 class MemberAdmin(admin.ModelAdmin):
     inlines = [
         SigninInline,
