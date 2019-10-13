@@ -65,7 +65,12 @@ class NavAdmin(nested_admin.NestedModelAdmin):
 class MemberAdmin(admin.ModelAdmin):
     readonly_fields = ('hours', 'created', 'modified')
     fields = ('user', 'name', 'slack', 'created', 'modified', 'hours')
-
+    list_display = (
+        'name',
+        'user',
+        'slack',
+        'hours',
+    )
     def hours(self, obj):
         return list(Signin.objects.filter(user=obj).annotate(signin_time=F('end_time') - F('start_time')).aggregate(
             Sum('signin_time')).values())[0]
