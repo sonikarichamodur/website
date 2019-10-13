@@ -64,7 +64,8 @@ class NavAdmin(nested_admin.NestedModelAdmin):
 
 class SigninInline(nested_admin.NestedStackedInline):
     model = Signin
-
+    raw_id_fields = ('meeting',)
+    autocomplete_lookup_fields = {'fk': ('meeting',)}
 
 class MemberAdmin(admin.ModelAdmin):
     inlines = [
