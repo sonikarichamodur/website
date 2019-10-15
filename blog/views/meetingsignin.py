@@ -2,6 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
 from django.shortcuts import Http404
+
+from blog.forms import PasswordForm
 from blog.models.comment import Comment
 from blog.models.signin import Signin
 from blog.models.meeting import Meeting
@@ -51,4 +53,5 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         ctx['meeting'] = Meeting.objects.get(pk=self.kwargs['pk'])
         ctx['signed_in'] = Signin.objects.filter(end_time__isnull=True,
                                                  meeting=Meeting.objects.get(pk=self.kwargs['pk'])).all()
+        ctx['pw_form'] = PasswordForm()
         return ctx
