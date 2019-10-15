@@ -36,7 +36,7 @@ urlpatterns = [
     path('post/<int:pk>/comment/', CommentCreate.as_view(), name='create_comment'),
     path('meeting', MeetingCreate.as_view(), name="create_meeting"),
     path('meeting/<int:pk>/end', end_meeting, name='end_meeting'),
-    path('meeting/<int:pk>/', MeetingSignin.as_view(), name='signin'), \
+    path('meeting/<int:pk>/', MeetingSignin.as_view(), name='signin'),
     path('signout/<int:signId>/', meetingSignOut, name='signout'),
     path('<str:link>', nav, name='nav'),
 ]
