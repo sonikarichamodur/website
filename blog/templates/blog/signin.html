@@ -55,7 +55,7 @@
         <div class="col-md-6 col-md-offset-4">
             {% for signin in signed_in %}
                 <a href="/signout/{{ signin.id }}">
-                    {{ signin.user.name }}{% if forloop.last %}{% else %},&nbsp;{% endif %}
+                    {{ signin.user.name }}{% if forloop.last %}{% else %}, {% endif %}
                 </a>
             {% empty %}
                 No one is signed in yet!
