@@ -39,7 +39,7 @@ class Signin(models.Model):
                     end_time__isnull=True,
             ).count() > 0:
                 raise ValidationError("User already signed in")
-        except Signin.DoesNotExist as e:
+        except Signin.meeting.RelatedObjectDoesNotExist as e:
             pass
 
         if not startValidator(self):
