@@ -33,7 +33,8 @@ class Signin(models.Model):
         return "{user} signed in to {meeting} from {start_time} to {end_time}".format(user=self.user.name,
                                                                                       start_time=self.start_time,
                                                                                       end_time=self.end_time,
-                                                                                      meeting=self.meeting.start_time, )
+                                                                                      meeting=self.meeting.start_time,
+                                                                                      )
 
     class Meta:
         constraints = [
