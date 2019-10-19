@@ -24,7 +24,7 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = "blog.meeting_gui_can_create"
 
     def get_initial(self):
-        meeting = Meeting.objects.order_by('id').last()
+        meeting = Meeting.objects.filter(start_time__isnull=False, end_time__gte=timezone.now()).order_by('id').last()
         return {
             'meeting': meeting,
         }
