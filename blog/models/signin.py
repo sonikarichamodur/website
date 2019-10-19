@@ -31,15 +31,17 @@ class Signin(models.Model):
 
     def clean(self):
         # Skip this if self.meeting isn't defined yet
-        if not hasattr(self, 'meeting'):
-            return
-        if Signin.objects.filter(
-                user=self.user,
-                meeting=self.meeting,
-                start_time__isnull=False,
-                end_time__isnull=True,
-        ).count() > 0:
-            raise ValidationError("User already signed in")
+        try:
+            if Signin.objects.filter(
+                    user=self.user,
+                    meeting=self.meeting,
+                    start_time__isnull=False,
+                    end_time__isnull=True,
+            ).count() > 0:
+                raise ValidationError("User already signed in")
+        except Signin.DoesNotExist as e:
+            pass
+
         if not startValidator(self):
             raise ValidationError("Invalid start time")
 
