@@ -22,6 +22,7 @@ def endValidator(signin):
 
     return True
 
+
 class Signin(models.Model):
     user = models.ForeignKey(Member, on_delete=models.CASCADE)
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
@@ -30,7 +31,7 @@ class Signin(models.Model):
 
     def clean(self):
 
-        if Signin.objects.filter(user=self.user, meeting_id=self.meeting.pk, start_time__isnull=False,
+        if Signin.objects.filter(user=self.user, meeting=self.meeting, start_time__isnull=False,
                                  end_time__isnull=True).count() > 0:
             raise ValidationError("User already signed in")
         if not startValidator(self):
@@ -40,6 +41,7 @@ class Signin(models.Model):
             raise ValidationError("User didn't sign out")
 
     def __str__(self):
-        return "{user} signed in from {start_time} to {end_time}".format(user=self.user.name,
-                                                                         start_time=self.start_time,
-                                                                         end_time=self.end_time)
+        return "{user} signed in to {meeting} from {start_time} to {end_time}".format(user=self.user.name,
+                                                                                      start_time=self.start_time,
+                                                                                      end_time=self.end_time,
+                                                                                      meeting=self.meeting.start_time, )
