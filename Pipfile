@@ -3,10 +3,8 @@ url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [requires]
 python_version = "3.7"
-
 
 [packages]
 celery = "*"
@@ -27,8 +25,5 @@ django-nested-admin = "*"
 django-grappelli = "*"
 pyyaml = ">=4.2b1"
 tba-client = { git = 'https://github.com/TBA-API/tba-api-client-python.git', editable = 'true' }
-
-
-
 
 [dev-packages]
