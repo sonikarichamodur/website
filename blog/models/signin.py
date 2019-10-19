@@ -30,7 +30,7 @@ class Signin(models.Model):
 
     def clean(self):
 
-        if Signin.objects.filter(user=self.user, meeting=self.meeting, start_time__isnull=False,
+        if Signin.objects.filter(user=self.user, meeting_id=self.meeting.pk, start_time__isnull=False,
                                  end_time__isnull=True).count() > 0:
             raise ValidationError("User already signed in")
         if not startValidator(self):
