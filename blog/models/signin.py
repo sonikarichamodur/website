@@ -9,7 +9,7 @@ from blog.models.users import Details
 from blog.models.post import Post
 from blog.models.member import Member
 from blog.models.meeting import Meeting
-
+from django.db.models.constraints import CheckConstraint, UniqueConstraint
 base_log = logging.getLogger('blog.models.signin')
 
 
@@ -38,7 +38,7 @@ class Signin(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(
+            UniqueConstraint(
                 name="user_meeting_chk",
                 fields=[
                     "user",
