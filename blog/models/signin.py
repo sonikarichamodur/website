@@ -31,7 +31,9 @@ class Signin(models.Model):
 
     def clean(self):
         # Skip this if self.meeting isn't defined yet
-        if not hasattr(self, 'meeting') or Signin.objects.filter(
+        if not hasattr(self, 'meeting'):
+            return
+        if Signin.objects.filter(
                 user=self.user,
                 meeting=self.meeting,
                 start_time__isnull=False,
