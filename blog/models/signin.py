@@ -30,9 +30,6 @@ class Signin(models.Model):
     end_time = models.DateTimeField('sign-out time', null=True)
 
     def clean(self):
-        if not hasattr(self, 'meeting'):
-            raise ValidationError("meeting not defined")
-
         # Skip this if self.meeting isn't defined yet
         if not hasattr(self, 'meeting') or Signin.objects.filter(
                 user=self.user,
