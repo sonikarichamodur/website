@@ -38,7 +38,7 @@ class Signin(models.Model):
     user = models.ForeignKey(Member, on_delete=models.CASCADE, null=False)
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE, null=False, validators=[meetingValidator, ])
     start_time = models.DateTimeField('sign-in time', auto_now_add=True, null=False, validators=[startValidator, ])
-    end_time = models.DateTimeField('sign-out time', null=True, validators=[endValidator, ]),
+    end_time = models.DateTimeField('sign-out time', null=True, validators=[endValidator, ])
 
     #
     # def clean(self):
