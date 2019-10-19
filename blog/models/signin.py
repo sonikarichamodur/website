@@ -26,10 +26,12 @@ def endValidator(signin):
 class Signin(models.Model):
     user = models.ForeignKey(Member, on_delete=models.CASCADE, null=False)
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE, null=False)
-    start_time = models.DateTimeField('sign-in time', auto_now_add=True)
+    start_time = models.DateTimeField('sign-in time', auto_now_add=True, null=False)
     end_time = models.DateTimeField('sign-out time', null=True)
 
     def clean(self):
+        if not hasattr(self, 'meeting'):
+            raise ValidationError("meeting not defined")
 
         if Signin.objects.filter(user=self.user, meeting=self.meeting, start_time__isnull=False,
                                  end_time__isnull=True).count() > 0:
