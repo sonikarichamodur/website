@@ -11,7 +11,7 @@ from blog.models.meeting import Meeting
 
 class Signin(models.Model):
     def meetingValidator(signin):
-        return signin.meeting and Signin.objects.filter(
+        return signin.meeting and signin.user and Signin.objects.filter(
             user=signin.user,
             meeting=signin.meeting,
             start_time__isnull=False,
