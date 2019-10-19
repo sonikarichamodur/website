@@ -28,6 +28,7 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return {
             'meeting': meeting,
         }
+
     def form_valid(self, form):
         form.instance.meeting = Meeting.objects.get(pk=self.kwargs['pk'])
 
