@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from django.db import models
 from django.utils import timezone
 import logging
@@ -9,19 +10,19 @@ from blog.models.member import Member
 from blog.models.meeting import Meeting
 
 base_log = logging.getLogger('blog.models.signin')
-
+RegexValidator
 
 class Signin(models.Model):
     def meetingValidator(signin):
         log = base_log.getChild("meetingValidator")
-        log.debug("In meeting validator", extra=dict(signin=signin))
+        log.error("In meeting validator: %r", signin, extra=dict(signin=signin))
         ret = signin.meeting and signin.user and Signin.objects.filter(
             user=signin.user,
             meeting=signin.meeting,
             start_time__isnull=False,
             end_time__isnull=True,
         ).count() == 0
-        log.debug("End meeting validator", extra=dict(signin=signin, ret=ret))
+        log.error("End meeting validator: %r", ret, extra=dict(signin=signin, ret=ret))
         return ret
 
     def startValidator(signin):
