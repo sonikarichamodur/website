@@ -23,12 +23,6 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     permission_required = "blog.meeting_gui_can_create"
 
-    def get_initial(self):
-        initial = super().get_initial()
-        initial['meeting'] = Meeting.objects.filter(start_time__isnull=False, end_time__gte=timezone.now()).order_by(
-            'id').last()
-        return initial
-
     def form_valid(self, form):
         form.instance.meeting = Meeting.objects.get(pk=self.kwargs['pk'])
 
