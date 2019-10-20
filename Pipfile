@@ -6,6 +6,8 @@ name = "pypi"
 [requires]
 python_version = "3.7.4"
 
+[dev-packages]
+
 [packages]
 celery = "*"
 django-celery-beat = "*"
