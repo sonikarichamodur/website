@@ -1,16 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
-
+from django.shortcuts import Http404
 from blog.models.comment import Comment
 from blog.models.post import Post
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
-class CommentCreate(LoginRequiredMixin, CreateView):
+class CommentCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Comment
     fields = ['body']
     template_name = 'blog/create_comment.html'
     login_url = reverse_lazy('login')
+    permission_required = "blog.comment_gui_can_comment"
 
     def form_valid(self, form):
         form.instance.user = self.request.user

@@ -3,16 +3,16 @@ url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [requires]
-python_version = "3.7"
-
+python_version = "3.7.4"
 
 [packages]
+celery = "*"
+django-celery-beat = "*"
 Django = ">=2.0"
-pytz = ">=2017.3"
-pyYAML = ">=3.12"
-ipython = ">=6.2.1"
+pytz = "*"
+pyYAML = "*"
+ipython = "*"
 "dj-database-url" = "*"
 "django_heroku" = "*"
 "django-markdownify" = "*"
@@ -23,6 +23,8 @@ pexpect = "*"
 "django-redis-cache" = "*"
 django-nested-admin = "*"
 django-grappelli = "*"
-
+pyyaml = "*"
+# FRC data
+tba-client = { git = 'https://github.com/TBA-API/tba-api-client-python.git', editable = 'true' }
 
 [dev-packages]

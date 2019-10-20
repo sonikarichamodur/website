@@ -2,9 +2,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import CreateView, UpdateView, DeleteView
-
+from django.shortcuts import Http404
 from blog.models.comment import Comment
 from blog.models.post import Post
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class PostView(generic.DetailView):
@@ -20,31 +21,34 @@ class PostView(generic.DetailView):
         return context
 
 
-class PostCreate(LoginRequiredMixin, CreateView):
+class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'body']
     template_name = 'blog/create_post.html'
     login_url = reverse_lazy('login')
+    permission_required = "blog.post_gui_can_post"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
 
-class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'body']
     template_name = 'blog/create_post.html'
     login_url = reverse_lazy('login')
+    permission_required = "blog.post_gui_can_update"
 
     def test_func(self):
         return Post.objects.get(id=self.kwargs['pk']).user == self.request.user
 
 
-class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class PostDelete(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = reverse_lazy('blog:home')
     login_url = reverse_lazy('login')
+    permission_required = "blog.post_gui_can_delete"
 
     def test_func(self):
         return Post.objects.get(id=self.kwargs['pk']).user == self.request.user

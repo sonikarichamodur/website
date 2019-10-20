@@ -4,3 +4,6 @@ from .nav import *
 from .maintext import *
 from .files import *
 from .comment import *
+from .meeting import *
+from .member import *
+from .signin import *

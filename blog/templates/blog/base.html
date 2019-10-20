@@ -26,97 +26,89 @@
     <link rel="shortcut icon" href="/static/blog/Logo.ico">
     <link rel="stylesheet" href="https://bootswatch.com/4/pulse/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
-    {% comment %}
-    <!-- Style to wrap around iframe -->
-    <stlye>
-        .videoWrapper {
-        position: relative;
-        padding-bottom: 56.25%;
-        padding-top: 25px;
-        height: 0;
-        }
-        .videoWrapper iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        }
 
-    </stlye>
-    {% endcomment %}
+    {% block pre %}
+    {% endblock %}
 </head>
 
 
 <!-- navbar -->
-{% cache 600 navbar HEROKU_RELEASE_VERSION user %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary bd-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'blog:home' %}">
-                <img src="/static/Logo.svg" width="30" height="30" class="d-inline-block align-top"/>&nbsp;RoboLoCo
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav mr-auto">
-                    {% for nav in nav_items %}
-                        <!--Nav={{ nav.pk }}-->
-                        {% if nav.has_children %}
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ nav.title }}
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
-                                    <div class="dropdown-divider"></div>
-                                    {% for nav_child in nav.kids %}
-                                        <a class="dropdown-item" href="{% url 'nav' nav_child.link %}">
-                                            {{ nav_child.title }}
-                                        </a>
-                                    {% empty %}
-                                        <!--Oops-->
-                                    {% endfor %}
-                                </div>
-                            </li>
-                        {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'nav' nav.link %}">{{ nav.title }}</a>
-                            </li>
-                        {% endif %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary bd-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'blog:home' %}">
+            <img src="/static/Logo.svg" width="30" height="30" class="d-inline-block align-top"/>&nbsp;RoboLoCo
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav mr-auto">
+                {% for nav in nav_items %}
+                    <!--Nav={{ nav.pk }}-->
+                    {% if nav.has_children %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ nav.title }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'blog:nav' nav.link %}">{{ nav.title }}</a>
+                                <div class="dropdown-divider"></div>
+                                {% for nav_child in nav.kids %}
+                                    <a class="dropdown-item" href="{% url 'blog:nav' nav_child.link %}">
+                                        {{ nav_child.title }}
+                                    </a>
+                                {% empty %}
+                                    <!--Oops-->
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'blog:nav' nav.link %}">{{ nav.title }}</a>
+                        </li>
+                    {% endif %}
 
-                    {% endfor %}
-                    <!-- show My Blog only if user is authenticated -->
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'blog:user_posts' user.username %}">My Blog</a>
-                        </li>
-                    {% endif %}
-                    <!-- show new post only if user is authenticated -->
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'blog:create_post' %}">New Post</a>
-                        </li>
-                    {% endif %}
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'blog:upload_file' %}">File Upload</a>
-                        </li>
-                    {% endif %}
-                    <!-- show sign out only if user is authenticated -->
-                    {% if user.is_staff %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
-                        </li>
-                    {% endif %}
-                </ul>
+                {% endfor %}
 
+            </ul>
+            {% block navbar %}
+            {% endblock %}
+            <!-- show Meeting menu only if user is authenticated -->
+            {% if perms.blog.meeting_gui_can_create %}
                 <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Meetings </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                            <a class="dropdown-item" href="{% url 'blog:create_meeting' %}">New Meeting</a>
+                            {% for meeting in meetings %}
+                                <a class="dropdown-item"
+                                   href="{% url 'blog:signin' meeting.id %}">{{ meeting.user }}
+                                    | {{ meeting.start_time }} [{{ meeting.signin_count }}]</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                </ul>
+            {% endif %}
+            {% cache 600 navbar HEROKU_RELEASE_VERSION user %}
+                <ul class="nav navbar-nav ml-auto">
+                    <!-- show management menu only if user is authenticated -->
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Sign Out</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Management </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                <a class="dropdown-item" href="{% url 'blog:user_posts' user.username %}">My Posts</a>
+                                <a class="dropdown-item" href="{% url 'blog:create_post' %}">New Post</a>
+                                <a class="dropdown-item" href="{% url 'blog:upload_file' %}">File Management</a>
+                                {% if user.is_staff %}
+                                    <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
+                                {% endif %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Sign Out</a>
+                            </div>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -124,10 +116,11 @@
                         </li>
                     {% endif %}
                 </ul>
-            </div>
+            {% endcache %}
         </div>
-    </nav>
-{% endcache %}
+    </div>
+</nav>
+
 
 <body>
 
@@ -184,15 +177,14 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-
+{% block post %}
+{% endblock %}
 </body>
 </html>

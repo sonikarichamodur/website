@@ -1,0 +1,113 @@
+{% extends "blog/base.html" %}
+
+{% block post %}
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="/static/js/jquery.iframe-transport.js"></script>
+    <script src="/static/js/jquery.fileupload.js"></script>
+
+
+    <script src="/static/files/js/basic-upload.js"></script>
+{% endblock post %}
+
+{% block content %}
+    {% if can_create %}
+        <h1>Upload File(s)</h1>
+        <button type="button" class="btn btn-primary js-upload-photos">
+            <span class="glyphicon glyphicon-cloud-upload"></span> Upload File(s)
+        </button>
+
+        {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+        <input id="fileupload" type="file" name="file" multiple
+               style="display: none;"
+               data-url="{% url 'blog:upload_file' %}"
+               data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+        <h2>Uploaded File(s)</h2>
+        <table id="gallery" class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Title</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    {% endif %}
+
+    <h1>Existing Files</h1>
+    <div class="pagination">
+    <span class="step-links">
+        {% if files.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ files.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ files.number }} of {{ files.paginator.num_pages }}
+        </span>
+
+        {% if files.has_next %}
+            <a href="?page={{ files.next_page_number }}">next</a>
+            <a href="?page={{ files.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+    <table id="list" class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Relative URL</th>
+            <th>Image or Content Type</th>
+            <td>Actions</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fil in files %}
+            <tr>
+                <td><a href="{{ fil.get_absolute_url }}">{{ fil.title }}</a></td>
+                <td>{{ fil.get_rel_url }}</td>
+                <td>
+                    {% if 'image/' in fil.get_content_type.0 %}
+                        <img src="{{ fil.get_absolute_url }}" width="128">
+                    {% else %}
+                        {{ fil.get_content_type }}
+                    {% endif %}
+                </td>
+                <td>
+                    {#                    {% if fil.can_update %}#}
+                    {#                        <a href="{{ fil.get_update_url }}">[Modify]</a>#}
+                    {#                    {% else %}#}
+                    {#                        <strike>[Modify]</strike>#}
+                    {#                    {% endif %}#}
+                    {% if fil.can_delete %}
+                        <a href="{{ fil.get_delete_url }}">[Delete]</a>
+                    {% else %}
+                        <strike>[Delete]</strike>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+    <span class="step-links">
+        {% if files.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ files.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ files.number }} of {{ files.paginator.num_pages }}
+        </span>
+
+        {% if files.has_next %}
+            <a href="?page={{ files.next_page_number }}">next</a>
+            <a href="?page={{ files.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+{% endblock content %}

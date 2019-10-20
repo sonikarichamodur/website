@@ -4,7 +4,11 @@ from .models.comment import Comment
 from .models.post import Post
 from .models.nav import Nav
 from .models.files import Files
+from .models.meeting import Meeting
+from .models.member import Member
+from .models.signin import Signin
 from .models.maintext import MainText
+from django.db.models import F, Q, Sum
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
@@ -58,6 +62,38 @@ class NavAdmin(nested_admin.NestedModelAdmin):
         return qs.filter(parent=None)
 
 
+class SigninInline(nested_admin.NestedStackedInline):
+    model = Signin
+    # raw_id_fields = ('meeting',)
+    # autocomplete_lookup_fields = {'fk': ('meeting',)}
+    readonly_fields = (
+        'start_time',
+    )
+    fields = (
+        'meeting',
+        'start_time',
+        'end_time',
+    )
+
+
+class MemberAdmin(admin.ModelAdmin):
+    inlines = [
+        SigninInline,
+    ]
+    readonly_fields = ('hours', 'created', 'modified')
+    fields = ('user', 'name', 'slack', 'created', 'modified', 'hours')
+    list_display = (
+        'name',
+        'user',
+        'slack',
+        'hours',
+    )
+
+    def hours(self, obj):
+        return list(Signin.objects.filter(user=obj).annotate(signin_time=F('end_time') - F('start_time')).aggregate(
+            Sum('signin_time')).values())[0]
+
+
 # Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
@@ -67,3 +103,7 @@ admin.site.register(Post)
 admin.site.register(Comment)
 admin.site.register(Files)
 admin.site.register(MainText)
+
+admin.site.register(Meeting)
+admin.site.register(Signin)
+admin.site.register(Member, MemberAdmin)

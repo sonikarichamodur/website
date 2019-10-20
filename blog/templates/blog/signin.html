@@ -1,0 +1,65 @@
+{% extends "blog/base.html" %}
+
+{% block navbar %}
+    <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Manage Current Meeting </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                <form method="post" action="{% url 'blog:end_meeting' meeting.id %}" class="form-horizontal">
+                    {% csrf_token %}
+                    {{ pw_form }}
+                    <input type="submit" value="End Meeting">
+                </form>
+            </div>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+                <!-- Form - Blog Comment -->
+                <form action="" method="post" class="form-horizontal">
+
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+
+                            <!-- Errors - body -->
+                            {% if form.body.errors %}
+                                <label class="alert alert-danger">{{ form.body.errors }}</label>
+                            {% endif %}
+
+                            <!-- Form field - body -->
+                            {{ form }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+        <div class="col-md-6 col-md-offset-4">
+            {% for signin in signed_in %}
+                <a href="/signout/{{ signin.id }}">
+                    {{ signin.user.name }}{% if forloop.last %}{% else %}, {% endif %}
+                </a>
+            {% empty %}
+                No one is signed in yet!
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

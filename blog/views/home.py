@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, Http404
 
 from blog.models.post import Post
 from blog.models.nav import Nav
@@ -15,7 +15,10 @@ def home(request, username=None):
     user = None
     main_text = MainText.objects.filter(text_type='Main Page').order_by('pk')[0]
     if username:
-        user = User.objects.get(username=username)
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise Http404()
         first_name = user.first_name
         last_name = user.last_name
         post_list = Post.objects.filter(user=user)
@@ -38,5 +41,8 @@ def home(request, username=None):
 
 
 def nav(request, link):
-    nav_item = Nav.objects.get(link=link);
-    return render(request, 'blog/nav.html', {"nav": nav_item})
+    try:
+        nav_item = Nav.objects.get(link=link);
+        return render(request, 'blog/nav.html', {"nav": nav_item})
+    except Nav.DoesNotExist:
+        raise Http404()

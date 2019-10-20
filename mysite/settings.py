@@ -26,9 +26,12 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "INSECURE")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
-HEROKU_RELEASE_VERSION = os.environ.get("HEROKU_RELEASE_VERSION", "")
+HEROKU_RELEASE_VERSION = os.environ.get("HEROKU_RELEASE_VERSION", "0")
 HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", "")
 HEROKU_SLUG_COMMIT = os.environ.get("HEROKU_SLUG_COMMIT", "")
+
+# Cache version - Use HEROKU_RELEASE_VERSION (eg v123)
+VERSION = int(HEROKU_RELEASE_VERSION.replace('v', ''))
 
 ALLOWED_HOSTS = []
 
@@ -36,6 +39,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
+    'scout.apps.ScoutConfig',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'markdownify',
     'nested_admin',
-
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -175,12 +179,17 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('BUCKETEER_AWS_SECRET_ACCESS_KEY', 'insec
 AWS_ACCESS_KEY_ID = os.environ.get('BUCKETEER_AWS_ACCESS_KEY_ID', 'insecure')
 AWS_S3_USE_SSL = True
 
-REDIS_URL = os.environ.get('REDIS_URL', None)
-if REDIS_URL:
+BASE_REDIS_URL_DEFAULT = 'redis://localhost'
+BASE_REDIS_URL = os.environ.get('REDIS_URL', BASE_REDIS_URL_DEFAULT)
+REDIS_DJANGO_CACHE_URL = BASE_REDIS_URL + "/1"
+REDIS_CELERY_TASKS_URL = BASE_REDIS_URL + "/2"
+REDIS_CELERY_TOMBS_URL = BASE_REDIS_URL + "/3"
+
+if BASE_REDIS_URL != BASE_REDIS_URL_DEFAULT:
     CACHES = {
         'default': {
             'BACKEND': 'redis_cache.RedisCache',
-            'LOCATION': REDIS_URL,
+            'LOCATION': REDIS_DJANGO_CACHE_URL,
             'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
             'CONNECTION_POOL_CLASS_KWARGS': {
                 'max_connections': 50,
@@ -189,6 +198,15 @@ if REDIS_URL:
         },
     }
 
+CELERY_BROKER_URL = REDIS_CELERY_TASKS_URL
+CELERY_ACCEPT_CONTENT = ['json', ]
+CELERY_RESULT_BACKEND = REDIS_CELERY_TOMBS_URL
+CELERY_ACKS_LATE = True
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ENABLE_UTC = True
+
+TBA_AUTH_KEY = os.environ.get('TBA_AUTH_KEY', None)
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

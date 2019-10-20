@@ -18,3 +18,10 @@ class Post(models.Model):
             title=self.title,
             name=Details.name(self.user),
         )
+
+    class Meta:
+        permissions = (
+            ("post_gui_can_post", "Can create new posts via the GUI"),
+            ("post_gui_can_update", "Can update own posts via the GUI"),
+            ("post_gui_can_delete", "Can delete own posts via the GUI"),
+        )
