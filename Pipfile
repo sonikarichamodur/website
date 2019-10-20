@@ -22,11 +22,13 @@ pexpect = "*"
 django-redis-cache = "*"
 django-nested-admin = "*"
 django-grappelli = "*"
-pipenv = "*"
+pipenv = "==2018.5.18"
 pip = "*"
 virtualenv = "*"
-"tba-client" = {git = 'https://github.com/TBA-API/tba-api-client-python.git',editable = 'true'}
-
 
 [requires]
 python_version = "3.7"
+
+[packages.tba-client]
+git = "https://github.com/TBA-API/tba-api-client-python.git"
+editable = "true"

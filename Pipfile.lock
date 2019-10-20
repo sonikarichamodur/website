@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "26a2844986325365ef4a000f89a6ff176278d3dd034780b2bb913c4deffb01f8"
+            "sha256": "2065e647165fb99c8aba3d1482c0f743e902f061a7297f6c6f7540474eb63a1d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -255,12 +255,11 @@
         },
         "pipenv": {
             "hashes": [
-                "sha256:56ad5f5cb48f1e58878e14525a6e3129d4306049cb76d2f6a3e95df0d5fc6330",
-                "sha256:7df8e33a2387de6f537836f48ac6fcd94eda6ed9ba3d5e3fd52e35b5bc7ff49e",
-                "sha256:a673e606e8452185e9817a987572b55360f4d28b50831ef3b42ac3cab3fee846"
+                "sha256:04b9a8b02a3ff12a5502b335850cfdb192adcfd1d6bbdb7a7c47cae9ab9ddece",
+                "sha256:e96d5bfa6822a17b2200d455aa5f9002c14361c50df1b1e51921479d7c09e741"
             ],
             "index": "pypi",
-            "version": "==2018.11.26"
+            "version": "==2018.5.18"
         },
         "prompt-toolkit": {
             "hashes": [
@@ -311,7 +310,6 @@
                 "sha256:7e6584c74aeed623791615e26efd690f29817a27c73085b78e4bad02493df2fb",
                 "sha256:c89805f6f4d64db21ed966fda138f8a5ed7a4fdbc1a8ee329ce1b74e3c74da9e"
             ],
-            "markers": "python_version >= '2.7'",
             "version": "==2.8.0"
         },
         "python-monkey-business": {
@@ -378,8 +376,7 @@
         },
         "tba-client": {
             "editable": "true",
-            "git": "https://github.com/TBA-API/tba-api-client-python.git",
-            "ref": "efeddcf12ec5b6e0788ea6737eff079d8dd9873e"
+            "git": "https://github.com/TBA-API/tba-api-client-python.git"
         },
         "traitlets": {
             "hashes": [
@@ -393,7 +390,6 @@
                 "sha256:3de946ffbed6e6746608990594d08faac602528ac7015ac28d33cee6a45b7398",
                 "sha256:9a107b99a5393caf59c7aa3c1249c16e6879447533d0887f4336dde834c7be86"
             ],
-            "markers": "python_version >= '3.4'",
             "version": "==1.25.6"
         },
         "vine": {
