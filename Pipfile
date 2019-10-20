@@ -1,32 +1,32 @@
 [[source]]
-url = "https://pypi.python.org/simple"
-verify_ssl = true
 name = "pypi"
-
-[requires]
-python_version = "3.7.4"
+url = "https://pypi.org/simple"
+verify_ssl = true
 
 [dev-packages]
 
 [packages]
 celery = "*"
+django = "*"
 django-celery-beat = "*"
-django = ">=2.2"
 pytz = "*"
-pyYAML = "*"
+pyyaml = "*"
 ipython = "*"
-"dj-database-url" = "*"
-"django_heroku" = "*"
-"django-markdownify" = "*"
+dj-database-url = "*"
+django-heroku = "*"
+django-markdownify = "*"
 gunicorn = "*"
 django-storages = "*"
 boto3 = "*"
 pexpect = "*"
-"django-redis-cache" = "*"
+django-redis-cache = "*"
 django-nested-admin = "*"
 django-grappelli = "*"
-pyyaml = "*"
-tba-client = {git = 'https://github.com/TBA-API/tba-api-client-python.git',editable = 'true'}
 pipenv = "*"
 pip = "*"
 virtualenv = "*"
+"tba-client" = {git = 'https://github.com/TBA-API/tba-api-client-python.git',editable = 'true'}
+
+
+[requires]
+python_version = "3.7"
