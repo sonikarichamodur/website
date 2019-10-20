@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[requires]
+python_version = "3.7.4"
+
+[packages]
+celery = "*"
+django-celery-beat = "*"
+Django = ">=2.0"
+pytz = "*"
+pyYAML = "*"
+ipython = "*"
+"dj-database-url" = "*"
+"django_heroku" = "*"
+"django-markdownify" = "*"
+gunicorn = "*"
+django-storages = "*"
+boto3 = "*"
+pexpect = "*"
+"django-redis-cache" = "*"
+django-nested-admin = "*"
+django-grappelli = "*"
+pyyaml = "*"
+# FRC data
+tba-client = { git = 'https://github.com/TBA-API/tba-api-client-python.git', editable = 'true' }
+
+[dev-packages]
