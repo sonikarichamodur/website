@@ -9,7 +9,7 @@ python_version = "3.7.4"
 [packages]
 celery = "*"
 django-celery-beat = "*"
-Django = ">=2.0"
+django = ">=2.0"
 pytz = "*"
 pyYAML = "*"
 ipython = "*"
@@ -25,6 +25,5 @@ django-nested-admin = "*"
 django-grappelli = "*"
 pyyaml = "*"
 # FRC data
-tba-client = { git = 'https://github.com/TBA-API/tba-api-client-python.git', editable = 'true' }
-
-[dev-packages]
+tba-client = {git = 'https://github.com/TBA-API/tba-api-client-python.git',editable = 'true'}
+pipenv = "*"
