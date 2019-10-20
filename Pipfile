@@ -11,7 +11,7 @@ python_version = "3.7.4"
 [packages]
 celery = "*"
 django-celery-beat = "*"
-django = ">=2.0"
+django = ">=2.2"
 pytz = "*"
 pyYAML = "*"
 ipython = "*"
