@@ -32,7 +32,7 @@ class Meeting(models.Model):
                 start_time__lte=timezone.now(),
                 start_time__ne=self.start_time,
                 end_time__ne=self.end_time,
-                user__ne=self.user,
+                user_id__ne=self.user_id,
         ).filter(
             Q(end_time__isnull=True) | Q(end_time__gte=timezone.now())
         ).count() > 0:
