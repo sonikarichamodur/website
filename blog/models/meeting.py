@@ -33,6 +33,7 @@ class Meeting(models.Model):
             Q(end_time__isnull=True) | Q(end_time__gte=timezone.now())
         )
 
+        # If we already have a pk then filter us out from the count
         if self.id:
             base_filter = base_filter.filter(id__ne=self.id)
 
