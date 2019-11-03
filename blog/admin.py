@@ -14,6 +14,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 import nested_admin
 from .models.users import Details
+from simple_history.admin import SimpleHistoryAdmin
 
 
 # Define an inline admin descriptor for Employee model
@@ -94,7 +95,7 @@ class MemberAdmin(admin.ModelAdmin):
             Sum('signin_time')).values())[0]
 
 
-class MeetingAdmin(admin.ModelAdmin):
+class MeetingAdmin(SimpleHistoryAdmin, admin.ModelAdmin):
     inlines = [
         SigninInline,
     ]
