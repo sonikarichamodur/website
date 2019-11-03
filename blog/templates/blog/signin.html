@@ -7,9 +7,13 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Manage Current Meeting </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
                 <form method="post" action="{% url 'blog:end_meeting' meeting.id %}" class="form-horizontal">
-                    {% csrf_token %}
-                    {{ pw_form }}
-                    <input type="submit" value="End Meeting" class="btn btn-primary btn-block">
+                    <div>
+                        {% csrf_token %}
+                        {{ pw_form }}
+                    </div>
+                    <div>
+                        <input type="submit" value="End Meeting" class="btn btn-primary btn-block">
+                    </div>
                 </form>
             </div>
         </li>
