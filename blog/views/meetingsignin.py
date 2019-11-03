@@ -29,7 +29,7 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         if form.instance.meeting.start_time > timezone.now():
             return HttpResponse('meeting has not started', status=500)
 
-        if form.instance.meeting.end_time < timezone.now():
+        if form.instance.meeting.end_time is not None and form.instance.meeting.end_time < timezone.now():
             return HttpResponse('meeting has ended', status=500)
 
         ret = super().form_valid(form)
