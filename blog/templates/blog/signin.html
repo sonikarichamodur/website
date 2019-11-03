@@ -37,8 +37,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-
-                <!-- Form - Blog Comment -->
+                <h2>Sign In</h2>
                 <form action="" method="post" class="form-horizontal">
 
                     {% csrf_token %}
@@ -70,13 +69,17 @@
             </div>
         </div>
         <div class="col-md-6 col-md-offset-4">
-            {% for signin in signed_in %}
-                <a href="/signout/{{ signin.id }}" class="button">
-                    {{ signin.user.name }}
-                </a>
-            {% empty %}
-                No one is signed in yet!
-            {% endfor %}
+            <h2>Sign Out Buttons</h2>
+            <p>Only press once! Don't signout others!</p>
+            <div>
+                {% for signin in signed_in %}
+                    <a href="/signout/{{ signin.id }}" class="button">
+                        {{ signin.user.name }}
+                    </a>
+                {% empty %}
+                    No one is signed in yet!
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock content %}
