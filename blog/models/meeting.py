@@ -5,7 +5,7 @@ from blog.models.users import Details
 from blog.models.post import Post
 from django.db.models import Q
 from django.core.exceptions import ValidationError
-
+from simple_history.models import HistoricalRecords
 
 def start_validator(meeting):
     if meeting.start_time is not None:
@@ -25,6 +25,7 @@ class Meeting(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     start_time = models.DateTimeField('meeting start time', auto_now_add=True, editable=True)
     end_time = models.DateTimeField('meeting end time', default=None, null=True)
+    history = HistoricalRecords()
 
     def clean(self):
         base_filter = Meeting.objects.filter(
