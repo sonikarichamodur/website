@@ -27,15 +27,16 @@ class Meeting(models.Model):
     end_time = models.DateTimeField('meeting end time', default=None, null=True)
 
     def clean(self):
-
-        if Meeting.objects.filter(
-                start_time__lte=timezone.now(),
-                start_time__ne=self.start_time,
-                end_time__ne=self.end_time,
-                user_id__ne=self.user_id,
+        base_filter = Meeting.objects.filter(
+            start_time__lte=timezone.now(),
         ).filter(
             Q(end_time__isnull=True) | Q(end_time__gte=timezone.now())
-        ).count() > 0:
+        )
+
+        if self.id:
+            base_filter = base_filter.filter(id__ne=self.id)
+
+        if base_filter.count() > 0:
             raise ValidationError("cannot create multiple meetings")
         if not startValidator(self):
             raise ValidationError("cannot create meeting")
