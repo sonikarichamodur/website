@@ -15,7 +15,7 @@ from django.http import Http404
 
 class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Meeting
-    fields = ['end_time', ]
+    fields = []
     template_name = 'blog/create_meeting.html'
     login_url = reverse_lazy('login')
     permission_required = "blog.meeting_gui_can_create"
@@ -27,9 +27,9 @@ class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         #     return HttpResponse("meeting end time is set incorrectly", status=500)
 
         ret = super().form_valid(form)
-
-        if self.object.end_time <= (timezone.now() + timedelta(minutes=25)):
-            return HttpResponse("meeting end time is set incorrectly", status=500)
+        #
+        # if self.object.end_time <= (timezone.now() + timedelta(minutes=25)):
+        #     return HttpResponse("meeting end time is set incorrectly", status=500)
 
         # if Meeting.objects.filter(start_time__lte=timezone.now()).filter(
         #         Q(end_time__isnull=True) | Q(end_time__gte=timezone.now())).count() > 0:

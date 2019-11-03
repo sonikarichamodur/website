@@ -14,7 +14,7 @@ def end_meeting(request, pk):
     if request.method != 'POST':
         return HttpResponse('expected POST', status=400)
 
-    if meeting.end_time < timezone.now():
+    if meeting.end_time is not None and meeting.end_time < timezone.now():
         return HttpResponse('meeting already over', status=500)
 
     form = PasswordForm(request.POST)
