@@ -16,6 +16,23 @@
     </ul>
 {% endblock %}
 
+{% block pre %}
+    <style>
+        .button {
+            background-color: #1c87c9;
+            border: none;
+            color: white;
+            padding: 20px 34px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row">
@@ -54,7 +71,7 @@
         </div>
         <div class="col-md-6 col-md-offset-4">
             {% for signin in signed_in %}
-                <a href="/signout/{{ signin.id }}">
+                <a href="/signout/{{ signin.id }}" class="button">
                     {{ signin.user.name }}{% if forloop.last %}{% else %}, {% endif %}
                 </a>
             {% empty %}
