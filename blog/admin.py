@@ -94,6 +94,12 @@ class MemberAdmin(admin.ModelAdmin):
             Sum('signin_time')).values())[0]
 
 
+class MeetingAdmin(admin.ModelAdmin):
+    inlines = [
+        SigninInline,
+    ]
+
+
 # Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
@@ -104,6 +110,6 @@ admin.site.register(Comment)
 admin.site.register(Files)
 admin.site.register(MainText)
 
-admin.site.register(Meeting)
+admin.site.register(Meeting, MeetingAdmin)
 admin.site.register(Signin)
 admin.site.register(Member, MemberAdmin)
