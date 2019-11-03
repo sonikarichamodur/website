@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.core.exceptions import ValidationError
 from simple_history.models import HistoricalRecords
 
+
 def start_validator(meeting):
     if meeting.start_time is not None:
         return meeting.start_time < timezone.now()

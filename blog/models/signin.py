@@ -11,6 +11,7 @@ from blog.models.member import Member
 from blog.models.meeting import Meeting
 from django.db.models.constraints import CheckConstraint, UniqueConstraint
 from simple_history.models import HistoricalRecords
+
 base_log = logging.getLogger('blog.models.signin')
 
 
