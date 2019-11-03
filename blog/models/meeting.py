@@ -7,14 +7,14 @@ from django.db.models import Q
 from django.core.exceptions import ValidationError
 
 
-def startValidator(meeting):
+def start_validator(meeting):
     if meeting.start_time is not None:
         return meeting.start_time < timezone.now()
 
     return True
 
 
-def endValidator(meeting):
+def end_validator(meeting):
     if meeting.end_time is not None:
         return meeting.end_time <= timezone.now()
 
@@ -39,10 +39,10 @@ class Meeting(models.Model):
 
         if base_filter.count() > 0:
             raise ValidationError("cannot create multiple meetings")
-        if not startValidator(self):
+        if not start_validator(self):
             raise ValidationError("cannot create meeting")
 
-        if not endValidator(self):
+        if not end_validator(self):
             raise ValidationError("cannot create meeting")
 
     def __str__(self):
