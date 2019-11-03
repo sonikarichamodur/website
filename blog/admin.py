@@ -99,7 +99,7 @@ class MeetingAdmin(SimpleHistoryAdmin, admin.ModelAdmin):
     inlines = [
         SigninInline,
     ]
-    readonly_fields = ('user',)
+    readonly_fields = ('user', 'start_time',)
     fields = ('user', 'start_time', 'end_time')
     list_display = ('user', 'start_time', 'end_time')
 
