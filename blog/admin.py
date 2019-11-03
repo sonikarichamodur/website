@@ -98,6 +98,9 @@ class MeetingAdmin(admin.ModelAdmin):
     inlines = [
         SigninInline,
     ]
+    readonly_fields = ('user',)
+    fields = ('user', 'start_time', 'end_time')
+    list_display = ('user', 'start_time', 'end_time')
 
 
 # Re-register UserAdmin
