@@ -10,6 +10,7 @@ from blog.models.post import Post
 from blog.models.member import Member
 from blog.models.meeting import Meeting
 from django.db.models.constraints import CheckConstraint, UniqueConstraint
+from simple_history.models import HistoricalRecords
 base_log = logging.getLogger('blog.models.signin')
 
 
@@ -27,7 +28,8 @@ class Signin(models.Model):
     user = models.ForeignKey(Member, on_delete=models.CASCADE, null=False)
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE, null=False)
     start_time = models.DateTimeField('sign-in time', auto_now_add=True, null=False, validators=[startValidator])
-    end_time = models.DateTimeField('sign-out time', null=True, validators=[endValidator])
+    end_time = models.DateTimeField('sign-out time', null=True, blank=True, validators=[endValidator])
+    history = HistoricalRecords()
 
     def __str__(self):
         return "{user} signed in to {meeting} from {start_time} to {end_time}".format(user=self.user.name,
