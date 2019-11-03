@@ -35,7 +35,7 @@ class Meeting(models.Model):
 
         # If we already have a pk then filter us out from the count
         if self.id:
-            base_filter = base_filter.filter(id__ne=self.id)
+            base_filter = base_filter.filter(~Q(id=self.id))
 
         if base_filter.count() > 0:
             raise ValidationError("cannot create multiple meetings")
