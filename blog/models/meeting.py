@@ -42,8 +42,8 @@ class Meeting(models.Model):
         if not startValidator(self):
             raise ValidationError("cannot create meeting")
 
-        if not endValidator(self):
-            raise ValidationError("cannot create meeting")
+        # if not endValidator(self):
+        #     raise ValidationError("cannot create meeting")
 
     def __str__(self):
         return "meeting from {start_time} to {end_time}".format(start_time=self.start_time, end_time=self.end_time)
