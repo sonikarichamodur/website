@@ -72,26 +72,28 @@
                 </form>
 
             </div>
+            <div class="col-md-6 col-md-offset-4">
+                <h2>Sign Out Buttons</h2>
+                <p>Only press once! Don't sign out others!</p>
+            </div>
         </div>
-        <div class="col-md-6 col-md-offset-4">
-            <h2>Sign Out Buttons</h2>
-            <p>Only press once! Don't sign out others!</p>
-        </div>
-        {% for team, signed_in_users in signed_in.items %}
-            {% if signed_in_users %}
-                <div class="col-md-6 col-md-offset-4">
-                    <h4>{{ team }}</h4>
-                    <div>
-                        {% for signin in signed_in_users %}
-                            <a href="/signout/{{ signin.id }}" class="button">
-                                {{ signin.user.name }}
-                            </a>
-                        {% empty %}
-                            No one is signed in yet!
-                        {% endfor %}
+        <div class="row">
+            {% for team, signed_in_users in signed_in.items %}
+                {% if signed_in_users %}
+                    <div class="col-md-6 col-md-offset-4">
+                        <h2>{{ team }}</h2>
+                        <div>
+                            {% for signin in signed_in_users %}
+                                <a href="/signout/{{ signin.id }}" class="button">
+                                    {{ signin.user.name }}
+                                </a>
+                            {% empty %}
+                                No one is signed in yet!
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-            {% endif %}
-        {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}
