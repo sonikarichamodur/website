@@ -13,7 +13,11 @@ class Member(models.Model):
         ("Outreach", "Outreach"),
         ("Strategy", "Strategy"),
         ("Safety", "Safety"),
-        ("Helping Hands", "Helping Hands")
+        ("Helping Hands", "Helping Hands"),
+        ("Sponsorship","Sponsorship"),
+        ("Graphics/Spirit","Graphics/Spirit"),
+        ("Comun/Website","Comun/Website"),
+        ("Visuals","Visuals"),
 
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
