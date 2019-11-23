@@ -25,4 +25,4 @@ class Member(models.Model):
     history = HistoricalRecords()
 
     def __str__(self):
-        return "{name}".format(name=self.name)
+        return f"{self.team} | {self.name}"
