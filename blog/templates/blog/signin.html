@@ -77,7 +77,7 @@
             <h2>Sign Out Buttons</h2>
             <p>Only press once! Don't signout others!</p>
             <div>
-                {% for team, signed_in_users in signed_in %}
+                {% for team, signed_in_users in signed_in.items %}
                     <div>
                         <h4>{{ team }}</h4>
                         <div>
