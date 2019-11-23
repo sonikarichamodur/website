@@ -78,20 +78,20 @@
             <p>Only press once! Don't signout others!</p>
             <div>
                 {% for team, users signed_in %}
-                <div>
-                    <h4>{{ team }}</h4>
-                   
-                    <div> 
-                        {% for signin in users %}
-                        <a href="/signout/{{ signin.id }}" class="button">
-                            {{ signin.user.name }}
-                        </a>
-                        {% empty %}
-                            No one is signed in yet!
-                        {% endfor %}
+                    <div>
+                        <h4>{{ team }}</h4>
+
+                        <div>
+                            {% for signin in users %}
+                                <a href="/signout/{{ signin.id }}" class="button">
+                                    {{ signin.user.name }}
+                                </a>
+                            {% empty %}
+                                No one is signed in yet!
+                            {% endfor %}
+                        </div>
+
                     </div>
-                   
-                </div>
                 {% endfor %}
             </div>
         </div>
