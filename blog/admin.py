@@ -82,8 +82,9 @@ class MemberAdmin(admin.ModelAdmin):
         SigninInline,
     ]
     readonly_fields = ('hours', 'created', 'modified')
-    fields = ('user', 'name', 'slack', 'created', 'modified', 'hours')
+    fields = ('user','team', 'name', 'slack', 'created', 'modified', 'hours')
     list_display = (
+        'team',
         'name',
         'user',
         'slack',
