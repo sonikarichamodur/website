@@ -80,7 +80,7 @@
         <div class="row">
             {% for team, signed_in_users in signed_in.items %}
                 {% if signed_in_users %}
-                    <div class="col-md-2 col-md-offset-1">
+                    <div class="col-md-6 col-md-offset-4">
                         <h2>{{ team }}</h2>
                         <div>
                             {% for signin in signed_in_users %}
