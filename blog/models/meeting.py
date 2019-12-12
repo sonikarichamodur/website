@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from .member import Member
 from blog.models.users import Details
 from blog.models.post import Post
 from django.db.models import Q
@@ -20,7 +21,6 @@ def end_validator(meeting):
         return meeting.end_time <= timezone.now()
 
     return True
-
 
 class Meeting(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -54,3 +54,9 @@ class Meeting(models.Model):
         permissions = (
             ("meeting_gui_can_create", "Can create new meetings via the GUI"),
         )
+
+
+class MeetingType(models.Model):
+    meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
+    subteam = models.CharField('team name', max_length=255, blank=False, null=False, choices=Member.TEAM,
+                               default="None")

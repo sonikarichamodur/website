@@ -1,16 +1,36 @@
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import forms
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
-from django.shortcuts import Http404
+from ..models.member import Member
+from django.shortcuts import Http404, render
 from blog.models.comment import Comment
-from blog.models.meeting import Meeting
+from blog.models.meeting import Meeting, MeetingType
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils import timezone
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from datetime import timedelta
 from django.http import Http404
+
+
+class SigninForm(forms.Form):
+    choices = forms.MultipleChoiceField(choices=Member.TEAM, widget=forms.CheckBoxSelectMultiple)
+
+
+@permission_required("blog.meeting_gui_can_create")
+def meeting(request):
+    form = SigninForm(request.POST)
+
+    if form.is_valid():
+        m = Meeting(user=request.user)
+        m.save()
+        for choice in form.cleaned_data['choices']:
+            ch = MeetingType(meeting=m.id, subteam=choice)
+            ch.save()
+            return HttpResponseRedirect(reverse('blog:signin', kwargs={'pk': m.pk}))
+    return render(request, 'blog/create_meeting.html', {"form": form})
 
 
 class MeetingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
