@@ -32,6 +32,7 @@ def meeting(request):
             ch = MeetingType(meeting=m.id, subteam=choice)
             ch.save()
             return HttpResponseRedirect(reverse('blog:signin', kwargs={'pk': m.pk}))
+
     return render(request, 'blog/create_meeting.html', {"form": form})
 
 

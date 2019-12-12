@@ -5,7 +5,7 @@ from blog.views.home import home
 from blog.views.post import PostView, PostCreate, PostUpdate, PostDelete
 from blog.views.home import nav
 from blog.views.files import BasicUploadView, download_file, delete_file
-from .views.meetings import MeetingCreate
+from .views.meetings import meeting
 from .views.meetingsignin import MeetingSignin
 from .views.meetingsignout import meetingSignOut
 from .views.endmeeting import end_meeting
@@ -34,7 +34,7 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDelete.as_view(), name='delete_post'),
     # ex: /blog/post/5/comment/
     path('post/<int:pk>/comment/', CommentCreate.as_view(), name='create_comment'),
-    path('meeting', MeetingCreate.as_view(), name="create_meeting"),
+    path('meeting', meeting, name="create_meeting"),
     path('meeting/<int:pk>/end', end_meeting, name='end_meeting'),
     path('meeting/<int:pk>/', MeetingSignin.as_view(), name='signin'),
     path('signout/<int:signId>/', meetingSignOut, name='signout'),
