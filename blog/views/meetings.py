@@ -13,10 +13,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from datetime import timedelta
 from django.http import Http404
+from django.forms.fields import MultipleChoiceField
+from django.forms.widgets import CheckboxSelectMultiple
 
 
 class SigninForm(forms.Form):
-    choices = forms.MultipleChoiceField(choices=Member.TEAM, widget=forms.CheckBoxSelectMultiple)
+    choices = MultipleChoiceField(choices=Member.TEAM, widget=CheckboxSelectMultiple)
 
 
 @permission_required("blog.meeting_gui_can_create")
