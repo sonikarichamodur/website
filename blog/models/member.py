@@ -14,11 +14,11 @@ class Member(models.Model):
         ("Strategy", "Strategy"),
         ("Safety", "Safety"),
         ("Helping Hands", "Helping Hands"),
-        ("Sponsorship","Sponsorship"),
-        ("Graphics/Spirit","Graphics/Spirit"),
-        ("Comun/Website","Comun/Website"),
-        ("Visuals","Visuals"),
-       # ("","",), #Dr. T's daughters
+        ("Sponsorship", "Sponsorship"),
+        ("Graphics/Spirit", "Graphics/Spirit"),
+        ("Comun/Website", "Comun/Website"),
+        ("Visuals", "Visuals"),
+        # ("","",), #Dr. T's daughters
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField('member name', max_length=4096)
