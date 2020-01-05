@@ -19,7 +19,6 @@ class Member(models.Model):
         ("Comun/Website","Comun/Website"),
         ("Visuals","Visuals"),
        # ("","",), #Dr. T's daughters
-
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField('member name', max_length=4096)
