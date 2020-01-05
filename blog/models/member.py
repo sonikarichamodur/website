@@ -18,6 +18,7 @@ class Member(models.Model):
         ("Graphics/Spirit","Graphics/Spirit"),
         ("Comun/Website","Comun/Website"),
         ("Visuals","Visuals"),
+       # ("","",), #Dr. T's daughters
 
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
