@@ -1,0 +1,44 @@
+- model: blog.team
+  pk: "None"
+  fields:
+    display_name: "None"
+- model: blog.team
+  pk: "Programming/Electrical"
+  fields:
+    display_name: "Programming/Electrical"
+- model: blog.team
+  pk: "CAD/Manufacturing"
+  fields:
+    display_name: "CAD/Manufacturing"
+- model: blog.team
+  pk: "Outreach"
+  fields:
+    display_name: "Outreach"
+- model: blog.team
+  pk: "Strategy"
+  fields:
+    display_name: "Strategy"
+- model: blog.team
+  pk: "Safety"
+  fields:
+    display_name: "Safety"
+- model: blog.team
+  pk: "Helping Hands"
+  fields:
+    display_name: "Helping Hands"
+- model: blog.team
+  pk: "Sponsorship"
+  fields:
+    display_name: "Sponsorship"
+- model: blog.team
+  pk: "Graphics/Spirit"
+  fields:
+    display_name: "Graphics/Spirit"
+- model: blog.team
+  pk: "Comun/Website"
+  fields:
+    display_name: "Comms/Website"
+- model: blog.team
+  pk: "Visuals"
+  fields:
+    display_name: "Visuals"
