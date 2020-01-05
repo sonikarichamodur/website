@@ -24,7 +24,7 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = "blog.meeting_gui_can_create"
 
     def form_valid(self, form):
-        form.instance.meeting = Meeting.objects.get(pk=self.kwargs['pk'])
+        form.instance.meeting = Meeting.objects.filter(end_time__isnull=True).get(pk=self.kwargs['pk'])
 
         if form.instance.meeting.start_time > timezone.now():
             return HttpResponse('meeting has not started', status=500)
