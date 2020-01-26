@@ -9,6 +9,7 @@ from .views.meetings import meeting
 from .views.meetingsignin import MeetingSignin
 from .views.meetingsignout import meetingSignOut
 from .views.endmeeting import end_meeting
+from .views.statistics import stats
 
 app_name = 'blog'
 urlpatterns = [
@@ -39,4 +40,5 @@ urlpatterns = [
     path('meeting/<int:pk>/', MeetingSignin.as_view(), name='signin'),
     path('signout/<int:signId>/', meetingSignOut, name='signout'),
     path('<str:link>', nav, name='nav'),
+    path('statistics', stats, name='statistics'),
 ]
