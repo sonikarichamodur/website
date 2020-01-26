@@ -1,0 +1,44 @@
+{% extends "blog/base.html" %}
+{% load markdownify %}
+{% load blog_filters %}
+
+{% block content %}
+    <div class="page-header" id="banner">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1 class="display-3">Statistics</h1>
+                <p class="lead">Build Season Hours</p>
+            </div>
+            <div class="container text-center">
+                <table>
+                    <tr>
+                        <td>
+                            Rank
+                        </td>
+                        <td>
+                            Member
+                        </td>
+                        <td>
+                            Hours
+                        </td>
+                    </tr>
+
+                    {% for member in members %}
+                        <tr>
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+                            <td>
+                                {{ member.0 }}
+                            </td>
+                            <td>
+                                {{ member.1 }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+        </div>
+    </div>
+{% endblock content %}
