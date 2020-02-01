@@ -18,7 +18,7 @@ from django.forms.widgets import CheckboxSelectMultiple
 
 
 class SigninForm(forms.Form):
-    choices = MultipleChoiceField(choices=Member.TEAM, widget=CheckboxSelectMultiple)
+    choices = MultipleChoiceField(widget=CheckboxSelectMultiple)
 
 
 @permission_required("blog.meeting_gui_can_create")
