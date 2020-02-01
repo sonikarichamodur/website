@@ -7,6 +7,7 @@ from blog.models.post import Post
 from django.db.models import Q
 from django.core.exceptions import ValidationError
 from simple_history.models import HistoricalRecords
+from .team import Team
 
 
 def start_validator(meeting):
@@ -59,5 +60,5 @@ class Meeting(models.Model):
 
 class MeetingType(models.Model):
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
-    subteam = models.CharField('team name', max_length=255, blank=False, null=False, choices=Member.TEAM,
-                               default="None")
+    team = models.ForeignKey(Team, on_delete=models.SET_DEFAULT, verbose_name='team name', blank=False, null=False,
+                             default="None", )
