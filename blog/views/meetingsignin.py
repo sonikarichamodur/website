@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView
-from django.shortcuts import Http404
+from django.shortcuts import Http404, HttpResponseRedirect
 
 from blog.forms import PasswordForm
 from blog.models.comment import Comment
@@ -14,6 +14,7 @@ from django.shortcuts import redirect
 from django.db.models import Q, F
 from django.db.models import Count
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.db import IntegrityError
 
 
 class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -32,7 +33,10 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         if form.instance.meeting.end_time is not None and form.instance.meeting.end_time < timezone.now():
             return HttpResponse('meeting has ended', status=500)
 
-        ret = super().form_valid(form)
+        try:
+            ret = super().form_valid(form)
+        except IntegrityError:
+            return redirect('signin', pk=form.instance.meeting.id)
         return ret
 
     def get_success_url(self):
