@@ -67,8 +67,7 @@
                             <button type="submit" class="btn btn-primary btn-block" id="sign-in" onclick="clicked">Sign in</button>
                             <script>
                                 function clicked() {
-                                    var btn = $("#sign-in");
-                                    btn.prop("disabled", true);
+                                    document.getElementById('sign-in').disabled = true;
                                 }
                             </script>
                         </div>
