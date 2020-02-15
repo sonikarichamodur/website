@@ -61,4 +61,4 @@ class Meeting(models.Model):
 class MeetingType(models.Model):
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.SET_DEFAULT, verbose_name='team name', blank=False, null=False,
-                             default="None", )
+                             default=None)
