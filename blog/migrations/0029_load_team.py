@@ -5,7 +5,7 @@ from django.db import migrations
 
 
 def load_fixture(apps, schema_editor):
-    call_command('loaddata', "team", app_label='blog')
+    call_command('loaddata', "teams", app_label='blog')
 
 
 class Migration(migrations.Migration):
