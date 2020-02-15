@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.RunSQL("""
-        INSERT INTO blog_team (name,display_name) VALUES ("None","None");
+        INSERT INTO blog_team ("name","display_name") VALUES ('None','None');
         """),
         migrations.RemoveField(
             model_name='meetingtype',
