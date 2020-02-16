@@ -45,10 +45,11 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         ctx['teams'] = ctx['meeting'].meetingtype_set.all().order_by('team__name')
         ctx['signed_in'] = {}
         for team in ctx['teams']:
-            ctx['signed_in'][team.display_name] = Signin.objects.filter(end_time__isnull=True, user__team=team,
-                                                                        meeting=Meeting.objects.get(
-                                                                            pk=self.kwargs['pk'])) \
-                .order_by("user__name").all()
+            ctx['signed_in'][team.display_name] = Signin.objects.filter(
+                end_time__isnull=True,
+                user__team=team,
+                meeting=Meeting.objects.get(pk=self.kwargs['pk']),
+            ).order_by("user__name").all()
 
         ctx['pw_form'] = PasswordForm()
         return ctx
