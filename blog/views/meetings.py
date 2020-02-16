@@ -35,6 +35,6 @@ def meeting(request):
         for choice in form.cleaned_data['teams']:
             ch = MeetingType(meeting=m, team=Team.objects.get(name=choice))
             ch.save()
-            return HttpResponseRedirect(reverse('blog:signin', kwargs={'pk': m.pk}))
+        return HttpResponseRedirect(reverse('blog:signin', kwargs={'pk': m.pk}))
 
     return render(request, 'blog/create_meeting.html', {"form": form})
