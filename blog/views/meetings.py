@@ -15,10 +15,14 @@ from datetime import timedelta
 from django.http import Http404
 from django.forms.fields import MultipleChoiceField
 from django.forms.widgets import CheckboxSelectMultiple
+from ..models.team import Team
 
 
 class SigninForm(forms.Form):
-    choices = MultipleChoiceField(widget=CheckboxSelectMultiple)
+    teams = MultipleChoiceField(
+        choices=Team.objects.all(),
+        widget=CheckboxSelectMultiple,
+    )
 
 
 @permission_required("blog.meeting_gui_can_create")
@@ -29,7 +33,7 @@ def meeting(request):
         m = Meeting(user=request.user)
         m.save()
         for choice in form.cleaned_data['choices']:
-            ch = MeetingType(meeting=m, subteam=choice)
+            ch = MeetingType(meeting=m, team=choice)
             ch.save()
             return HttpResponseRedirect(reverse('blog:signin', kwargs={'pk': m.pk}))
 
