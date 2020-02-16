@@ -32,8 +32,8 @@ def meeting(request):
     if form.is_valid():
         m = Meeting(user=request.user)
         m.save()
-        for choice in form.cleaned_data['choices']:
-            ch = MeetingType(meeting=m, team=choice)
+        for choice in form.cleaned_data['teams']:
+            ch = MeetingType(meeting=m, team=Team.objects.get(name=choice))
             ch.save()
             return HttpResponseRedirect(reverse('blog:signin', kwargs={'pk': m.pk}))
 
