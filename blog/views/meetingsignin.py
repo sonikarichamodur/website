@@ -1,19 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.db.models import Count
+from django.db.models import Q, F
+from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.views.generic import CreateView
-from django.shortcuts import Http404
 
 from blog.forms import PasswordForm
-from blog.models.comment import Comment
-from blog.models.signin import Signin
 from blog.models.meeting import Meeting
 from blog.models.member import Member
-from django.utils import timezone
-from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.db.models import Q, F
-from django.db.models import Count
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from blog.models.signin import Signin
 
 
 class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -47,10 +44,11 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         ctx['meeting'] = Meeting.objects.get(pk=self.kwargs['pk'])
         ctx['teams'] = ctx['meeting'].meetingtype_set.order_by('name').all()
         ctx['signed_in'] = {}
-        for team_name, _ in Member.TEAM:
-            ctx['signed_in'][team_name] = Signin.objects.filter(end_time__isnull=True, user__team=team_name,
-                                                                meeting=Meeting.objects.get(
-                                                                    pk=self.kwargs['pk'])).order_by("user__name").all()
+        for team in ctx['teams']:
+            ctx['signed_in'][team.display_name] = Signin.objects.filter(end_time__isnull=True, user__team=team,
+                                                                        meeting=Meeting.objects.get(
+                                                                            pk=self.kwargs['pk'])) \
+                .order_by("user__name").all()
 
         ctx['pw_form'] = PasswordForm()
         return ctx
