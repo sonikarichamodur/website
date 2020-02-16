@@ -24,6 +24,9 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.meeting = Meeting.objects.get(pk=self.kwargs['pk'])
 
+        if form.instance.user.team not in form.instance.meeting.meetingtype_set.all():
+            return HttpResponse("not in list of teams for the meeting", status=500)
+
         if form.instance.meeting.start_time > timezone.now():
             return HttpResponse('meeting has not started', status=500)
 
@@ -39,11 +42,13 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         ctx = super(MeetingSignin, self).get_context_data(**kwargs)
         ctx['meeting'] = Meeting.objects.get(pk=self.kwargs['pk'])
-        ctx['teams'] = [i.team for i in ctx['meeting'].meetingtype_set.all().order_by('team__display_name')]
+        ctx['teams'] = [i.team for i in
+                        Meeting.objects.get(pk=self.kwargs['pk']).meetingtype_set.all().order_by('team__display_name')]
         signins = Signin.objects.filter(meeting=Meeting.objects.get(pk=self.kwargs['pk']), end_time__isnull=True).all()
         usr = Member.objects.annotate(signin_count=Count(F('signin'))).filter(
             ~Q(signin__in=signins) | Q(signin_count=0)).filter(
-            Q(team__in=ctx['teams'])
+            Q(team__in=[i.team for i in
+                        Meeting.objects.get(pk=self.kwargs['pk']).meetingtype_set.all().order_by('team__display_name')])
         ).order_by("name", "team")
         ctx['form'].fields['user'].queryset = usr
 
@@ -52,7 +57,7 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
             ctx['signed_in'][team.display_name] = Signin.objects.filter(
                 end_time__isnull=True,
                 user__team=team,
-                meeting=ctx['meeting'],
+                meeting=Meeting.objects.get(pk=self.kwargs['pk']),
             ).order_by("user__name").all()
 
         ctx['pw_form'] = PasswordForm()
