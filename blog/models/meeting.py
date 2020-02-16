@@ -25,9 +25,9 @@ def end_validator(meeting):
 
 
 class Meeting(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, editable=False)
     start_time = models.DateTimeField('meeting start time', auto_now_add=True, editable=True)
-    end_time = models.DateTimeField('meeting end time', default=None, null=True, blank=True)
+    end_time = models.DateTimeField('meeting end time', default=None, null=True, blank=True, editable=True)
     history = HistoricalRecords()
 
     def clean(self):
