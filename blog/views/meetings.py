@@ -20,7 +20,7 @@ from ..models.team import Team
 
 class SigninForm(forms.Form):
     teams = MultipleChoiceField(
-        choices=Team.objects.all().order_by('name').values("name", "display_name"),
+        choices=Team.objects.all().order_by('name').values_list("name", "display_name"),
         widget=CheckboxSelectMultiple,
     )
 
