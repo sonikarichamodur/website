@@ -11,6 +11,7 @@ from blog.forms import PasswordForm
 from blog.models.meeting import Meeting
 from blog.models.member import Member
 from blog.models.signin import Signin
+from ..models.team import Team
 
 
 class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -37,14 +38,17 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(MeetingSignin, self).get_context_data(**kwargs)
-        signins = Signin.objects.filter(meeting=Meeting.objects.get(pk=self.kwargs['pk']), end_time__isnull=True).all()
-        usr = Member.objects.annotate(signin_count=Count(F('signin'))).filter(
-            ~Q(signin__in=signins) | Q(signin_count=0)).order_by("team", "name")
-        ctx['form'].fields['user'].queryset = usr
         ctx['meeting'] = Meeting.objects.get(pk=self.kwargs['pk'])
         ctx['teams'] = [i.team for i in ctx['meeting'].meetingtype_set.all().order_by('team__display_name')]
+        signins = Signin.objects.filter(meeting=Meeting.objects.get(pk=self.kwargs['pk']), end_time__isnull=True).all()
+        usr = Member.objects.annotate(signin_count=Count(F('signin'))).filter(
+            ~Q(signin__in=signins) | Q(signin_count=0)).filter(
+            Q(team__in=ctx['teams'])
+        ).order_by("name", "team")
+        ctx['form'].fields['user'].queryset = usr
+
         ctx['signed_in'] = {}
-        for team in ctx['teams']:
+        for team in Team.objects.all():
             ctx['signed_in'][team.display_name] = Signin.objects.filter(
                 end_time__isnull=True,
                 user__team=team,
