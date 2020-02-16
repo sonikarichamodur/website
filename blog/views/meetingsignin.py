@@ -42,7 +42,7 @@ class MeetingSignin(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
             ~Q(signin__in=signins) | Q(signin_count=0)).order_by("team", "name")
         ctx['form'].fields['user'].queryset = usr
         ctx['meeting'] = Meeting.objects.get(pk=self.kwargs['pk'])
-        ctx['teams'] = ctx['meeting'].meetingtype_set.all().order_by('team.name')
+        ctx['teams'] = ctx['meeting'].meetingtype_set.all().order_by('team__name')
         ctx['signed_in'] = {}
         for team in ctx['teams']:
             ctx['signed_in'][team.display_name] = Signin.objects.filter(end_time__isnull=True, user__team=team,
