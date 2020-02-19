@@ -40,6 +40,9 @@ class BasicUploadView(LoginRequiredMixin, View):
         return render(self.request, 'blog/files/index.html', {'files': files, 'can_create': can_create, })
 
     def post(self, request):
+        if not request.user.has_perm('files_gui_own_create'):
+            raise PermissionError("You can't upload files")
+
         files = {'fil': self.request.FILES['file']}
 
         post = dict(self.request.POST).copy()
