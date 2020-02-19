@@ -60,6 +60,9 @@ class BasicUploadView(LoginRequiredMixin, View):
 
 @login_required
 def upload_file(request):
+    if not request.user.has_perm('files_gui_own_create'):
+        raise PermissionError("You can't upload files")
+
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES, initial={
             'user': request.user,
