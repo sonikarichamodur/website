@@ -152,11 +152,11 @@
         },
         "django-simple-history": {
             "hashes": [
-                "sha256:7273add61d3f89453c475531627f8c69cbfc41d6fb99d45278dddc3bafe39284",
-                "sha256:7f3044439e401fb02b12231b675590865a27a149f6bd99587e429cbe6a9dd6a6"
+                "sha256:3d56ca81de5a960b293dd8be31af991b976f319940e01c68ed10652dbd86aa58",
+                "sha256:831cfc3f1164627428be3cd38fb7268eb7a979f97f11018e55813a3ce23b1173"
             ],
             "index": "pypi",
-            "version": "==2.7.3"
+            "version": "==2.8.0"
         },
         "django-storages": {
             "hashes": [
