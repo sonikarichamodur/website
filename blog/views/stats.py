@@ -25,10 +25,12 @@ def stats(request):
             signin_q = signin_q and Q(meeting__end_time__lte=end)
 
         for member in Member.objects.all():
-            by_hours.append((member, member.stats(pct_end, signin_q)))
+            stats = member.stats(pct_end, signin_q)
+            stats['ttl_hours'] = stats['ttl'].total_seconds() / 3600.0
+            by_hours.append((member, stats))
             by_name.append(member)
 
-        by_hours.sort(key=lambda x: x[1]['ttl'])
+        by_hours.sort(key=lambda x: x[1]['ttl'], reverse=True)
         by_name.sort(key=lambda x: x.name)
 
         return render(request, 'blog/stats.html', {

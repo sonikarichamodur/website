@@ -3,81 +3,61 @@
 {% load blog_filters %}
 
 {% block content %}
-    <div class="page-header" id="banner">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h1 class="display-3">RoboLoCo</h1>
-                <p class="lead">Meeting Stats</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="container text-center">
-                <p class="lead">
-                <form action="" method="post" class="form-horizontal">
-
-                    {% csrf_token %}
-
-                    <div class="form-group">
-                        <div class="col-sm-9">
-                            {{ form.as_p }}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-9">
-                            <!-- Submit button -->
-                            <button type="submit" class="btn btn-primary btn-block">Filter</button>
-                        </div>
-                    </div>
-
-                </form>
-                </p>
-            </div>
-        </div>
-        <!-- Show this section only for User Blog view -->
-        {% if postuser %}
-            <div class="container">
-                <div class="jumbotron">
-                    <h1 class="display-4">{{ postuser.pk|human_name }}'s Posts</h1>
-                </div>
-            </div>
-        {% endif %}
-
-        <!-- Show List of Posts -->
-        <div class="container">
-            {% for post in posts %}
-                <div class="jumbotron">
-
-                    <!-- Post title -->
-                    <h1 class="display-4"><a href="{% url 'blog:post' post.pk %}">{{ post.title }}</a></h1>
-
-                    <p class="lead"> Created {{ post.pub_date|timesince }} ago by
-                        <a href="{% url 'blog:user_posts' post.user.username %}">
-                            {{ post.user.pk|human_name }}
-                        </a>
-                    </p>
-                    <hr class="my-4">
-                    <!-- Post body -->
-                    <div>{{ post.body|markdownify }}</div>
-                </div>
-            {% endfor %}
-        </div>
-
-        <!-- Pagination -->
-        <div class="pagination">
-            {% if posts.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ posts.previous_page_number }}">previous</a>
-            {% endif %}
-
-            {% if posts.paginator.num_pages != 1 %}
-                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-            {% endif %}
-
-            {% if posts.has_next %}
-                <a href="?page={{ posts.next_page_number }}">next</a>
-                <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
+<div class="page-header" id="banner">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1 class="display-3">RoboLoCo</h1>
+            <p class="lead">Meeting Stats</p>
         </div>
     </div>
+    <div class="row">
+        <div class="container text-center">
+            <p class="lead">
+            <form action="" method="post" class="form-horizontal">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        {{ form.as_p }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block">Filter</button>
+                    </div>
+                </div>
+
+            </form>
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="jumbotron">
+
+            <!-- Post title -->
+            <h1 class="display-4">Members By Hours</h1>
+
+            <p class="lead">
+            <ol>
+                <li>Member Name: Hours [Skipped Sign-ins]</li>
+                {% for member,stats in by_hours.items %}
+                    <li>
+                        {{ memeber.name }}: {{ stats.ttl_hours }} [{{ stats.skipped }}]
+                    </li>
+                {% endfor %}
+            </ol>
+            </p>
+            <hr class="my-4">
+            <!-- Post body -->
+            <div>{{ post.body|markdownify }}</div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+</div>
 {% endblock content %}
