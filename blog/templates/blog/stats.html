@@ -37,27 +37,36 @@
 
     <div class="container">
         <div class="jumbotron">
-
-            <!-- Post title -->
             <h1 class="display-4">Members By Hours</h1>
-
             <p class="lead">
             <ol>
                 <li>Member Name: Hours [Skipped Sign-ins]</li>
-                {% for member,stats in by_hours.items %}
+                {% for member,stats in by_hours %}
                     <li>
                         {{ memeber.name }}: {{ stats.ttl_hours }} [{{ stats.skipped }}]
                     </li>
                 {% endfor %}
             </ol>
             </p>
-            <hr class="my-4">
-            <!-- Post body -->
-            <div>{{ post.body|markdownify }}</div>
         </div>
         {% endfor %}
     </div>
-
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Members By Name</h1>
+            <p class="lead">
+            <ol>
+                <li>Member Name: Hours [Skipped Sign-ins]</li>
+                {% for member,stats in by_name %}
+                    <li>
+                        {{ memeber.name }}: {{ stats.ttl_hours }} [{{ stats.skipped }}]
+                    </li>
+                {% endfor %}
+            </ol>
+            </p>
+        </div>
+        {% endfor %}
+    </div>
 
 </div>
 {% endblock content %}
