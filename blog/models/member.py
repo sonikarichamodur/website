@@ -35,7 +35,7 @@ class Member(models.Model):
 
     def stats(self, pct_no_end=0, q=Q()):
         """ The member's hours """
-        ttl_hours = 0
+        ttl_hours = timedelta(seconds=0)
         skipped = 0
         for signin in self.signin_set.filter(q).all():
             if signin.meeting.end_time is None:
