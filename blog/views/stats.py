@@ -7,11 +7,15 @@ from blog.models.meeting import Meeting
 from blog.models.signin import Signin
 from django.db.models import F, Q, Sum
 from ..forms import StatsForm
+from django.utils import timezone
 
 
 @permission_required("meeting_gui_can_view")
 def stats(request):
-    form = StatsForm(request.POST)
+    form = StatsForm(request.POST, initial={
+        'pct_end': 0,
+        'start': timezone.datetime(year=2020, month=1, day=4),
+    })
     if form.is_valid():
         by_hours = []
         by_name = []
