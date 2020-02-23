@@ -33,7 +33,7 @@ class Signin(models.Model):
     history = HistoricalRecords()
 
     def isvalid(self):
-        if self.meeting.end_time < self.start_time or self.start_time > self.meeting.start_time:
+        if self.meeting.end_time < self.start_time or self.start_time < self.meeting.start_time:
             return False
         if self.end_time and self.meeting.end_time and (
                 self.end_time > self.meeting.end_time or self.end_time < self.meeting.start_time):

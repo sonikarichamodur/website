@@ -16,10 +16,10 @@ class Member(models.Model):
         ("Strategy", "Strategy"),
         ("Safety", "Safety"),
         ("Helping Hands", "Helping Hands"),
-        ("Sponsorship","Sponsorship"),
-        ("Graphics/Spirit","Graphics/Spirit"),
-        ("Comun/Website","Comun/Website"),
-        ("Visuals","Visuals"),
+        ("Sponsorship", "Sponsorship"),
+        ("Graphics/Spirit", "Graphics/Spirit"),
+        ("Comun/Website", "Comun/Website"),
+        ("Visuals", "Visuals"),
 
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
@@ -48,8 +48,10 @@ class Member(models.Model):
             if end is None:
                 # Never signed out - use pct_no_end
                 if pct_no_end:
+                    if pct_no_end > 100 or pct_no_end < 0:
+                        raise ValueError("Bad pct_no_end value")
                     max_hours = signin.meeting.end_time - signin.start_time
-                    ttl_hours += timedelta(seconds=int(max_hours.total_seconds() * (pct_no_end / 100)))
+                    ttl_hours *= pct_no_end / 100
                     continue
                 else:
                     skipped += 1
