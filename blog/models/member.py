@@ -4,6 +4,7 @@ from blog.models.users import Details
 from blog.models.post import Post
 from simple_history.models import HistoricalRecords
 from datetime import timedelta
+from django.db.models import F, Q, Sum
 
 
 class Member(models.Model):
