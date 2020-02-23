@@ -10,7 +10,7 @@ from ..forms import StatsForm
 from django.utils import timezone
 
 
-@permission_required("meeting_gui_can_view")
+@permission_required("blog.meeting_gui_can_view")
 def stats(request):
     if request.method == "POST":
         form = StatsForm(request.POST)

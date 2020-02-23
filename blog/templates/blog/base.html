@@ -83,7 +83,7 @@
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Meetings </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
                             <a class="dropdown-item" href="{% url 'blog:create_meeting' %}">New Meeting</a>
-                            {% if perms.blog.meeting_gui_can_create %}
+                            {% if perms.blog.meeting_gui_can_view %}
                                 <a class="dropdown-item" href="{% url 'blog:stats' %}">Meeting Stats</a>
                             {% endif %}
                             {% for meeting in meetings %}
