@@ -3,68 +3,71 @@
 {% load blog_filters %}
 
 {% block content %}
-<div class="page-header" id="banner">
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            <h1 class="display-3">RoboLoCo</h1>
-            <p class="lead">Meeting Stats</p>
+    <div class="page-header" id="banner">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1 class="display-3">RoboLoCo</h1>
+                <p class="lead">Meeting Stats</p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="container text-center">
-            <p class="lead">
-            <form action="" method="post" class="form-horizontal">
+        <div class="row">
+            <div class="container text-center">
+                <p class="lead">
+                <form action="" method="post" class="form-horizontal">
 
-                {% csrf_token %}
+                    {% csrf_token %}
 
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        {{ form.as_p }}
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            {{ form.as_p }}
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-block">Filter</button>
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block">Filter</button>
+                        </div>
                     </div>
+
+                </form>
+                </p>
+            </div>
+        </div>
+
+        {% if by_hours %}
+            <div class="container">
+                <div class="jumbotron">
+                    <h1 class="display-4">Members By Hours</h1>
+                    <p class="lead">
+                    <ol>
+                        <li>Member Name: Hours [Skipped Sign-ins]</li>
+                        {% for member,stats in by_hours %}
+                            <li>
+                                {{ memeber.name }}: {{ stats.ttl_hours }} [{{ stats.skipped }}]
+                            </li>
+                        {% endfor %}
+                    </ol>
+                    </p>
                 </div>
-
-            </form>
-            </p>
-        </div>
+            </div>
+        {% endif %}
+        {% if by_name %}
+            <div class="container">
+                <div class="jumbotron">
+                    <h1 class="display-4">Members By Name</h1>
+                    <p class="lead">
+                    <ol>
+                        <li>Member Name: Hours [Skipped Sign-ins]</li>
+                        {% for member,stats in by_name %}
+                            <li>
+                                {{ memeber.name }}: {{ stats.ttl_hours }} [{{ stats.skipped }}]
+                            </li>
+                        {% endfor %}
+                    </ol>
+                    </p>
+                </div>
+            </div>
+        {% endif %}
     </div>
-
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-4">Members By Hours</h1>
-            <p class="lead">
-            <ol>
-                <li>Member Name: Hours [Skipped Sign-ins]</li>
-                {% for member,stats in by_hours %}
-                    <li>
-                        {{ memeber.name }}: {{ stats.ttl_hours }} [{{ stats.skipped }}]
-                    </li>
-                {% endfor %}
-            </ol>
-            </p>
-        </div>
-    </div>
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-4">Members By Name</h1>
-            <p class="lead">
-            <ol>
-                <li>Member Name: Hours [Skipped Sign-ins]</li>
-                {% for member,stats in by_name %}
-                    <li>
-                        {{ memeber.name }}: {{ stats.ttl_hours }} [{{ stats.skipped }}]
-                    </li>
-                {% endfor %}
-            </ol>
-            </p>
-        </div>
-    </div>
-
-</div>
 {% endblock content %}
