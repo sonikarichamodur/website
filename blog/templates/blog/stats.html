@@ -44,7 +44,7 @@
                         <li>Member Name: Hours [Skipped Sign-ins]</li>
                         {% for member,stats in by_hours %}
                             <li>
-                                {{ memeber.name }}: {{ stats.ttl_hours }} [{{ stats.skipped }}]
+                                {{ member }}: {{ stats.ttl_hours }} [{{ stats.skipped }}]
                             </li>
                         {% endfor %}
                     </ol>
@@ -61,7 +61,7 @@
                         <li>Member Name: Hours [Skipped Sign-ins]</li>
                         {% for member,stats in by_name %}
                             <li>
-                                {{ memeber.name }}: {{ stats.ttl_hours }} [{{ stats.skipped }}]
+                                {{ member }}: {{ stats.ttl_hours }} [{{ stats.skipped }}]
                             </li>
                         {% endfor %}
                     </ol>
