@@ -28,6 +28,10 @@ class StatsForm(forms.Form):
     pct_end = forms.IntegerField(label="Percentage of meeting max if no end", required=True, min_value=0, max_value=100,
                                  initial=0)
     start = forms.DateField(label="Include signings only on/after this date", required=False,
-                            initial=timezone.datetime(year=year - 1, month=5, day=1))
+                            initial=timezone.datetime(year=year - 1, month=5, day=1),
+                            widget=forms.DateInput,
+                            )
     end = forms.DateField(label="Include signings only on/before this date", required=False,
-                          initial=timezone.datetime(year=year, month=5, day=1))
+                          initial=timezone.datetime(year=year, month=5, day=1),
+                          widget=forms.DateInput,
+                          )
