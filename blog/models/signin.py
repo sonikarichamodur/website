@@ -32,6 +32,14 @@ class Signin(models.Model):
     end_time = models.DateTimeField('sign-out time', null=True, blank=True, validators=[endValidator])
     history = HistoricalRecords()
 
+    def isvalid(self):
+        if self.meeting.end_time < self.start_time or self.start_time > self.meeting.start_time:
+            return False
+        if self.end_time and self.meeting.end_time and (
+                self.end_time > self.meeting.end_time or self.end_time < self.meeting.start_time):
+            return False
+        return True
+
     def __str__(self):
         return "{user} signed in to {meeting} from {start_time} to {end_time}".format(user=self.user.name,
                                                                                       start_time=self.start_time,

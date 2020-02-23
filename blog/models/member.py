@@ -3,6 +3,7 @@ from django.db import models
 from blog.models.users import Details
 from blog.models.post import Post
 from simple_history.models import HistoricalRecords
+from datetime import timedelta
 
 
 class Member(models.Model):
@@ -30,3 +31,31 @@ class Member(models.Model):
 
     def __str__(self):
         return f"{self.team} | {self.name}"
+
+    def stats(self, pct_no_end=0, q=Q()):
+        """ The member's hours """
+        ttl_hours = 0
+        skipped = 0
+        for signin in self.signin_set.filter(q).all():
+            if signin.meeting.end_time is None:
+                # meeting is on going
+                continue
+            end = signin.end_time
+            if not signin.isvalid():
+                skipped += 1
+                continue
+            if end is None:
+                # Never signed out - use pct_no_end
+                if pct_no_end:
+                    max_hours = signin.meeting.end_time - signin.start_time
+                    ttl_hours += timedelta(seconds=int(max_hours.total_seconds() * (pct_no_end / 100)))
+                    continue
+                else:
+                    skipped += 1
+                    continue
+            else:
+                ttl_hours += signin.end_time - signin.start_time
+        return dict(
+            ttl=ttl_hours,
+            skipped=skipped,
+        )

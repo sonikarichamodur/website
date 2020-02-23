@@ -53,4 +53,5 @@ class Meeting(models.Model):
     class Meta:
         permissions = (
             ("meeting_gui_can_create", "Can create new meetings via the GUI"),
+            ("meeting_gui_can_view", "Can view meeting/member stats via the GUI"),
         )

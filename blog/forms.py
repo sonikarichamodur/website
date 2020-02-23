@@ -19,3 +19,9 @@ class UpdateFileForm(forms.Form):
 
 class PasswordForm(forms.Form):
     passwd = forms.CharField(label="User Password", required=True, max_length=255, widget=forms.PasswordInput())
+
+
+class StatsForm(forms.Form):
+    pct_end = forms.IntegerField(label="Percentage of meeting max if no end", required=True, min_value=0, max_value=100)
+    start = forms.DateField(label="Include signings only on/after this date", required=False)
+    end = forms.DateField(label="Include signings only on/before this date", required=False)
