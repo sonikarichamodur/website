@@ -1,2 +1,2 @@
-# RoboLoCo Team 5338 Website
+# RoboLoCo Team 5338 website
 https://www.roboloco.org
