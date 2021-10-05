@@ -57,8 +57,8 @@ Django = "==2.2.24"
 ipython_genutils = "==0.2.0"
 Markdown = "==3.1.1"
 prompt_toolkit = "==2.0.10"
-Pygments = "==2.4.2"
-PyYAML = "==5.4"
+Pygments = ">=2.7.4"
+PyYAML = ">=5.4"
 tba-api-v3client = {git = "https://github.com/TBA-API/tba-api-client-python.git",editable = true,ref = "efeddcf12ec5b6e0788ea6737eff079d8dd9873e"}
 django-simple-history = "*"
 
