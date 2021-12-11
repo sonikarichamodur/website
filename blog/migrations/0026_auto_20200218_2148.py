@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='historicalmember',
             name='team',
-            field=models.CharField(choices=[('None', 'None'), ('Programming/Electrical', 'Programming/Electrical'), ('CAD/Manufacturing', 'CAD/Manufacturing'), ('Outreach', 'Outreach'), ('Strategy', 'Strategy'), ('Safety', 'Safety'), ('Helping Hands', 'Helping Hands'), ('Sponsorship', 'Sponsorship'), ('Graphics/Spirit', 'Graphics/Spirit'), ('Comun/Website', 'Comun/Website'), ('Visuals', 'Visuals')], default='None', max_length=255, verbose_name='team name'),
+            field=models.CharField(choices=[('None', 'None'), ('Software', 'Software'), ('CAD/Manufacturing', 'CAD/Manufacturing'), ('Outreach', 'Outreach'), ('Strategy', 'Strategy'), ('Safety', 'Safety'), ('Helping Hands', 'Helping Hands'), ('Sponsorship', 'Sponsorship'), ('Graphics/Spirit', 'Graphics/Spirit'), ('Comun/Website', 'Comun/Website'), ('Visuals', 'Visuals')], default='None', max_length=255, verbose_name='team name'),
         ),
         migrations.AlterField(
             model_name='member',
             name='team',
-            field=models.CharField(choices=[('None', 'None'), ('Programming/Electrical', 'Programming/Electrical'), ('CAD/Manufacturing', 'CAD/Manufacturing'), ('Outreach', 'Outreach'), ('Strategy', 'Strategy'), ('Safety', 'Safety'), ('Helping Hands', 'Helping Hands'), ('Sponsorship', 'Sponsorship'), ('Graphics/Spirit', 'Graphics/Spirit'), ('Comun/Website', 'Comun/Website'), ('Visuals', 'Visuals')], default='None', max_length=255, verbose_name='team name'),
+            field=models.CharField(choices=[('None', 'None'), ('Software', 'Software'), ('CAD/Manufacturing', 'CAD/Manufacturing'), ('Outreach', 'Outreach'), ('Strategy', 'Strategy'), ('Safety', 'Safety'), ('Helping Hands', 'Helping Hands'), ('Sponsorship', 'Sponsorship'), ('Graphics/Spirit', 'Graphics/Spirit'), ('Comun/Website', 'Comun/Website'), ('Visuals', 'Visuals')], default='None', max_length=255, verbose_name='team name'),
         ),
     ]

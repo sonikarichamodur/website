@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='historicalmember',
             name='team',
-            field=models.CharField(choices=[('None', 'None'), ('Programming/Electrical', 'Programming/Electrical'),
+            field=models.CharField(choices=[('None', 'None'), ('Software', 'Software'),
                                             ('CAD/Manufacturing', 'CAD/Manufacturing'), ('Outreach', 'Outreach'),
                                             ('Strategy', 'Strategy'), ('Safety', 'Safety'),
                                             ('Helping Hands', 'Helping Hand')], default='None', max_length=255,
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='member',
             name='team',
-            field=models.CharField(choices=[('None', 'None'), ('Programming/Electrical', 'Programming/Electrical'),
+            field=models.CharField(choices=[('None', 'None'), ('Software', 'Software'),
                                             ('CAD/Manufacturing', 'CAD/Manufacturing'), ('Outreach', 'Outreach'),
                                             ('Strategy', 'Strategy'), ('Safety', 'Safety'),
                                             ('Helping Hands', 'Helping Hand')], default='None', max_length=255,

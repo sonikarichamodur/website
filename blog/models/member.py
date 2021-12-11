@@ -10,7 +10,7 @@ from django.db.models import F, Q, Sum
 class Member(models.Model):
     TEAM = (
         ("None", "None"),
-        ("Programming/Electrical", "Programming/Electrical"),
+        ("Software", "Software"),
         ("CAD/Manufacturing", "CAD/Manufacturing"),
         ("Outreach", "Outreach"),
         ("Strategy", "Strategy"),
